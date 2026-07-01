@@ -1,0 +1,19 @@
+services:
+  kicad:
+    image: linuxserver/kicad:latest
+    container_name: vanchor-kicad
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Stockholm
+    volumes:
+      - kicad-config:/config
+      - ./:/config/vanchor-pcb
+    ports:
+      - "3000:3000"   # KiCad GUI in browser (http)
+      - "3001:3001"   # KiCad GUI in browser (https)
+    shm_size: "1gb"
+    restart: unless-stopped
+
+volumes:
+  kicad-config:
