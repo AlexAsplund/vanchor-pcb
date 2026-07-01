@@ -77,6 +77,30 @@ def pico_swd():
                       '(footprint "RaspberryPi_Pico_TH_SWD"', 1)
     src = re.sub(r'\(property "Value"\s+"RaspberryPi_Pico[^"]*"',
                  '(property "Value" "RaspberryPi_Pico_TH_SWD"', src)
+    # Drop the Pico-W antenna keepout: it sits exactly over the plain Pico's
+    # debug holes. This board is for a (non-W) Pico 2; wireless comes from the Pi.
+    while True:
+        m = re.search(r'\(zone\s', src)
+        if not m:
+            break
+        depth, i, in_str = 0, m.start(), False
+        while True:
+            c = src[i]
+            if in_str:
+                if c == '\\':
+                    i += 1
+                elif c == '"':
+                    in_str = False
+            elif c == '"':
+                in_str = True
+            elif c == '(':
+                depth += 1
+            elif c == ')':
+                depth -= 1
+                if depth == 0:
+                    break
+            i += 1
+        src = src[:m.start()] + src[i + 1:]
     # strip 3d model reference (path points at stock lib var; harmless but tidy)
     extra = []
     for num, x in (("D1", 6.35), ("D2", 8.89), ("D3", 11.43)):

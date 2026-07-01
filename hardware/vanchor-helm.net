@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/hardware/vanchor-helm.kicad_sch")
-		(date "2026-07-01T23:59:15")
+		(date "2026-07-02T00:23:39")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
@@ -405,10 +405,10 @@
 		(comp
 			(ref "C3")
 			(value "100u")
-			(footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm")
+			(footprint "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm")
 			(fields
 				(field
-					(name "Footprint") "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm")
+					(name "Footprint") "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm")
 				(field
 					(name "Datasheet")
 				)
@@ -459,10 +459,10 @@
 		(comp
 			(ref "C4")
 			(value "100u/25V")
-			(footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm")
+			(footprint "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm")
 			(fields
 				(field
-					(name "Footprint") "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm")
+					(name "Footprint") "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm")
 				(field
 					(name "Datasheet")
 				)

@@ -40,9 +40,11 @@ COMPONENTS = [
                                  "4": None, "5": None, "6": None}),
     dict(lib="Connector_Generic:Conn_01x02", ref="J17", value="12V_LINK", fp=TB2,
          at=(200, 120, 0), pins={"1": "VIN", "2": "+12V"}),
-    dict(lib="Device:C_Polarized", ref="C3", value="100u", fp=CP_S,
+    dict(lib="Device:C_Polarized", ref="C3", value="100u",
+         fp="Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
          at=(240, 120, 0), pins={"1": "+5V", "2": "GND"}),
-    dict(lib="Device:C_Polarized", ref="C4", value="100u/25V", fp=CP_S,
+    dict(lib="Device:C_Polarized", ref="C4", value="100u/25V",
+         fp="Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
          at=(270, 120, 0), pins={"1": "+12V", "2": "GND"}),
 
     dict(lib="Device:R", ref="R2", value="15k/0.5W", fp=R_AX,

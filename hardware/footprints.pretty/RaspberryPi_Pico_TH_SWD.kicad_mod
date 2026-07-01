@@ -1225,79 +1225,8 @@
 		(remove_unused_layers no)
 		(uuid "c8fe8714-f3b6-4cea-b78b-11ed38c9f8c2")
 	)
-	(zone
-		(net 0)
-		(net_name "")
-		(layers "F.Cu" "B.Cu" "In1.Cu" "In2.Cu" "In3.Cu" "In4.Cu" "In5.Cu" "F.Paste"
-			"In6.Cu" "B.Paste" "In7.Cu" "In8.Cu" "In9.Cu" "In10.Cu" "In11.Cu" "In12.Cu"
-			"In13.Cu" "In14.Cu" "In15.Cu" "In16.Cu" "In17.Cu" "In18.Cu" "In19.Cu"
-			"In20.Cu" "In21.Cu" "In22.Cu" "In23.Cu" "In24.Cu" "In25.Cu" "In26.Cu"
-			"In27.Cu" "In28.Cu" "In29.Cu" "In30.Cu"
-		)
-		(uuid "ebc3178d-5081-4530-8c30-87e92b6d79b8")
-		(name "Antenna Copper Keep Out")
-		(hatch full 0.5)
-		(connect_pads
-			(clearance 0)
-		)
-		(min_thickness 0.254)
-		(filled_areas_thickness no)
-		(keepout
-			(tracks not_allowed)
-			(vias not_allowed)
-			(pads not_allowed)
-			(copperpour not_allowed)
-			(footprints allowed)
-		)
-		(placement
-			(enabled no)
-			(sheetname "")
-		)
-		(fill
-			(thermal_gap 0.508)
-			(thermal_bridge_width 0.508)
-		)
-		(polygon
-			(pts
-				(xy 6.49 49.119895) (xy 1.79 45.469895) (xy 1.79 41.13) (xy 15.99 41.13) (xy 15.99 45.469895) (xy 11.29 49.119895)
-				(xy 11.29 50.13) (xy 6.49 50.13)
-			)
-		)
-	)
-	(zone
-		(net 0)
-		(net_name "")
-		(layer "F.CrtYd")
-		(uuid "59b87f8a-0978-48e6-a101-134595838ecf")
-		(name "USB Cable")
-		(hatch edge 0.5)
-		(connect_pads
-			(clearance 0)
-		)
-		(min_thickness 0.254)
-		(filled_areas_thickness no)
-		(keepout
-			(tracks allowed)
-			(vias allowed)
-			(pads allowed)
-			(copperpour allowed)
-			(footprints allowed)
-		)
-		(placement
-			(enabled no)
-			(sheetname "")
-		)
-		(fill
-			(thermal_gap 0.508)
-			(thermal_bridge_width 0.508)
-		)
-		(polygon
-			(pts
-				(xy 3.14 -3.57) (xy 4.95 -3.57) (xy 4.95 -3.17) (xy 12.83 -3.17) (xy 12.83 -3.57) (xy 14.64 -3.57)
-				(xy 14.64 -23.07) (xy 3.14 -23.07)
-			)
-		)
-	)
+	
+	
 	(group ""
 		(uuid "0d49ef59-6dbf-4238-8e51-d082afc40f64")
 		(members "03987c68-d357-4179-ae9e-f58dcc026173" "07a9d05b-b3a6-4412-a39c-b8f9218328ff"
