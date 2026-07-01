@@ -1,0 +1,193 @@
+#!/usr/bin/env python3
+"""Generate a .kicad_sch sheet from a compact component/net spec.
+
+A sheet spec is a python file defining:
+    SHEET_UUID  = "…"                      stable uuid for this sheet file
+    COMPONENTS  = [ dict(lib=, ref=, value=, fp=, at=(x, y, rot),
+                         pins={ "1": "NET" | None, … },   # None = no-connect
+                         dnp=False, mirror=None), … ]
+    TEXTS       = [ (x, y, "annotation"), … ]              # optional
+
+Every pin of every symbol MUST appear in pins{} (net or None) — the generator
+fails otherwise, so a forgotten pin is impossible. Connectivity is made with
+global labels placed on the pin ends (netlist-style schematic); KiCad derives
+nets directly from them, and cross-sheet nets connect by label name.
+
+Usage (inside container): python3 gen_sheet.py <spec.py> <out.kicad_sch> <project_name> <root_uuid>
+"""
+import re
+import sys
+import uuid
+import importlib.util
+
+sys.path.insert(0, "/config/vanchor-pcb/hardware/scripts")
+from embed_symbols import load_lib, flatten, find_block  # noqa: E402
+
+
+def stable_uuid(*parts):
+    return str(uuid.uuid5(uuid.NAMESPACE_URL, "vanchor-helm:" + ":".join(map(str, parts))))
+
+
+def parse_pins(symbol_block):
+    """Return {number: (x, y, angle)} for all pins of a flattened symbol block."""
+    pins = {}
+    for m in re.finditer(r'\(pin\s+\w+\s+\w+\s*[\n\s]*\(at\s+([-\d.]+)\s+([-\d.]+)\s+([-\d.]+)\)', symbol_block):
+        pins_at = (float(m.group(1)), float(m.group(2)), float(m.group(3)))
+        ps, pe = find_block(symbol_block, m.start())
+        block = symbol_block[ps:pe]
+        nm = re.search(r'\(number\s+"([^"]+)"', block)
+        if nm:
+            pins[nm.group(1)] = pins_at
+    return pins
+
+
+def rot_ccw(x, y, deg):
+    deg = deg % 360
+    if deg == 0:
+        return x, y
+    if deg == 90:
+        return -y, x
+    if deg == 180:
+        return -x, -y
+    if deg == 270:
+        return y, -x
+    raise ValueError(deg)
+
+
+def pin_abs(inst_x, inst_y, inst_rot, mirror, px, py, pang):
+    """Absolute sheet position + visual free-direction angle of a pin."""
+    if mirror == 'x':      # mirror across x-axis (flip vertically) before rotation
+        py = -py
+        pang = (360 - pang) % 360 if pang in (90, 270) else pang
+        pang = (180 - pang) % 360 if pang in (0, 180) else pang
+    elif mirror == 'y':
+        px = -px
+        pang = (180 - pang) % 360 if pang in (0, 180) else pang
+        pang = (360 - pang) % 360 if pang in (90, 270) else pang
+    rx, ry = rot_ccw(px, py, inst_rot)
+    ang = (pang + inst_rot) % 360
+    return inst_x + rx, inst_y - ry, ang
+
+
+def snap(v, g=1.27):
+    """Snap to the 1.27mm schematic connection grid (avoids endpoint_off_grid)."""
+    return round(v / g) * g
+
+
+def fmt(v):
+    s = f"{v:.4f}".rstrip('0').rstrip('.')
+    return s if s else "0"
+
+
+def main(spec_path, out_path, project, root_uuid):
+    import os
+    sys.path.insert(0, os.path.dirname(os.path.abspath(spec_path)))
+    spec = importlib.util.spec_from_file_location("sheetspec", spec_path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    sheet_uuid = mod.SHEET_UUID
+    comps = mod.COMPONENTS
+    texts = getattr(mod, "TEXTS", [])
+    inst_path = f"/{root_uuid}/{sheet_uuid}" if root_uuid != sheet_uuid else f"/{root_uuid}"
+
+    # collect + flatten symbol defs
+    lib_blocks = {}
+    for c in comps:
+        lib_id = c["lib"]
+        if lib_id in lib_blocks:
+            continue
+        libname, symname = lib_id.split(":", 1)
+        block = flatten(load_lib(libname), symname)
+        if block is None:
+            raise SystemExit(f"symbol {lib_id} not found")
+        lib_blocks[lib_id] = block
+
+    pin_maps = {lib_id: parse_pins(b) for lib_id, b in lib_blocks.items()}
+
+    sym_nodes, label_nodes, nc_nodes = [], [], []
+    for c in comps:
+        lib_id, ref = c["lib"], c["ref"]
+        x, y, rot = c["at"]
+        x, y = snap(x), snap(y)
+        mirror = c.get("mirror")
+        pmap = pin_maps[lib_id]
+        want = set(c["pins"].keys())
+        have = set(pmap.keys())
+        if want != have:
+            raise SystemExit(f"{ref} ({lib_id}): pins mismatch — spec has {sorted(want - have)} extra, missing {sorted(have - want)}")
+        u = stable_uuid("sym", sheet_uuid, ref)
+        mirror_sexp = f" (mirror {mirror})" if mirror else ""
+        dnp = "yes" if c.get("dnp") else "no"
+        props = [
+            ("Reference", ref, x, y - 7.62, False),
+            ("Value", c.get("value", ""), x, y + 7.62, False),
+            ("Footprint", c.get("fp", ""), x, y, True),
+            ("Datasheet", "", x, y, True),
+        ]
+        for fname, fval in c.get("fields", {}).items():
+            props.append((fname, fval, x, y, True))
+        prop_s = "\n".join(
+            f'''    (property "{pn}" "{pv}" (at {fmt(px)} {fmt(py)} 0)
+      (effects (font (size 1.27 1.27)){" (hide yes)" if hide else ""}))'''
+            for pn, pv, px, py, hide in props)
+        pin_s = "\n".join(
+            f'    (pin "{num}" (uuid "{stable_uuid("pin", sheet_uuid, ref, num)}"))'
+            for num in sorted(c["pins"]))
+        sym_nodes.append(f'''  (symbol (lib_id "{lib_id}") (at {fmt(x)} {fmt(y)} {rot}){mirror_sexp} (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp {dnp})
+    (uuid "{u}")
+{prop_s}
+{pin_s}
+    (instances (project "{project}" (path "{inst_path}" (reference "{ref}") (unit 1))))
+  )''')
+
+        for num, net in c["pins"].items():
+            px, py, pang = pmap[num]
+            ax, ay, aang = pin_abs(x, y, rot, mirror, px, py, pang)
+            if net is None:
+                nc_nodes.append(f'  (no_connect (at {fmt(ax)} {fmt(ay)}) (uuid "{stable_uuid("nc", sheet_uuid, ref, num)}"))')
+            elif net.startswith("."):  # sheet-local net
+                name = net[1:]
+                lang = (aang + 180) % 360
+                label_uuid = stable_uuid("lbl", sheet_uuid, ref, num, net)
+                label_nodes.append(f'''  (label "{name}" (at {fmt(ax)} {fmt(ay)} {lang}) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify {"left" if lang == 0 else "right" if lang == 180 else "left"}))
+    (uuid "{label_uuid}")
+  )''')
+            else:
+                lang = (aang + 180) % 360
+                label_uuid = stable_uuid("lbl", sheet_uuid, ref, num, net)
+                label_nodes.append(f'''  (global_label "{net}" (shape passive) (at {fmt(ax)} {fmt(ay)} {lang}) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify {"left" if lang == 0 else "right" if lang == 180 else "left"}))
+    (uuid "{label_uuid}")
+    (property "Intersheetrefs" "${{INTERSHEET_REFS}}" (at {fmt(ax)} {fmt(ay)} 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+  )''')
+
+    text_nodes = [
+        f'''  (text "{t[2]}" (exclude_from_sim no) (at {fmt(t[0])} {fmt(t[1])} 0)
+    (effects (font (size 2 2) (bold yes)) (justify left bottom))
+    (uuid "{stable_uuid("txt", sheet_uuid, i)}")
+  )''' for i, t in enumerate(texts)]
+
+    sch = f'''(kicad_sch
+  (version 20231120)
+  (generator "eeschema")
+  (generator_version "8.0")
+  (uuid "{sheet_uuid}")
+  (paper "A3")
+  (lib_symbols)
+{chr(10).join(text_nodes)}
+{chr(10).join(sym_nodes)}
+{chr(10).join(label_nodes)}
+{chr(10).join(nc_nodes)}
+)
+'''
+    with open(out_path, "w") as f:
+        f.write(sch)
+    print(f"{out_path}: {len(comps)} symbols, {len(label_nodes)} labels, {len(nc_nodes)} no-connects")
+
+
+if __name__ == "__main__":
+    main(*sys.argv[1:5])

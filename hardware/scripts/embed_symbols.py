@@ -88,6 +88,31 @@ def flatten(lib_text, name):
     return merged
 
 
+# Electrical-type overrides applied after flattening: the stock Pico symbol
+# marks GND (pin 3) and AGND (pin 33) as power_out, which ERC flags as
+# conflicting drivers against each other and the GND PWR_FLAG.
+PIN_TYPE_OVERRIDES = {
+    "MCU_Module:RaspberryPi_Pico": {"3": "passive", "33": "passive"},
+}
+
+
+def override_pin_types(block, lib_id):
+    overrides = PIN_TYPE_OVERRIDES.get(lib_id)
+    if not overrides:
+        return block
+    out = []
+    pos = 0
+    for m in re.finditer(r'\(pin\s+(\w+)\s+(\w+)', block):
+        ps, pe = find_block(block, m.start())
+        num = re.search(r'\(number\s+"([^"]*)"', block[ps:pe])
+        if num and num.group(1) in overrides:
+            out.append(block[pos:ps])
+            out.append(f'(pin {overrides[num.group(1)]} {m.group(2)}')
+            pos = m.end()
+    out.append(block[pos:])
+    return "".join(out)
+
+
 def lib_file(libname):
     if libname in PROJECT_LIBS:
         return PROJECT_LIBS[libname]
@@ -116,6 +141,7 @@ def embed(sch_path):
         block = flatten(text, symname)
         if block is None:
             raise SystemExit(f"{sch_path}: symbol {lib_id} not found in {lib_file(libname)}")
+        block = override_pin_types(block, lib_id)
         # prefix outer name with lib nickname (unit sub-symbols stay unprefixed)
         block = block.replace(f'(symbol "{symname}"', f'(symbol "{lib_id}"', 1)
         # indent to lib_symbols level

@@ -1,0 +1,33 @@
+"""Shared footprint constants and layout helpers for sheet specs."""
+
+R_AX = "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+C_D = "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
+CP_S = "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
+CP_L = "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm"
+LED5MM = "LED_THT:LED_D5.0mm"
+DO41 = "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
+SMC = "Diode_SMD:D_SMC"
+SOT23 = "Package_TO_SOT_SMD:SOT-23"
+TO220 = "Package_TO_SOT_THT:TO-220-3_Vertical"
+DIP8 = "Package_DIP:DIP-8_W7.62mm_Socket"
+DIP14 = "Package_DIP:DIP-14_W7.62mm_Socket"
+XH2 = "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
+XH3 = "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
+XH4 = "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical"
+TB2 = "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal"
+TB3 = "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-03_1x03_P5.08mm_Horizontal"
+HDR1x2 = "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+HDR1x8 = "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical"
+HDR1x11 = "Connector_PinHeader_2.54mm:PinHeader_1x11_P2.54mm_Vertical"
+HDR2x20 = "Connector_PinHeader_2.54mm:PinHeader_2x20_P2.54mm_Vertical"
+PSOCK2x20 = "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical"
+SJ3 = "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm"
+FUSE_BLADE = "Fuse:Fuseholder_Blade_Mini_Keystone_3568"
+POLYFUSE = "Fuse:Fuse_Bourns_MF-RG400"
+PICO_FP = "Module:RaspberryPi_Pico_Common_THT"
+POLOLU_FP = "vanchor-helm:Pololu_D36V50Fx"
+
+
+def grid(i, x0=40, y0=170, dx=42, dy=45, per_row=9):
+    """Position small parts on a coarse grid (row-major)."""
+    return (x0 + (i % per_row) * dx, y0 + (i // per_row) * dy, 0)
