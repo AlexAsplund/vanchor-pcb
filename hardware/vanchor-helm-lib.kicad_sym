@@ -1,0 +1,159 @@
+(kicad_symbol_lib
+  (version 20231120)
+  (generator "kicad_symbol_editor")
+  (generator_version "8.0")
+  (symbol "X9C103"
+    (exclude_from_sim yes)
+    (in_bom yes)
+    (on_board yes)
+    (property "Reference" "U"
+      (at -7.62 8.89 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "X9C103"
+      (at 1.27 8.89 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Package_DIP:DIP-8_W7.62mm_Socket"
+      (at 0 -10.16 0)
+      (effects (font (size 1.27 1.27)) (hide yes))
+    )
+    (property "Datasheet" "https://www.renesas.com/us/en/document/dst/x9c102-x9c103-x9c104-x9c503-datasheet"
+      (at 0 -12.7 0)
+      (effects (font (size 1.27 1.27)) (hide yes))
+    )
+    (property "Description" "10k digital potentiometer, 100 taps, up/down interface, DIP-8"
+      (at 0 -15.24 0)
+      (effects (font (size 1.27 1.27)) (hide yes))
+    )
+    (symbol "X9C103_0_1"
+      (rectangle
+        (start -7.62 7.62)
+        (end 7.62 -7.62)
+        (stroke (width 0.254) (type default))
+        (fill (type background))
+      )
+    )
+    (symbol "X9C103_1_1"
+      (pin input line
+        (at -10.16 5.08 0)
+        (length 2.54)
+        (name "~{INC}" (effects (font (size 1.27 1.27))))
+        (number "1" (effects (font (size 1.27 1.27))))
+      )
+      (pin input line
+        (at -10.16 2.54 0)
+        (length 2.54)
+        (name "U/~{D}" (effects (font (size 1.27 1.27))))
+        (number "2" (effects (font (size 1.27 1.27))))
+      )
+      (pin passive line
+        (at 10.16 5.08 180)
+        (length 2.54)
+        (name "RH" (effects (font (size 1.27 1.27))))
+        (number "3" (effects (font (size 1.27 1.27))))
+      )
+      (pin power_in line
+        (at 0 -10.16 90)
+        (length 2.54)
+        (name "VSS" (effects (font (size 1.27 1.27))))
+        (number "4" (effects (font (size 1.27 1.27))))
+      )
+      (pin passive line
+        (at 10.16 0 180)
+        (length 2.54)
+        (name "RW" (effects (font (size 1.27 1.27))))
+        (number "5" (effects (font (size 1.27 1.27))))
+      )
+      (pin passive line
+        (at 10.16 -5.08 180)
+        (length 2.54)
+        (name "RL" (effects (font (size 1.27 1.27))))
+        (number "6" (effects (font (size 1.27 1.27))))
+      )
+      (pin input line
+        (at -10.16 -2.54 0)
+        (length 2.54)
+        (name "~{CS}" (effects (font (size 1.27 1.27))))
+        (number "7" (effects (font (size 1.27 1.27))))
+      )
+      (pin power_in line
+        (at 0 10.16 270)
+        (length 2.54)
+        (name "VCC" (effects (font (size 1.27 1.27))))
+        (number "8" (effects (font (size 1.27 1.27))))
+      )
+    )
+  )
+  (symbol "D36V50Fx"
+    (exclude_from_sim yes)
+    (in_bom yes)
+    (on_board yes)
+    (property "Reference" "U"
+      (at -7.62 11.43 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "D36V50F5"
+      (at 0 11.43 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "vanchor-helm:Pololu_D36V50Fx"
+      (at 0 -12.7 0)
+      (effects (font (size 1.27 1.27)) (hide yes))
+    )
+    (property "Datasheet" "https://www.pololu.com/product/4091"
+      (at 0 -15.24 0)
+      (effects (font (size 1.27 1.27)) (hide yes))
+    )
+    (property "Description" "Pololu D36V50Fx step-down regulator module, 50V max in, 5A"
+      (at 0 -17.78 0)
+      (effects (font (size 1.27 1.27)) (hide yes))
+    )
+    (symbol "D36V50Fx_0_1"
+      (rectangle
+        (start -7.62 10.16)
+        (end 7.62 -10.16)
+        (stroke (width 0.254) (type default))
+        (fill (type background))
+      )
+    )
+    (symbol "D36V50Fx_1_1"
+      (pin power_in line
+        (at -10.16 7.62 0)
+        (length 2.54)
+        (name "VIN" (effects (font (size 1.27 1.27))))
+        (number "1" (effects (font (size 1.27 1.27))))
+      )
+      (pin power_in line
+        (at 0 -12.7 90)
+        (length 2.54)
+        (name "GND" (effects (font (size 1.27 1.27))))
+        (number "2" (effects (font (size 1.27 1.27))))
+      )
+      (pin power_out line
+        (at 10.16 7.62 180)
+        (length 2.54)
+        (name "VOUT" (effects (font (size 1.27 1.27))))
+        (number "3" (effects (font (size 1.27 1.27))))
+      )
+      (pin input line
+        (at -10.16 0 0)
+        (length 2.54)
+        (name "EN" (effects (font (size 1.27 1.27))))
+        (number "4" (effects (font (size 1.27 1.27))))
+      )
+      (pin output line
+        (at 10.16 0 180)
+        (length 2.54)
+        (name "PG" (effects (font (size 1.27 1.27))))
+        (number "5" (effects (font (size 1.27 1.27))))
+      )
+      (pin passive line
+        (at -10.16 -5.08 0)
+        (length 2.54)
+        (name "VRP" (effects (font (size 1.27 1.27))))
+        (number "6" (effects (font (size 1.27 1.27))))
+      )
+    )
+  )
+)
