@@ -65,9 +65,13 @@ docker exec vanchor-kicad python3 /config/vanchor-pcb/hardware/scripts/build_boa
 
 ## Power & safety notes
 
-- Board fuse F1 (10 A mini blade) protects **board loads only**. The 1500 W
+- Board fuse F1 (10 A mini blade) protects **board loads only**. The thrust
   motor path never touches this board: battery → fuse → kill switch →
   speed controller, exactly as in `vanchor-ng/firmware` README §2.
+- **Thrust sizing**: requirement is ≥800 W on a 12 V motor ≈ 67 A continuous.
+  Buy the external controller rated ≥70 A continuous @ 12 V and a reversing
+  contactor with ≥100 A make / ≥70 A continuous contacts; battery feed
+  ≥16 mm² (5-6 AWG) with a matching fuse.
 - Reverse polarity: IRF9540N high-side FET (100 V); TVS SMCJ58A; 2×470 µF bulk.
 - Buck modules are rated 50 V absolute max: fine for 12/24/36 V systems.
   **48 V systems: measure your charging voltage** — if it can exceed 50 V, fit

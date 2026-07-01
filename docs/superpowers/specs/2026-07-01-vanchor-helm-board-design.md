@@ -49,6 +49,13 @@ needed.
 **On-board 1500 W bridge (rejected outright):** 125 A @ 12 V on a hobby 2-layer
 board is a fire, not a feature. The firmware README's hijack approach is kept.
 
+**Thrust power floor (user, 2026-07-02):** the drive must handle **≥800 W on a
+12 V motor ≈ 67 A continuous**. Still strictly off-board; it sets the minimum
+ratings for the bought parts: speed controller ≥70 A continuous @ 12 V
+(e.g. a "12-48 V 60-100 A" PWM controller), reversing DPDT contactor contacts
+≥100 A make / ≥70 A continuous, battery feed wiring ≥16 mm² (5-6 AWG) with a
+matching fuse. No PCB change — thrust current never crosses this board.
+
 ## 3. System architecture
 
 ```
