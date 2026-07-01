@@ -166,8 +166,16 @@ vanchor-ng later; this board only fixes the pinout.
 
 ## 6. Board outline & layout intent
 
-- 2-layer, ~170 × 120 mm, M3 corner mounts; fits a printed/off-shelf IP-rated
-  enclosure with PG glands (marine).
+- **Cost guideline (user):** as cheap as possible without quality loss; cheap
+  at PCBWay-class fabs. Therefore: **2-layer, ≤100 × 100 mm** (the ~$5 price
+  tier), 1.6 mm FR-4, HASL, green, no castellations; track/clearance kept
+  ≥0.25 mm (well above cheap-tier minimums); all parts hand-solderable
+  (TH + SOT-23 only), no stencil/assembly service needed.
+- The IBT-2 H-bridge module mounts **off-board** (enclosure wall) and connects
+  through a 1×8 pin header + dupont/crimp cable — saves ~20 cm² of board.
+- M3 corner mounts; fits a printed/off-shelf IP-rated enclosure with PG
+  glands (marine). The Pi mounts over the board (stacking header + standoffs);
+  only low-profile parts under it.
 - Zones: power entry left edge (screw terminals), bucks beside it; Pi footprint
   right half (SD + USB/HDMI toward board edges); Pico + logic centre;
   IBT-2 + motor terminals bottom-left; low-level connectors (UARTs, AS5600,
