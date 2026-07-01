@@ -2381,8 +2381,8 @@
         (use_via "Via[0-1]_1200:600_um")
       )
       (rule
-        (width 2000)
-        (clearance 400)
+        (width 1500)
+        (clearance 300)
       )
     )
     (class HighCurrent,Default +12V VIN
@@ -2390,8 +2390,8 @@
         (use_via "Via[0-1]_1600:800_um")
       )
       (rule
-        (width 4000)
-        (clearance 500)
+        (width 2500)
+        (clearance 400)
       )
     )
   )
