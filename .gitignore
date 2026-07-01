@@ -1,0 +1,9 @@
+# KiCad
+*.kicad_sch-bak
+*.kicad_pcb-bak
+*-backups/
+_autosave-*
+fp-info-cache
+*.lck
+*.kicad_prl
+# Outputs are committed deliberately under hardware/fab/
