@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/hardware/vanchor-helm.kicad_sch")
-		(date "2026-07-01T23:44:56")
+		(date "2026-07-01T23:59:15")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
@@ -2525,10 +2525,10 @@
 		(comp
 			(ref "J12")
 			(value "PICO UTIL")
-			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x11_P2.54mm_Vertical")
+			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
 			(fields
 				(field
-					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x11_P2.54mm_Vertical")
+					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
 				(field
 					(name "Datasheet")
 				)
@@ -2538,8 +2538,8 @@
 			)
 			(libsource
 				(lib "Connector_Generic")
-				(part "Conn_01x11")
-				(description "Generic connector, single row, 01x11, script generated (kicad-library-utils/schlib/autogen/connector/)")
+				(part "Conn_01x08")
+				(description "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)")
 			)
 			(property
 				(name "Sheetname")
@@ -2589,15 +2589,6 @@
 						)
 						(pin
 							(num "8")
-						)
-						(pin
-							(num "9")
-						)
-						(pin
-							(num "10")
-						)
-						(pin
-							(num "11")
 						)
 					)
 				)
@@ -2984,10 +2975,10 @@
 		(comp
 			(ref "U1")
 			(value "Pico 2")
-			(footprint "Module:RaspberryPi_Pico_Common_THT")
+			(footprint "vanchor-helm:RaspberryPi_Pico_TH_SWD")
 			(fields
 				(field
-					(name "Footprint") "Module:RaspberryPi_Pico_Common_THT")
+					(name "Footprint") "vanchor-helm:RaspberryPi_Pico_TH_SWD")
 				(field
 					(name "Datasheet")
 				)
@@ -2997,8 +2988,8 @@
 			)
 			(libsource
 				(lib "MCU_Module")
-				(part "RaspberryPi_Pico")
-				(description "Versatile and inexpensive microcontroller module powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash; also supports Raspberry Pi Pico 2")
+				(part "RaspberryPi_Pico_Debug")
+				(description "Versatile and inexpensive microcontroller module (with debug pins) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash; also supports Raspberry Pi Pico 2")
 			)
 			(property
 				(name "Sheetname")
@@ -3010,11 +3001,11 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "RP2350A M33 RISC-V Hazard3 usb")
+				(value "RP2350A M33 RISC-V Hazard3 usb swd")
 			)
 			(property
 				(name "ki_fp_filters")
-				(value "RaspberryPi?Pico?Common* RaspberryPi?Pico?SMD*")
+				(value "RaspberryPi?Pico?SMD*")
 			)
 			(sheetpath
 				(names "/mcu/")
@@ -3025,6 +3016,12 @@
 				(unit
 					(name "A")
 					(pins
+						(pin
+							(num "D1")
+						)
+						(pin
+							(num "D3")
+						)
 						(pin
 							(num "30")
 						)
@@ -3086,25 +3083,28 @@
 							(num "40")
 						)
 						(pin
-							(num "23")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "8")
+							(num "D2")
 						)
 						(pin
 							(num "38")
 						)
 						(pin
-							(num "13")
+							(num "8")
+						)
+						(pin
+							(num "3")
 						)
 						(pin
 							(num "28")
 						)
 						(pin
+							(num "23")
+						)
+						(pin
 							(num "18")
+						)
+						(pin
+							(num "13")
 						)
 						(pin
 							(num "36")
@@ -5049,85 +5049,6 @@
 		)
 		(libpart
 			(lib "Connector_Generic")
-			(part "Conn_01x11")
-			(description "Generic connector, single row, 01x11, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			(footprints
-				(fp "Connector*:*_1x??_*")
-			)
-			(fields
-				(field
-					(name "Reference") "J")
-				(field
-					(name "Value") "Conn_01x11")
-				(field
-					(name "Footprint")
-				)
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description") "Generic connector, single row, 01x11, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "Pin_1")
-					(type "passive")
-				)
-				(pin
-					(num "2")
-					(name "Pin_2")
-					(type "passive")
-				)
-				(pin
-					(num "3")
-					(name "Pin_3")
-					(type "passive")
-				)
-				(pin
-					(num "4")
-					(name "Pin_4")
-					(type "passive")
-				)
-				(pin
-					(num "5")
-					(name "Pin_5")
-					(type "passive")
-				)
-				(pin
-					(num "6")
-					(name "Pin_6")
-					(type "passive")
-				)
-				(pin
-					(num "7")
-					(name "Pin_7")
-					(type "passive")
-				)
-				(pin
-					(num "8")
-					(name "Pin_8")
-					(type "passive")
-				)
-				(pin
-					(num "9")
-					(name "Pin_9")
-					(type "passive")
-				)
-				(pin
-					(num "10")
-					(name "Pin_10")
-					(type "passive")
-				)
-				(pin
-					(num "11")
-					(name "Pin_11")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
-			(lib "Connector_Generic")
 			(part "Conn_02x20_Odd_Even")
 			(description "Generic connector, double row, 02x20, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)")
 			(footprints
@@ -5749,11 +5670,10 @@
 		)
 		(libpart
 			(lib "MCU_Module")
-			(part "RaspberryPi_Pico")
-			(description "Versatile and inexpensive microcontroller module powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash; also supports Raspberry Pi Pico 2")
+			(part "RaspberryPi_Pico_Debug")
+			(description "Versatile and inexpensive microcontroller module (with debug pins) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash; also supports Raspberry Pi Pico 2")
 			(docs "https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf")
 			(footprints
-				(fp "RaspberryPi?Pico?Common*")
 				(fp "RaspberryPi?Pico?SMD*")
 			)
 			(fields
@@ -5762,11 +5682,11 @@
 				(field
 					(name "Value") "RaspberryPi_Pico")
 				(field
-					(name "Footprint") "Module:RaspberryPi_Pico_Common_Unspecified")
+					(name "Footprint") "Module:RaspberryPi_Pico_SMD_HandSolder")
 				(field
 					(name "Datasheet") "https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf")
 				(field
-					(name "Description") "Versatile and inexpensive microcontroller module powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash; also supports Raspberry Pi Pico 2")
+					(name "Description") "Versatile and inexpensive microcontroller module (with debug pins) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash; also supports Raspberry Pi Pico 2")
 			)
 			(pins
 				(pin
@@ -5968,6 +5888,21 @@
 					(num "40")
 					(name "VBUS")
 					(type "power_out")
+				)
+				(pin
+					(num "D1")
+					(name "SWCLK")
+					(type "input")
+				)
+				(pin
+					(num "D2")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "D3")
+					(name "SWDIO")
+					(type "bidirectional")
 				)
 			)
 		)
@@ -7379,8 +7314,8 @@
 			)
 			(node
 				(ref "J12")
-				(pin "11")
-				(pinfunction "Pin_11_11")
+				(pin "8")
+				(pinfunction "Pin_8_8")
 				(pintype "passive")
 			)
 			(node
@@ -7582,6 +7517,12 @@
 				(ref "U1")
 				(pin "8")
 				(pinfunction "GND_8")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "D2")
+				(pinfunction "GND_D2")
 				(pintype "passive")
 			)
 			(node
@@ -7853,57 +7794,6 @@
 		)
 		(net
 			(code "49")
-			(name "PICO_GP20")
-			(class "Default")
-			(node
-				(ref "J12")
-				(pin "8")
-				(pinfunction "Pin_8_8")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "26")
-				(pinfunction "GPIO20_26")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "50")
-			(name "PICO_GP21")
-			(class "Default")
-			(node
-				(ref "J12")
-				(pin "9")
-				(pinfunction "Pin_9_9")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "27")
-				(pinfunction "GPIO21_27")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "51")
-			(name "PICO_GP22")
-			(class "Default")
-			(node
-				(ref "J12")
-				(pin "10")
-				(pinfunction "Pin_10_10")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "29")
-				(pinfunction "GPIO22_29")
-				(pintype "bidirectional")
-			)
-		)
-		(net
-			(code "52")
 			(name "PI_GPIO6")
 			(class "Default")
 			(node
@@ -7920,7 +7810,7 @@
 			)
 		)
 		(net
-			(code "53")
+			(code "50")
 			(name "PI_GPIO7")
 			(class "Default")
 			(node
@@ -7937,7 +7827,7 @@
 			)
 		)
 		(net
-			(code "54")
+			(code "51")
 			(name "PI_GPIO10")
 			(class "Default")
 			(node
@@ -7954,7 +7844,7 @@
 			)
 		)
 		(net
-			(code "55")
+			(code "52")
 			(name "PI_GPIO11")
 			(class "Default")
 			(node
@@ -7971,7 +7861,7 @@
 			)
 		)
 		(net
-			(code "56")
+			(code "53")
 			(name "PI_GPIO16")
 			(class "Default")
 			(node
@@ -7988,7 +7878,7 @@
 			)
 		)
 		(net
-			(code "57")
+			(code "54")
 			(name "PI_GPIO18")
 			(class "Default")
 			(node
@@ -8005,7 +7895,7 @@
 			)
 		)
 		(net
-			(code "58")
+			(code "55")
 			(name "PI_GPIO19")
 			(class "Default")
 			(node
@@ -8022,7 +7912,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "56")
 			(name "PI_GPIO20")
 			(class "Default")
 			(node
@@ -8039,7 +7929,7 @@
 			)
 		)
 		(net
-			(code "60")
+			(code "57")
 			(name "PI_GPIO21")
 			(class "Default")
 			(node
@@ -8056,7 +7946,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "58")
 			(name "PI_GPIO22")
 			(class "Default")
 			(node
@@ -8073,7 +7963,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "59")
 			(name "PI_GPIO23")
 			(class "Default")
 			(node
@@ -8090,7 +7980,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "60")
 			(name "PI_GPIO24")
 			(class "Default")
 			(node
@@ -8105,9 +7995,15 @@
 				(pinfunction "Pin_18_18")
 				(pintype "passive")
 			)
+			(node
+				(ref "U1")
+				(pin "D3")
+				(pinfunction "SWDIO_D3")
+				(pintype "bidirectional")
+			)
 		)
 		(net
-			(code "64")
+			(code "61")
 			(name "PI_GPIO25")
 			(class "Default")
 			(node
@@ -8122,9 +8018,15 @@
 				(pinfunction "Pin_22_22")
 				(pintype "passive")
 			)
+			(node
+				(ref "U1")
+				(pin "D1")
+				(pinfunction "SWCLK_D1")
+				(pintype "input")
+			)
 		)
 		(net
-			(code "65")
+			(code "62")
 			(name "PI_GPIO27")
 			(class "Default")
 			(node
@@ -8141,7 +8043,7 @@
 			)
 		)
 		(net
-			(code "66")
+			(code "63")
 			(name "PI_LED")
 			(class "Default")
 			(node
@@ -8163,7 +8065,7 @@
 			)
 		)
 		(net
-			(code "67")
+			(code "64")
 			(name "PI_PICO_RUN")
 			(class "Default")
 			(node
@@ -8185,7 +8087,7 @@
 			)
 		)
 		(net
-			(code "68")
+			(code "65")
 			(name "PI_SCL")
 			(class "Default")
 			(node
@@ -8219,7 +8121,7 @@
 			)
 		)
 		(net
-			(code "69")
+			(code "66")
 			(name "PI_SDA")
 			(class "Default")
 			(node
@@ -8253,7 +8155,7 @@
 			)
 		)
 		(net
-			(code "70")
+			(code "67")
 			(name "RPWM")
 			(class "Default")
 			(node
@@ -8270,7 +8172,7 @@
 			)
 		)
 		(net
-			(code "71")
+			(code "68")
 			(name "R_EN")
 			(class "Default")
 			(node
@@ -8287,7 +8189,7 @@
 			)
 		)
 		(net
-			(code "72")
+			(code "69")
 			(name "THR_PWM_3")
 			(class "Default")
 			(node
@@ -8304,7 +8206,7 @@
 			)
 		)
 		(net
-			(code "73")
+			(code "70")
 			(name "THR_PWM_5")
 			(class "Default")
 			(node
@@ -8320,7 +8222,7 @@
 			)
 		)
 		(net
-			(code "74")
+			(code "71")
 			(name "UART0_RX")
 			(class "Default")
 			(node
@@ -8343,7 +8245,7 @@
 			)
 		)
 		(net
-			(code "75")
+			(code "72")
 			(name "UART0_TX")
 			(class "Default")
 			(node
@@ -8366,7 +8268,7 @@
 			)
 		)
 		(net
-			(code "76")
+			(code "73")
 			(name "UART2_RX")
 			(class "Default")
 			(node
@@ -8389,7 +8291,7 @@
 			)
 		)
 		(net
-			(code "77")
+			(code "74")
 			(name "UART2_TX")
 			(class "Default")
 			(node
@@ -8412,7 +8314,7 @@
 			)
 		)
 		(net
-			(code "78")
+			(code "75")
 			(name "UART3_RX")
 			(class "Default")
 			(node
@@ -8435,7 +8337,7 @@
 			)
 		)
 		(net
-			(code "79")
+			(code "76")
 			(name "UART3_TX")
 			(class "Default")
 			(node
@@ -8458,7 +8360,7 @@
 			)
 		)
 		(net
-			(code "80")
+			(code "77")
 			(name "UART4_RX")
 			(class "Default")
 			(node
@@ -8481,7 +8383,7 @@
 			)
 		)
 		(net
-			(code "81")
+			(code "78")
 			(name "UART4_TX")
 			(class "Default")
 			(node
@@ -8504,7 +8406,7 @@
 			)
 		)
 		(net
-			(code "82")
+			(code "79")
 			(name "UART5_RX")
 			(class "Default")
 			(node
@@ -8527,7 +8429,7 @@
 			)
 		)
 		(net
-			(code "83")
+			(code "80")
 			(name "UART5_TX")
 			(class "Default")
 			(node
@@ -8550,7 +8452,7 @@
 			)
 		)
 		(net
-			(code "84")
+			(code "81")
 			(name "VBAT_SENSE")
 			(class "Default")
 			(node
@@ -8582,7 +8484,7 @@
 			)
 		)
 		(net
-			(code "85")
+			(code "82")
 			(name "VIN")
 			(class "Default")
 			(node
@@ -8643,7 +8545,7 @@
 			)
 		)
 		(net
-			(code "86")
+			(code "83")
 			(name "unconnected-(U1-3V3_EN-Pad37)")
 			(class "Default")
 			(node
@@ -8654,7 +8556,7 @@
 			)
 		)
 		(net
-			(code "87")
+			(code "84")
 			(name "unconnected-(U1-ADC_VREF-Pad35)")
 			(class "Default")
 			(node
@@ -8662,6 +8564,39 @@
 				(pin "35")
 				(pinfunction "ADC_VREF_35")
 				(pintype "power_in+no_connect")
+			)
+		)
+		(net
+			(code "85")
+			(name "unconnected-(U1-GPIO20-Pad26)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "26")
+				(pinfunction "GPIO20_26")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "86")
+			(name "unconnected-(U1-GPIO21-Pad27)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "27")
+				(pinfunction "GPIO21_27")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "87")
+			(name "unconnected-(U1-GPIO22-Pad29)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "29")
+				(pinfunction "GPIO22_29")
+				(pintype "bidirectional+no_connect")
 			)
 		)
 		(net

@@ -93,6 +93,7 @@ def flatten(lib_text, name):
 # conflicting drivers against each other and the GND PWR_FLAG.
 PIN_TYPE_OVERRIDES = {
     "MCU_Module:RaspberryPi_Pico": {"3": "passive", "33": "passive"},
+    "MCU_Module:RaspberryPi_Pico_Debug": {"3": "passive", "33": "passive"},
 }
 
 

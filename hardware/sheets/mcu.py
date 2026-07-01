@@ -3,17 +3,18 @@ H-bridge, digipot/contactor control lines, battery telemetry, utility header.
 
 Pin allocation per plan (Pico 2 module is pin-compatible with the Pico symbol).
 """
-from common import PICO_FP, R_AX, C_D, SOT23, LED5MM, HDR1x11, grid
+from common import PICO_FP, R_AX, C_D, SOT23, LED5MM, HDR1x8, grid
 
 SHEET_UUID = "c0000000-0000-4000-8000-000000000004"
 
 TEXTS = [
     (30, 40, "MCU: Pico 2 (RP2350) - I2C0 slave @0x42 to Pi, I2C1 master to AS5600"),
     (30, 46, "Firmware map: 0x00 CMD {pwm,dir,steer} / 0x10 STATUS {angle,ok,wrap,state,vbat,isense}; 800ms watchdog"),
+    (30, 52, "Pico soldered directly (low profile, sits under the Pi). Pi reflashes it via SWD on GPIO24/25 (openocd)."),
 ]
 
 COMPONENTS = [
-    dict(lib="MCU_Module:RaspberryPi_Pico", ref="U1", value="Pico 2", fp=PICO_FP,
+    dict(lib="MCU_Module:RaspberryPi_Pico_Debug", ref="U1", value="Pico 2", fp=PICO_FP,
          at=(80, 110, 0), pins={
             "1": "PICO_GP0", "2": "PICO_GP1", "3": "GND",
             "4": "PICO_GP2", "5": "PICO_GP3",
@@ -24,14 +25,17 @@ COMPONENTS = [
             "16": "DP_INC_3", "17": "DP_UD_3", "18": "GND",
             "19": "DP_CS_3", "20": "THR_PWM_3",
             "21": "CONT_GATE_3", "22": "LED_STAT", "23": "GND",
-            "24": "PICO_GP18", "25": "PICO_GP19", "26": "PICO_GP20",
-            "27": "PICO_GP21", "28": "GND", "29": "PICO_GP22",
+            "24": "PICO_GP18", "25": "PICO_GP19", "26": None,
+            "27": None, "28": "GND", "29": None,  # GP20-22 unused
             "30": ".PICO_RUN",
             "31": "ISENSE_R", "32": "ISENSE_L",
             "33": "GND", "34": "VBAT_SENSE",
             "35": None,          # ADC_VREF: module's onboard filter
             "36": "+3V3", "37": None,  # 3V3_EN: pulled up on module
             "38": "GND", "39": "+5V", "40": None,  # VBUS unused (no USB power in)
+            "D1": "PI_GPIO25",   # SWCLK <- Pi (openocd bcm2835gpio reflash)
+            "D2": "GND",
+            "D3": "PI_GPIO24",   # SWDIO <-> Pi
          }),
 
     dict(lib="Device:R", ref="R8", value="1k", fp=R_AX,
@@ -56,9 +60,8 @@ COMPONENTS = [
     dict(lib="Device:LED", ref="LED5", value="yellow", fp=LED5MM,
          at=grid(8), pins={"2": ".LED5_A", "1": "GND"}),
 
-    dict(lib="Connector_Generic:Conn_01x11", ref="J12", value="PICO UTIL", fp=HDR1x11,
+    dict(lib="Connector_Generic:Conn_01x08", ref="J12", value="PICO UTIL", fp=HDR1x8,
          at=(200, 110, 0), pins={
             "1": "+3V3", "2": "PICO_GP0", "3": "PICO_GP1", "4": "PICO_GP2",
-            "5": "PICO_GP3", "6": "PICO_GP18", "7": "PICO_GP19", "8": "PICO_GP20",
-            "9": "PICO_GP21", "10": "PICO_GP22", "11": "GND"}),
+            "5": "PICO_GP3", "6": "PICO_GP18", "7": "PICO_GP19", "8": "GND"}),
 ]
