@@ -125,7 +125,14 @@ def main(spec_path, out_path, project, root_uuid):
             ("Footprint", c.get("fp", ""), x, y, True),
             ("Datasheet", "", x, y, True),
         ]
-        for fname, fval in c.get("fields", {}).items():
+        fields = dict(c.get("fields", {}))
+        try:
+            from mpn import MPN
+            if ref in MPN and "MPN" not in fields:
+                fields["MPN"] = MPN[ref]
+        except ImportError:
+            pass
+        for fname, fval in fields.items():
             props.append((fname, fval, x, y, True))
         prop_s = "\n".join(
             f'''    (property "{pn}" "{pv}" (at {fmt(px)} {fmt(py)} 0)
