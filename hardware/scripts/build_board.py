@@ -15,6 +15,7 @@ absolute board coords add OFFSET):
   bulk caps, fan, then header row (J12 utility, J15 IBT-2).
 - Under Pi: Pico (soldered direct), DIP sockets, flat TO-220s, passives.
 """
+import os
 import re
 import sys
 from collections import defaultdict
@@ -59,7 +60,7 @@ POWER_PLACE = {
     "J18": (11.0, 14.0, 0),
     "U10": (30.0, 15.0, 180),
     # bulk + clamp on the centre spine
-    "C18": (28.0, 50.0, 0), "C19": (28.0, 72.0, 0),
+    "C18": (31.0, 50.0, 0), "C19": (31.0, 72.0, 0),
     "D15": (32.0, 86.0, 180), "C20": (26.8, 96.5, 90),
     # lugs
     "J19": (11.0, 90.0, 0), "J20": (45.0, 90.0, 0), "J21": (11.0, 105.0, 0),
@@ -68,7 +69,7 @@ POWER_PLACE = {
     "R30": (48.0, 116.0, 0), "R32": (55.5, 104.0, 90),
     "C16": (20.0, 115.0, 90), "C17": (24.5, 116.0, 0),
     "D12": (35.0, 116.0, 0), "D13": (52.0, 104.0, 90),
-    "C14": (20.0, 86.0, 90), "C15": (23.5, 86.0, 90),
+    "C14": (20.0, 86.0, 90), "C15": (40.0, 74.0, 90),
     # HIP logic pulldowns + ACS/servo ADC conditioning live outside the band
     "R33": (95.0, 106.0, 0), "R34": (95.0, 110.0, 0),
     "R35": (95.0, 114.0, 0), "R36": (108.0, 110.0, 0),
@@ -357,13 +358,12 @@ def main():
         add_zone(net, layer, pts, zprio[0], solid=True)
 
     def fingers_h(rail_x0, rail_x1, pads, half_w=1.1):
+        """Fingers span the full rail width so the same-net fills merge."""
         polys = []
         for ref, num in pads:
             px, py = pad_xy(ref, num)
-            if px > rail_x1:
-                x0, x1 = rail_x1 - 0.5, px + half_w
-            else:
-                x0, x1 = px - half_w, rail_x0 + 0.5
+            x0 = min(px - half_w, rail_x0)
+            x1 = max(px + half_w, rail_x1)
             polys.append([(x0, py - half_w), (x1, py - half_w),
                           (x1, py + half_w), (x0, py + half_w)])
         return polys
@@ -374,24 +374,24 @@ def main():
     # VBRIDGE: centre spine (F short, B long incl. clamp/bulk pads), top wing
     # under the ACS, B fingers to the four high-side drains
     pz("VBRIDGE", pcbnew.F_Cu, rect(26.4, 20, 32, 96))
-    pz("VBRIDGE", pcbnew.F_Cu, rect(31, 20, 37.4, 28))    # ACS IP- patch
-    pz("VBRIDGE", pcbnew.B_Cu, rect(31, 20, 37.4, 28))
+    pz("VBRIDGE", pcbnew.F_Cu, rect(31, 20, 40.2, 28))    # ACS IP- patch
+    pz("VBRIDGE", pcbnew.B_Cu, rect(31, 20, 40.2, 28))
     pz("VBRIDGE", pcbnew.B_Cu, rect(26.4, 6, 32, 96))
     for poly in fingers_h(26.4, 32, [("Q3", "2"), ("Q4", "2"), ("Q7", "2"), ("Q8", "2")]):
         pz("VBRIDGE", pcbnew.B_Cu, poly)
 
     # MOTOR rails + lug arms; F fingers to high-side sources / low-side drains
     pz("MOTOR_A", pcbnew.F_Cu, rect(11, 27, 18, 82))
-    pz("MOTOR_A", pcbnew.F_Cu, rect(4, 82, 18, 98))
+    pz("MOTOR_A", pcbnew.F_Cu, rect(4, 80, 18, 98))
     pz("MOTOR_A", pcbnew.B_Cu, rect(11, 42, 18, 82))
-    pz("MOTOR_A", pcbnew.B_Cu, rect(4, 82, 18, 98))
+    pz("MOTOR_A", pcbnew.B_Cu, rect(4, 80, 18, 98))
     for poly in fingers_h(11, 18, [("Q3", "3"), ("Q4", "3"), ("Q5", "2"), ("Q6", "2")]):
         pz("MOTOR_A", pcbnew.F_Cu, poly)
 
-    pz("MOTOR_B", pcbnew.F_Cu, rect(38, 22, 45, 82))
-    pz("MOTOR_B", pcbnew.F_Cu, rect(38, 82, 52, 98))
+    pz("MOTOR_B", pcbnew.F_Cu, rect(38, 28.4, 45, 82))
+    pz("MOTOR_B", pcbnew.F_Cu, rect(38, 76, 52, 98))
     pz("MOTOR_B", pcbnew.B_Cu, rect(38, 42, 45, 82))
-    pz("MOTOR_B", pcbnew.B_Cu, rect(38, 82, 52, 98))
+    pz("MOTOR_B", pcbnew.B_Cu, rect(38, 76, 52, 98))
     for poly in fingers_h(38, 45, [("Q7", "3"), ("Q8", "3"), ("Q9", "2"), ("Q10", "2")]):
         pz("MOTOR_B", pcbnew.F_Cu, poly)
 
@@ -405,8 +405,75 @@ def main():
     # solid GND plane over the whole power band on B
     add_zone("GND", pcbnew.B_Cu, rect(0.6, 0.6, 56, 119.4), 1, solid=True)
 
-    # GND pours both sides (base planes)
-    for layer in (pcbnew.F_Cu, pcbnew.B_Cu):
+    # ---- pre-laid power tracks (freerouting keeps existing wiring fixed;
+    # they guarantee net continuity even where signal tracks slice the fills) ----
+    def add_track(net, layer, x0, y0, x1, y1, w):
+        t = pcbnew.PCB_TRACK(board)
+        t.SetStart(mm(x0, y0))
+        t.SetEnd(mm(x1, y1))
+        t.SetWidth(pcbnew.FromMM(w))
+        t.SetLayer(layer)
+        t.SetNet(nets[net])
+        board.Add(t)
+
+    def chain(net, layer, pts, w):
+        for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+            add_track(net, layer, x0, y0, x1, y1, w)
+
+    # VBRIDGE spine both layers + stubs
+    chain("VBRIDGE", pcbnew.B_Cu, [(29.2, 8), (29.2, 94)], 5.6)
+    chain("VBRIDGE", pcbnew.F_Cu, [(29.2, 20.5), (29.2, 94)], 5.0)
+    for ref in ("Q3", "Q4", "Q7", "Q8"):
+        px, py = pad_xy(ref, "2")
+        add_track("VBRIDGE", pcbnew.B_Cu, px, py, 29.2, py, 2.2)
+    for ref, num in (("C18", "1"), ("C19", "1"), ("D15", "1")):
+        px, py = pad_xy(ref, num)
+        add_track("VBRIDGE", pcbnew.F_Cu, px, py, 29.2, py, 1.8)
+    ipx, ipy = pad_xy("U10", "5")   # ACS IP-
+    add_track("VBRIDGE", pcbnew.B_Cu, ipx, ipy, 29.2, ipy, 4.0)
+
+    # MOTOR rails + lug drops + FET stubs
+    chain("MOTOR_A", pcbnew.F_Cu, [(14.5, 29), (14.5, 89), (11, 89), (11, 90)], 5.0)
+    chain("MOTOR_A", pcbnew.B_Cu, [(14.5, 43), (14.5, 89), (11, 89), (11, 90)], 5.0)
+    for ref, num in (("Q3", "3"), ("Q4", "3"), ("Q5", "2"), ("Q6", "2")):
+        px, py = pad_xy(ref, num)
+        add_track("MOTOR_A", pcbnew.F_Cu, px, py, 14.5, py, 2.2)
+    px, py = pad_xy("C14", "2")
+    add_track("MOTOR_A", pcbnew.F_Cu, px, py, 14.5, py, 1.8)
+
+    chain("MOTOR_B", pcbnew.F_Cu, [(41.5, 31), (41.5, 89), (45, 89), (45, 90)], 5.0)
+    chain("MOTOR_B", pcbnew.B_Cu, [(41.5, 43), (41.5, 89), (45, 89), (45, 90)], 5.0)
+    for ref, num in (("Q7", "3"), ("Q8", "3"), ("Q9", "2"), ("Q10", "2")):
+        px, py = pad_xy(ref, num)
+        add_track("MOTOR_B", pcbnew.F_Cu, px, py, 41.5, py, 2.2)
+    px, py = pad_xy("C15", "2")
+    add_track("MOTOR_B", pcbnew.F_Cu, px, py, 41.5, py, 1.8)
+
+    # GND: lug into the band plane + low-side source stubs on B
+    chain("GND", pcbnew.B_Cu, [(11, 105), (11, 94)], 5.6)
+    for ref in ("Q5", "Q6", "Q9", "Q10"):
+        px, py = pad_xy(ref, "3")
+        add_track("GND", pcbnew.B_Cu, px, py, px + (6 if px < 28 else -6), py, 2.2)
+
+    # VBAT: lug -> ACS IP+
+    bx, by = pad_xy("J18", "1")
+    px, py = pad_xy("U10", "4")
+    chain("VBAT_PWR", pcbnew.F_Cu, [(bx, by), (px, by), (px, py)], 5.0)
+    chain("VBAT_PWR", pcbnew.B_Cu, [(bx, by), (px, by), (px, py)], 5.0)
+
+    # +12V feed for the driver decouplers (freerouting failed these twice)
+    c16x, c16y = pad_xy("C16", "1")
+    c17x, c17y = pad_xy("C17", "1")
+    u9x, u9y = pad_xy("U9", "12")
+    chain("+12V", pcbnew.B_Cu,
+          [(c16x, c16y), (c17x, c16y), (c17x, c17y), (c17x, 113.5),
+           (u9x, 113.5), (u9x, u9y)], 0.8)
+
+    # GND pours both sides (base planes). BASE_GND=0 omits them so the DSN
+    # export makes freerouting route logic-GND pads as tracks (the power-band
+    # GND planes above always stay: the low-side FETs need them).
+    base_layers = () if os.environ.get("BASE_GND") == "0" else (pcbnew.F_Cu, pcbnew.B_Cu)
+    for layer in base_layers:
         zone = pcbnew.ZONE(board)
         zone.SetLayer(layer)
         zone.SetNet(nets["GND"])
