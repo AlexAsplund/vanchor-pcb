@@ -35,19 +35,20 @@ EXPECTED = {
     "UART5_TX": 3, "UART5_RX": 3,
     "PI_PICO_RUN": 3,  # J1, J2, R8
     "ENC_SDA": 3, "ENC_SCL": 3,      # U1, pull-up, series R
-    "RPWM": 3, "LPWM": 3, "R_EN": 3, "L_EN": 3,  # U1, J2? no — U1, J15 (+J2? no) => U1+J15=2... see note
-    "ISENSE_R": 4, "ISENSE_L": 4,    # U1, R18/19, D8/9, C12/13
+    "RPWM": 2, "LPWM": 2, "R_EN": 2, "L_EN": 2,  # U1 + BTN8982
+    "SERVO_IS": 4,                   # U1, R18, D8, C12
+    "THR_IS": 5,                     # U1, R37, R38, C21, D14
     "VBAT_SENSE": 5,                 # U1, R11, R12, C5, D6
-    "DP_INC_3": 2, "DP_UD_3": 2, "DP_CS_3": 2, "THR_PWM_3": 2,
-    "DP_INC_5": 2, "DP_UD_5": 2, "THR_PWM_5": 2,
-    "DP_CS_5": 3,                    # U2, U3, R14
-    "CONT_GATE_3": 2,
+    "THR_AHI": 3, "THR_BHI": 3, "THR_ALI": 3, "THR_BLI": 3,  # U1, U9, pulldown
+    "THR_DIS": 3,                    # U1, U9, pull-up
+    "VBAT_PWR": 3,                   # lug, ACS758, F1
+    "VBRIDGE": 8,                    # ACS758, 4 FET drains, C18, C19, C20, D15
+    "MOTOR_A": 7,                    # 4 FETs, HIP AHS, C14, lug
+    "MOTOR_B": 7,
+    "SERVO_A": 2, "SERVO_B": 2,      # BTN OUT + terminal
     "DISP_5V": 2,
     "LED_STAT": 2, "PI_LED": 3,
 }
-# RPWM/LPWM/R_EN/L_EN really are 2 pins (U1 + J15); fix expectation:
-for n in ("RPWM", "LPWM", "R_EN", "L_EN"):
-    EXPECTED[n] = 2
 
 
 def main(netlist_path):

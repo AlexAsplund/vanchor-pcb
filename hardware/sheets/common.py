@@ -31,3 +31,4 @@ POLOLU_FP = "vanchor-helm:Pololu_D36V50Fx"
 def grid(i, x0=40, y0=170, dx=42, dy=45, per_row=9):
     """Position small parts on a coarse grid (row-major)."""
     return (x0 + (i % per_row) * dx, y0 + (i // per_row) * dy, 0)
+R_AX_V = "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"

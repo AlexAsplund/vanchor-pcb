@@ -112,12 +112,36 @@ def pico_swd():
     return src[:idx] + "\n".join(extra) + "\n" + src[idx:]
 
 
+def lug_m5():
+    """Bolt-through power lug: 14mm circular pad, 5.3mm hole, for M5 ring lugs.
+    Carries the 67A+ motor/battery connections."""
+    return '''(footprint "Lug_M5"
+  (version 20240108)
+  (generator "gen_footprints")
+  (layer "F.Cu")
+  (descr "M5 bolt-through power lug, 14mm pad both sides, 5.3mm hole")
+  (tags "lug high-current M5")
+  (attr through_hole)
+  (property "Reference" "REF**" (at 0 -8.5 0) (layer "F.SilkS")
+    (effects (font (size 1 1) (thickness 0.15))))
+  (property "Value" "Lug_M5" (at 0 8.5 0) (layer "F.Fab")
+    (effects (font (size 1 1) (thickness 0.15))))
+  (fp_circle (center 0 0) (end 7.3 0) (stroke (width 0.05) (type default)) (fill none) (layer "F.CrtYd"))
+  (fp_circle (center 0 0) (end 7.15 0) (stroke (width 0.1) (type default)) (fill none) (layer "F.Fab"))
+  (pad "1" thru_hole circle (at 0 0) (size 14 14) (drill 5.3)
+    (layers "*.Cu" "*.Mask") (thermal_bridge_width 3) (thermal_gap 1))
+)
+'''
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "Pololu_D36V50Fx.kicad_mod"), "w") as f:
         f.write(pololu())
     with open(os.path.join(OUT, "RaspberryPi_Pico_TH_SWD.kicad_mod"), "w") as f:
         f.write(pico_swd())
+    with open(os.path.join(OUT, "Lug_M5.kicad_mod"), "w") as f:
+        f.write(lug_m5())
     print("footprints written to", OUT)
 
 

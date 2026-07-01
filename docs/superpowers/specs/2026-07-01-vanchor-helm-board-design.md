@@ -49,12 +49,41 @@ needed.
 **On-board 1500 W bridge (rejected outright):** 125 A @ 12 V on a hobby 2-layer
 board is a fire, not a feature. The firmware README's hijack approach is kept.
 
-**Thrust power floor (user, 2026-07-02):** the drive must handle **≥800 W on a
-12 V motor ≈ 67 A continuous**. Still strictly off-board; it sets the minimum
-ratings for the bought parts: speed controller ≥70 A continuous @ 12 V
-(e.g. a "12-48 V 60-100 A" PWM controller), reversing DPDT contactor contacts
-≥100 A make / ≥70 A continuous, battery feed wiring ≥16 mm² (5-6 AWG) with a
-matching fuse. No PCB change — thrust current never crosses this board.
+**REVISION (user, 2026-07-02): both drivers ON-BOARD.** The knob-hijack +
+contactor concept (§4.4 below) and the off-board IBT-2 are **superseded**:
+
+- **Thrust driver on-board**: ≥800 W @ 12 V ≈ 67 A continuous, fwd/rev,
+  battery 12–48 V. Discrete H-bridge: **HIP4082IPZ** full-bridge gate driver
+  (DIP-16, 80 V bus rating — covers 48 V systems incl. charging) driving
+  **8× IRF100P219** (100 V, ~2 mΩ, TO-220; two per switch) with individual
+  10 Ω gate resistors; single DEL resistor sets dead-time; bootstrap
+  UF4007 + 1 µF per high side; 100 kΩ pull-downs on all four logic inputs and
+  10 kΩ pull-up (3V3) on DIS = bridge disabled unless the Pico drives it.
+  **ACS758LCB-100B** hall sensor in the battery leg for current telemetry
+  (5 V out, resistively scaled + BAT54S-clamped into the Pico ADC).
+  Power connections are **M5 bolt lugs** (BATT+, MOTOR A, MOTOR B, GND) —
+  screw terminals don't do 70 A. 2×2200 µF/63 V bulk + film + SMCJ58A across
+  the bridge. **2 oz copper**, both layers poured for the power nets.
+  Thermal: ~3 W per FET at 67 A — the FET row mounts a common heatsink bar
+  (clip-on, along the board edge); airflow recommended >40 A continuous.
+  X9C103 digipot, PWM-DAC (MCP6002), 74AHCT125, contactor driver and the
+  KNOB/CONTACTOR terminals are all deleted; the Pico drives AHI/BHI/ALI/BLI
+  directly (HIP4082 VIH 2.5 V accepts 3.3 V logic).
+- **Servo driver on-board**: **2× BTN8982TA** half-bridges (TO-263-7,
+  hand-solderable on large pads; 40 V, protected, same RPWM/LPWM/INH/IS
+  interface as the BTS7960 firmware code). VM = +12 V rail; IS pins share one
+  1 kΩ sense resistor (only the active side sources), RC-filtered + clamped
+  into the Pico ADC. Motor leaves on a screw terminal.
+- Board grows to **150×120 mm** (power stage occupies a new 50 mm band on the
+  left; everything previously placed shifts +50 mm in x).
+- The single battery input is the BATT+ lug: board logic taps it *upstream*
+  of the ACS758 through the existing F1 (10 A) + reverse-FET path, so board
+  loads don't pollute the motor-current reading. The 70 A motor path is fused
+  externally (ANL/MIDI at the battery, sized to motor).
+- Battery-voltage rule: 12 V motor at 800 W needs a 12 V battery system
+  (the board cannot buck 67 A). On 24–48 V systems the thrust motor must be
+  rated for that system voltage. Servo motor is always 12 V (from BUCK2 —
+  ≤4 A stall on 24-48 V boats — or battery-direct on 12 V boats via J17).
 
 ## 3. System architecture
 

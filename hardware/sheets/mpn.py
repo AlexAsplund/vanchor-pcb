@@ -17,7 +17,6 @@ MPN = {
     "C2": "EEU-FR1J471B",
     "C3": "EEU-FR1E101",                # 100uF 25V (used on 5V rail)
     "C4": "EEU-FR1E101",
-    "J16": "CUI TB007-508-02",
     "J17": "CUI TB007-508-02",
     # pi carrier
     "J1": "Adafruit 1979 (2x20 stacking, extra-tall ~19.5mm) or ESQ-120-39-G-D",
@@ -29,16 +28,23 @@ MPN = {
     # mcu
     "U1": "Raspberry Pi Pico 2 (SC1632)",
     "D6": "BAT54S,215",                 # Nexperia
-    # thrust
-    "U2": "SN74AHCT125N",               # TI DIP-14
-    "U3": "X9C103P",                    # Renesas 10k digipot DIP-8
-    "U4": "MCP6002-I/P",                # Microchip DIP-8
-    "Q2": "IRLZ44NPBF",
-    "D7": "1N4007",
-    "J13": "CUI TB007-508-03",
-    "J14": "CUI TB007-508-02",
-    # servo
-    "D8": "BAT54S,215", "D9": "BAT54S,215",
+    # thrust (on-board H-bridge)
+    "U9": "HIP4082IPZ",                 # Renesas full-bridge driver DIP-16
+    "U10": "ACS758LCB-100B-PFF-T",      # Allegro 100A bidirectional hall sensor
+    "Q3": "IRF100P219", "Q4": "IRF100P219", "Q5": "IRF100P219",
+    "Q6": "IRF100P219", "Q7": "IRF100P219", "Q8": "IRF100P219",
+    "Q9": "IRF100P219", "Q10": "IRF100P219",
+    "D12": "UF4007", "D13": "UF4007",
+    "D14": "BAT54S,215", "D15": "SMCJ58A",
+    "C18": "UVR1J222MHD (2200uF/63V)", "C19": "UVR1J222MHD (2200uF/63V)",
+    "C20": "MKT 1uF/100V (e.g. B32522C1105K)",
+    "J18": "M5 bolt lug", "J19": "M5 bolt lug",
+    "J20": "M5 bolt lug", "J21": "M5 bolt lug",
+    # servo (on-board half-bridges)
+    "U7": "BTN8982TA", "U8": "BTN8982TA",
+    "J22": "CUI TB007-508-02",
+    "C22": "EEU-FR1E221 (220uF/25V)",
+    "D8": "BAT54S,215",
     "D10": "BAT54S,215", "D11": "BAT54S,215",
     "J11": "JST B4B-XH-A(LF)(SN)",
 }

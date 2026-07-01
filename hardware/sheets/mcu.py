@@ -22,13 +22,13 @@ COMPONENTS = [
             "9": "ENC_SDA", "10": "ENC_SCL",
             "11": "RPWM", "12": "LPWM", "13": "GND",
             "14": "R_EN", "15": "L_EN",
-            "16": "DP_INC_3", "17": "DP_UD_3", "18": "GND",
-            "19": "DP_CS_3", "20": "THR_PWM_3",
-            "21": "CONT_GATE_3", "22": "LED_STAT", "23": "GND",
+            "16": "THR_AHI", "17": "THR_BHI", "18": "GND",
+            "19": "THR_ALI", "20": "THR_BLI",
+            "21": "THR_DIS", "22": "LED_STAT", "23": "GND",
             "24": "PICO_GP18", "25": "PICO_GP19", "26": None,
             "27": None, "28": "GND", "29": None,  # GP20-22 unused
             "30": ".PICO_RUN",
-            "31": "ISENSE_R", "32": "ISENSE_L",
+            "31": "SERVO_IS", "32": "THR_IS",
             "33": "GND", "34": "VBAT_SENSE",
             "35": None,          # ADC_VREF: module's onboard filter
             "36": "+3V3", "37": None,  # 3V3_EN: pulled up on module
