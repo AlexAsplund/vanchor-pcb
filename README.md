@@ -124,8 +124,9 @@ driver**, not to this board.
   2× 470 µF/25 V bulk.
 - The buck module (U5) mounts as a daughterboard: solder 4 pins into the
   XL4015's corner terminals, slide 5-8 mm spacers on, solder into the
-  slotted pads (slots absorb vendor hole-grid variance; nominal 49×18 mm —
-  verify against your module). Set 5.1 V and load-test at 4 A BEFORE
+  slotted pads (slots absorb vendor hole-grid variance; buy the common 54×23 mm module
+  variant (nominal 49×18 mm hole grid) — the smaller 51×26 mm variant has a
+  different grid that may not fit; verify against your module). Set 5.1 V and load-test at 4 A BEFORE
   soldering it in. R20/R21/D10/D11 sit under the module's edge — fit them
   first.
 - Firmware contract: I²C slave 0x42, reg 0x00 CMD {pwm u8, dir u8, steer i8},

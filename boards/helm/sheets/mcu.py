@@ -45,7 +45,7 @@ COMPONENTS = [
     dict(lib="Device:R", ref="R10", value="4.7k", fp=R_AX,
          at=grid(2), pins={"1": "+3V3", "2": "ENC_SCL"}),
 
-    # Battery voltage telemetry: 48V max -> 3.06V at ADC
+    # Battery voltage telemetry: 47k/10k = /5.7 -> 14.4V charging reads 2.53V
     dict(lib="Device:R", ref="R11", value="47k", fp=R_AX,
          at=grid(3), pins={"1": "VIN", "2": "VBAT_SENSE"}),
     dict(lib="Device:R", ref="R12", value="10k", fp=R_AX,

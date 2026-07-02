@@ -57,7 +57,7 @@ lanes — intentional.
 Each BTN8982's IS pin sources I_load/kILIS (~8500). Both devices of a side
 feed the **same** 1 k sense resistor, so with U3/U4 fitted the sensed
 voltage per ampere stays the same only if the halves share evenly — in
-practice treat the effective kILIS as ~8500 with U1/U2 only and ~17000 per
+practice treat the effective kILIS as ~22700 (verify datasheet 5.4.7) with U1/U2 only and ~17000 per
 device (halved reading) when paralleled. Calibrate `THR_IS` scaling in the
 Pico firmware after choosing the variant.
 
@@ -70,8 +70,9 @@ standalone NMEA2000 node — same pattern as the helm board:
   GP26/27 read the IS sense via R12/R13 1k series, GP18/19 run CAN via
   can2040 — identical GPIO map to the helm Pico, so the thrust firmware
   ports directly).
-- **U6** SIP-3 5V regulator (R-78E5.0-0.5 or TSR 1-2450): powers the node
-  from the motor battery (12-24V in).
+- **U6** SIP-3 5V regulator: R-78E5.0-0.5 for 12V boats; fit the wide-input
+  **R-78HE5.0-0.5** on 24V boats (the plain R-78E tops out at 28V in, too
+  close to a charging 24V bank).
 - **J6** 4-pin CAN header: 3V3 / GND / TX / RX to a Waveshare SN65HVD230
   transceiver module; CAN_H/L go to the module's screw terminal.
 - **J7** XH-3 lands the N2K drop cable's V+ / GND / SHIELD. R10 (0R DNP)
@@ -82,7 +83,11 @@ Dumb mode (default): populate nothing, drive via the J1 cable as before.
 Smart mode: fit U5 + U6 + R12 + R13 + transceiver, **leave J1
 unconnected** (both would drive the same nets), and implement a command
 watchdog in the node firmware (hard-stop to neutral if the command PGN
-stream halts >300-500 ms).
+stream halts >300-500 ms). ADC note: in normal operation the IS voltage
+across the 1k loads stays under ~2.2V at 50A (kILIS 22.7k), but in FAULT
+the IS pin sources mA-class current and the node's only protection is the
+R12/R13 series resistance - fit them as 10k (not 1k) when populating the
+node, or add BAT54S clamps to 3V3 like the helm board has.
 
 ## Assembly order
 
