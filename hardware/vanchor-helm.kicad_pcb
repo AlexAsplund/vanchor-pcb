@@ -18964,7 +18964,7 @@
 				)
 			)
 		)
-		(property "Value" "MF-R200 2A"
+		(property "Value" "MF-R250 2.5A"
 			(at 2.55 3.1 0)
 			(layer "F.Fab")
 			(uuid "3ed7f4f9-8d09-4e3b-b6f0-dd3e03e2b2fd")

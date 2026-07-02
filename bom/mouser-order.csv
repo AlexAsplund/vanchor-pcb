@@ -8,7 +8,7 @@ SMCJ18A,2,D5 TVS 18V (+1)
 BAT54SLT1G,6,D6 D8 D10 D11 D14 dual schottky (onsemi; +1)
 3568,1,F1 mini blade fuse holder (Keystone; if no match search DigiKey or use any PCB mini-blade holder)
 0297010.WXNV,2,F1 10A mini blade fuse (+1)
-MF-R200,1,F2 polyfuse 2A
+MF-R250,1,F2 polyfuse 2.5A
 61302621121,1,J1 2x13 male header
 B4B-XH-A(LF)(SN),4,J3 J4 J8 J11 JST-XH 4p
 B2B-XH-A(LF)(SN),1,J10 JST-XH 2p

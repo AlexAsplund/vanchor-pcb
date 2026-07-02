@@ -7,7 +7,7 @@
 "D5","SMCJ18A","Diode_SMD:D_SMC","SMCJ18A","1",""
 "D6,D8,D10,D11,D14","BAT54S","Package_TO_SOT_SMD:SOT-23","BAT54S,215","5",""
 "F1","10A blade","Fuse:Fuseholder_Blade_Mini_Keystone_3568","3568","1",""
-"F2","MF-R200 2A","Fuse:Fuse_Bourns_MF-RG300","Bourns MF-R200","1",""
+"F2","MF-R250 2.5A","Fuse:Fuse_Bourns_MF-RG300","MF-R250","1",""
 "J1","OPI_Z3_26PIN","Connector_PinHeader_2.54mm:PinHeader_2x13_P2.54mm_Vertical","61302621121 (Wurth 2x13 2.54mm male header)","1",""
 "J2","OPI_BREAKOUT","Connector_PinHeader_2.54mm:PinHeader_2x13_P2.54mm_Vertical","","1","DNP"
 "J3","UART5 ttyAS5","Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical","JST B4B-XH-A(LF)(SN)","1",""
