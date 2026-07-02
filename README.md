@@ -1,22 +1,23 @@
-# Vanchor Helm Board (v3.1)
+# Vanchor Helm Board (v4)
 
 Carrier PCB for the [vanchor-ng](../vanchor-ng) trolling-motor autopilot:
-a **Raspberry Pi 4/5** (autopilot computer) + **Raspberry Pi Pico 2** (real-time
-motor controller, I²C slave) on one **150×120 mm 2-layer board (standard 1 oz)**.
-Thrust power stays on an **external IBT-2/BTS7960-class driver** (J13); the
-steering-servo bridge is on board. **12 V-only** (car battery, 14.4 V
-charging) — the 5 V rail comes from a generic cheap buck module on J14.
+an **Orange Pi Zero 3** (autopilot computer) + **Raspberry Pi Pico 2**
+(real-time motor controller, I²C slave) on one **125×95 mm 2-layer board
+(standard 1 oz)**. Thrust power stays on an **external IBT-2/BTS7960-class
+driver** (J13); the steering-servo bridge is on board. **12 V-only** (car
+battery, 14.4 V charging) — the 5 V rail comes from a generic cheap buck
+module on J14.
 
 ```
 BATTERY 12V ──► J16 ─[F1 10A]─[reverse-FET]─ VIN ──┬─ J14: 5V buck module ── Pi + screen + fan
                                                    └────────────── servo bridge (direct)
-Pi (mounts UNDER the board, HAT-style)
- ├─ I²C ── Pico 2 @0x42 ──┬─ GP12-15: RPWM/LPWM/R_EN/L_EN ──► J13 ──► EXTERNAL
- │                        │   (+ R_IS/L_IS current sense back)   THRUST DRIVER
- │                        ├─ RPWM/LPWM ──► 2x BTN8982TA ──► 12V worm-gear servo
- │                        └─ I²C ──► AS5600 encoder (cable, in servo housing)
- ├─ UART0/2/3/4/5 ──► JST headers (GPS, compass, NMEA)
- └─ DSI ribbon ──► 7" touchscreen (5V from J10)
+Orange Pi Zero 3 (plugs into J1 socket, module ON TOP, powered via header)
+ ├─ I²C3 ── Pico 2 @0x42 ──┬─ GP12-15: RPWM/LPWM/R_EN/L_EN ──► J13 ──► EXTERNAL
+ │                         │   (+ R_IS/L_IS current sense back)   THRUST DRIVER
+ │                         ├─ RPWM/LPWM ──► 2x BTN8982TA ──► 12V worm-gear servo
+ │                         └─ I²C ──► AS5600 encoder (cable, in servo housing)
+ ├─ UART5 + UART2 ──► JST headers (GPS, compass, NMEA)
+ └─ HDMI/USB screen on the module itself (aux 5V from J10)
 ```
 
 Cost history: v1/v2 carried an on-board 800 W H-bridge; ten documented
@@ -56,10 +57,12 @@ docker exec -e BASE_GND=0 vanchor-kicad python3 /config/vanchor-pcb/hardware/scr
 | J13 | THRUST DRV | external driver, IBT-2 pin order: **1 RPWM · 2 LPWM · 3 R_EN · 4 L_EN · 5 R_IS · 6 L_IS · 7 VCC(5V) · 8 GND** |
 | J22 | SERVO MOTOR | 12 V worm gearmotor of the steering servo |
 | J14 | BUCK 5V | generic XL4015/LM2596-class module: VIN GND 5V GND (set 5.1 V first!) |
+| J1 | OPI Z3 SOCKET | Orange Pi Zero 3 plugs in here, component side up (pin 1 marked) |
 | J11 | AS5600 | 4-wire cable into servo housing: 3V3 GND SDA SCL (≤1 m, twisted) |
-| J3–J7 | UART0/2/3/4/5 | GPS, compass, NMEA gear (3V3 TTL; ttyAMA0/2/3/4/5) |
-| J8 | I2C1 spare | I²C sensors (bus shared with Pico link — keep short) |
-| J10 | DISP PWR | official 7" touchscreen 5V/GND (DSI ribbon goes to the Pi itself) |
+| J3 | UART5 | GPS/compass/NMEA (3V3 TTL, PH2/PH3; enable `uart5` DT overlay) |
+| J4 | UART2 | second serial device (PC5/PC6; enable `uart2` overlay; swap TX/RX at the JST if silent) |
+| J8 | I2C3 spare | I²C sensors (bus shared with Pico link — keep short) |
+| J10 | AUX 5V | fused 5 V for a screen or accessory |
 | J9 | FAN | 5 V fan |
 | J2 | GPIO breakout | all 40 Pi pins 1:1 (DNP by default — fit if needed) |
 | J12 | PICO UTIL | spare Pico I/O (DNP by default) |
@@ -69,10 +72,16 @@ driver**, not to this board.
 
 ## Mechanical
 
-- The Pi mounts **under** the board on 4× M2.5 standoffs (~19-20 mm) with an
-  **extra-tall 2×20 stacking header** (e.g. Adafruit 1979). Its USB/ETH tower
-  (16 mm) clears the board; SD card and all Pi ports remain reachable from the
-  sides. The Pico and all connectors live on the board top.
+- The Zero 3 plugs into the J1 socket **component side up** and sits ~9 mm
+  above the carrier; low-profile parts live underneath it. Its USB/HDMI/ETH
+  edge faces the board edge. Two M3 holes near the module's far edge take
+  support standoffs — **verify their alignment against your actual module
+  before ordering** (drill data in the gerbers).
+- The module is powered through the header 5 V pins — do **not** also plug
+  USB-C power. The 3.3 V for the JST headers comes from the module's
+  regulator (keep attached loads under ~200 mA total).
+- J2/J12 are DNP debug breakouts whose outlines slightly overlap — populate
+  at most one, or use a right-angle header on J12.
 - 4× M3 corner mounting holes. No heatsink needed on this board.
 
 ## Power & safety notes
@@ -98,17 +107,19 @@ driver**, not to this board.
   isense u16}; 800 ms watchdog → thrust 0, steering holds (worm self-locks).
   Pin deltas vs v2: thrust on **GP12=RPWM GP13=LPWM GP14=R_EN GP15=L_EN**;
   GP16/GP26 freed.
-- The Pi can reflash the Pico in place: SWD on Pi GPIO24 (SWDIO) /
-  GPIO25 (SWCLK) — openocd bcm2835gpio driver.
+- Zero 3 side: I²C3 (`i2c3` overlay) for the Pico link, `uart2`/`uart5`
+  overlays for the JSTs; Pico RUN on PC11, SWD reflash via PC15 (SWDIO) /
+  PC14 (SWCLK) — openocd sysfsgpio/libgpiod driver on the H618.
 
 ## Bring-up checklist
 
 1. Visual + continuity: VIN↔GND, 5V↔GND, 12V↔GND not shorted.
-2. No Pi/Pico fitted. Feed 12 V into J16: VIN LED lights; verify the buck
-   module outputs 5.0-5.2 V on J1 pins 2/4.
-3. Fit the Pico only (no Pi): flash test firmware over USB, check I²C
-   pull-ups (3V3 on SDA/SCL), exercise LED_STAT.
-4. Fit the Pi. `i2cdetect -y 1` → device at 0x42.
+2. No Zero 3/Pico fitted. Feed 12 V into J16: VIN LED lights; verify the
+   buck module outputs 5.0-5.2 V on J1 pins 2/4.
+3. Fit the Pico only (no Zero 3): flash test firmware over USB, check I²C
+   pull-ups, exercise LED_STAT.
+4. Plug in the Zero 3 (pin 1 to the marked corner!). `i2cdetect -y 3` →
+   device at 0x42.
 5. Connect AS5600 cable: Pico reads angle; rotate servo shaft by hand.
 6. Servo closed-loop test with the gearmotor on a bench supply.
 7. Connect the external thrust driver to J13, small test motor on its
