@@ -22917,6 +22917,226 @@
 		(layer "Edge.Cuts")
 		(uuid "5eb3b42b-cbbb-451d-9493-412c73fe0b87")
 	)
+	(gr_text "RPWM LPWM REN LEN RIS LIS 5V GND"
+		(at 39 113.8 0)
+		(layer "F.SilkS")
+		(uuid "67d4d47c-505a-42bb-809d-3163fce360d6")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.13)
+			)
+		)
+	)
+	(gr_text "VIN"
+		(at 130.19 97.9 90)
+		(layer "F.SilkS")
+		(uuid "623a5104-c7d1-41e2-9981-b5013c4c1a09")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.13)
+			)
+		)
+	)
+	(gr_text "GND"
+		(at 132.73 97.9 90)
+		(layer "F.SilkS")
+		(uuid "1bdd22c2-c3ce-431d-9453-d21aab53bf78")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.13)
+			)
+		)
+	)
+	(gr_text "5V"
+		(at 135.269999 97.9 90)
+		(layer "F.SilkS")
+		(uuid "d89ee3ea-6faf-47df-aa02-2061f3a193d3")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.13)
+			)
+		)
+	)
+	(gr_text "GND"
+		(at 137.81 97.9 90)
+		(layer "F.SilkS")
+		(uuid "56eb914e-8d14-4654-a49a-84cd2c5120c1")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.13)
+			)
+		)
+	)
+	(gr_text "F1 10A"
+		(at 70 76.8 0)
+		(layer "F.SilkS")
+		(uuid "e56abe2d-1bc8-4579-8eff-93e06ff896e5")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "THRUST DRV"
+		(at 39 107.7 0)
+		(layer "F.SilkS")
+		(uuid "f6cc3070-2f55-4402-96aa-cbd70c1220f6")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "BATT 12V"
+		(at 57.7 101 0)
+		(layer "F.SilkS")
+		(uuid "fefdaac2-42dc-4aca-9c15-7fabdbb28d75")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "SERVO"
+		(at 70.7 101 0)
+		(layer "F.SilkS")
+		(uuid "0f5facd6-9636-47f6-8168-137286e4047d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "UART5"
+		(at 84 102.5 0)
+		(layer "F.SilkS")
+		(uuid "af7484be-245e-44e8-a0f7-923060100c8a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "UART2"
+		(at 98 102.5 0)
+		(layer "F.SilkS")
+		(uuid "4599976b-4e5f-4b97-abd8-8479647fbcae")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "I2C3"
+		(at 112 102.5 0)
+		(layer "F.SilkS")
+		(uuid "94713a0e-7ba3-4abc-9841-f971f66283a2")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "AS5600"
+		(at 126 102.5 0)
+		(layer "F.SilkS")
+		(uuid "498cae1d-1d36-45e8-8acd-dbfa81d2d3ce")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "BUCK 5V"
+		(at 134 90.5 0)
+		(layer "F.SilkS")
+		(uuid "0ad9db1a-48a5-4619-b9e8-6bfed4d701bb")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "AUX 5V"
+		(at 142.9 34 90)
+		(layer "F.SilkS")
+		(uuid "eacae4d7-d7f6-41c8-9b1c-04ad760e4fc4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "FAN"
+		(at 142.9 47 90)
+		(layer "F.SilkS")
+		(uuid "24fefc5c-5971-467e-ba2a-4b872274010f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "1"
+		(at 31.5 78.8 0)
+		(layer "F.SilkS")
+		(uuid "d5f12cca-a64d-4ef6-91ff-287eeba287c4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.2)
+			)
+		)
+	)
+	(gr_text "OPI ZERO 3 RIBBON"
+		(at 49 79.6 0)
+		(layer "F.SilkS")
+		(uuid "d3f57eab-8ca3-44da-b7ce-97bb7115ccd0")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.2)
+			)
+		)
+	)
+	(gr_text "+"
+		(at 55.16 105.8 0)
+		(layer "F.SilkS")
+		(uuid "21190071-e663-464f-be94-b043f128c33e")
+		(effects
+			(font
+				(size 1.4 1.4)
+				(thickness 0.25)
+			)
+		)
+	)
+	(gr_text "-"
+		(at 60.24 105.8 0)
+		(layer "F.SilkS")
+		(uuid "9ccd014b-0a20-446a-9329-3ca6c96e1cef")
+		(effects
+			(font
+				(size 1.4 1.4)
+				(thickness 0.25)
+			)
+		)
+	)
 	(segment
 		(start 75.286 46.2296)
 		(end 71.5714 46.2296)
