@@ -9,3 +9,4 @@ fp-info-cache
 # Outputs are committed deliberately under hardware/fab/
 hardware/.history/
 __pycache__/
+boards/helm/.history/
