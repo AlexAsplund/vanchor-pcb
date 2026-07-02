@@ -24,6 +24,8 @@ graph LR
     PICO <-->|"can2040 + J12 xcvr + J5"| N2K[("NMEA2000")]
 ```
 
+*[static SVG](docs/diagrams/readme-overview.svg) — full diagram set: `docs/architecture.md`*
+
 
 Cost history: v1/v2 carried an on-board 800 W H-bridge; ten documented
 cost-optimization passes (see `docs/cost-optimization-log.md`) brought a

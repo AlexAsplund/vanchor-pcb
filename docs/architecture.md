@@ -1,7 +1,9 @@
 # Vanchor system architecture
 
 How the boards, sensors, networks and the tablet fit together.
-(All diagrams are Mermaid — GitHub renders them inline.)
+(Diagrams are Mermaid — github.com renders them in the file view.
+Viewing in a commit diff, the mobile app, or a non-GitHub viewer? Use the
+pre-rendered SVGs in `docs/diagrams/`, linked under each diagram.)
 
 ## System overview
 
@@ -47,6 +49,8 @@ graph TB
     HBRIDGE ==> MOTOR
 ```
 
+*[static SVG](diagrams/system-overview.svg)*
+
 Two supply domains, deliberately separate: the helm board takes a fused
 1.5 mm² feed for logic + servo (≤10 A), while the motor current
 (30–50 A) runs battery → thrust driver → motor on fat lugged cable and
@@ -73,6 +77,8 @@ graph LR
     FW -->|"status: angle, currents, vbat"| VNG
     SK -->|"WiFi: Signal K web, TCP 10110<br/>(NMEA0183 over IP)"| TAB["tablet: OpenCPN /<br/>Freeboard / WilhelmSK"]
 ```
+
+*[static SVG](diagrams/software-dataflow.svg)*
 
 The Zero 3's on-board WiFi runs as an access point (hostapd + dnsmasq) or
 joins the boat's network; the tablet needs nothing but a browser or a
@@ -110,6 +116,8 @@ graph LR
     P4 --- GNDS
 ```
 
+*[static SVG](diagrams/hwt901b-wiring.svg)*
+
 Notes: default 9600 baud (raise to 115200 with WitMotion's config tool);
 enable the `uart5` DT overlay → `/dev/ttyAS5`. **Mount the sensor ≥30 cm
 from the servo/thrust cables and the motor**, level, bow-aligned, and run
@@ -130,6 +138,8 @@ graph LR
     DEV["NMEA0183 talker<br/>(RS-422 A/B pair)"] --> CONV["RS422-to-TTL<br/>converter"] --> J4["helm J4<br/>UART2 TTL"] --> SK2["Signal K"]
     SK2 -->|"TCP 10110 over WiFi"| APP["tablet apps"]
 ```
+
+*[static SVG](diagrams/nmea0183.svg)*
 
 Outbound NMEA0183 (to a VHF with DSC, etc.) works the same way in
 reverse; Signal K converts between 0183 sentences, N2K PGNs and its own
@@ -157,6 +167,8 @@ graph LR
     BB --- SRC["GPS / wind / depth / AIS"]
 ```
 
+*[static SVG](diagrams/nmea2000.svg)*
+
 The Pico emulates an **Actisense NGT-1** over USB-CDC (or a UART jumper
 J4↔J12 GP0/GP1), so Signal K/canboat/OpenCPN consume the bus with zero
 custom drivers. Outbound, the autopilot broadcasts heading (127250),
@@ -178,6 +190,8 @@ graph TB
     HELM2 ---|"today: 8-wire J13 cable"| TD2
 ```
 
+*[static SVG](diagrams/n2k-nodes.svg)*
+
 ## Steering / thrust control loop
 
 ```mermaid
@@ -198,6 +212,8 @@ sequenceDiagram
     P-->>S: STATUS {angle, currents, vbat}
     S-->>T: telemetry / chart overlay
 ```
+
+*[static SVG](diagrams/control-loop.svg)*
 
 Failsafe chain: if the I²C command stream stops for 800 ms the Pico zeroes
 thrust and holds steering (the worm gear self-locks); if the Pico resets,
