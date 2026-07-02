@@ -7,3 +7,4 @@ fp-info-cache
 *.lck
 *.kicad_prl
 # Outputs are committed deliberately under hardware/fab/
+hardware/.history/
