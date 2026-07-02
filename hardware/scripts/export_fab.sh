@@ -11,7 +11,7 @@ docker exec vanchor-kicad kicad-cli pcb export gerbers \
   --layers "F.Cu,B.Cu,F.Paste,B.Paste,F.SilkS,B.SilkS,F.Mask,B.Mask,Edge.Cuts" \
   -o $FAB/gerbers/ $HW/vanchor-helm.kicad_pcb
 docker exec vanchor-kicad kicad-cli pcb export drill \
-  --format excellon --units mm --generate-map --map-format gerberx2 \
+  --format excellon --generate-map --map-format gerberx2 \
   -o $FAB/gerbers/ $HW/vanchor-helm.kicad_pcb
 
 # Position file (for reference; board is hand-assembled)
