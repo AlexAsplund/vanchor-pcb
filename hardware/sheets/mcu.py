@@ -22,9 +22,9 @@ COMPONENTS = [
             "9": "ENC_SDA", "10": "ENC_SCL",
             "11": "RPWM", "12": "LPWM", "13": "GND",
             "14": "R_EN", "15": "L_EN",
-            "16": "THR_AHI", "17": "THR_BHI", "18": "GND",
-            "19": "THR_ALI", "20": "THR_BLI",
-            "21": "THR_DIS", "22": "LED_STAT", "23": "GND",
+            "16": "THR_RPWM", "17": "THR_LPWM", "18": "GND",
+            "19": "THR_R_EN", "20": "THR_L_EN",
+            "21": None, "22": "LED_STAT", "23": "GND",
             "24": "PICO_GP18", "25": "PICO_GP19", "26": None,
             "27": None, "28": "GND", "29": None,  # GP20-22 unused
             "30": ".PICO_RUN",

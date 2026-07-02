@@ -1591,189 +1591,6 @@
     		)
     		(embedded_fonts no)
     	)
-    (symbol "Device:LED"
-    		(pin_numbers
-    			(hide yes)
-    		)
-    		(pin_names
-    			(offset 1.016)
-    			(hide yes)
-    		)
-    		(exclude_from_sim no)
-    		(in_bom yes)
-    		(on_board yes)
-    		(property "Reference" "D"
-    			(at 0 2.54 0)
-    			(effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    		)
-    		(property "Value" "LED"
-    			(at 0 -2.54 0)
-    			(effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    		)
-    		(property "Footprint" ""
-    			(at 0 0 0)
-    			(effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    				(hide yes)
-    			)
-    		)
-    		(property "Datasheet" "~"
-    			(at 0 0 0)
-    			(effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    				(hide yes)
-    			)
-    		)
-    		(property "Description" "Light emitting diode"
-    			(at 0 0 0)
-    			(effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    				(hide yes)
-    			)
-    		)
-    		(property "Sim.Pins" "1=K 2=A"
-    			(at 0 0 0)
-    			(effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    				(hide yes)
-    			)
-    		)
-    		(property "ki_keywords" "LED diode"
-    			(at 0 0 0)
-    			(effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    				(hide yes)
-    			)
-    		)
-    		(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
-    			(at 0 0 0)
-    			(effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    				(hide yes)
-    			)
-    		)
-    		(symbol "LED_0_1"
-    			(polyline
-    				(pts
-    					(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
-    				)
-    				(stroke
-    					(width 0)
-    					(type default)
-    				)
-    				(fill
-    					(type none)
-    				)
-    			)
-    			(polyline
-    				(pts
-    					(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
-    				)
-    				(stroke
-    					(width 0)
-    					(type default)
-    				)
-    				(fill
-    					(type none)
-    				)
-    			)
-    			(polyline
-    				(pts
-    					(xy -1.27 0) (xy 1.27 0)
-    				)
-    				(stroke
-    					(width 0)
-    					(type default)
-    				)
-    				(fill
-    					(type none)
-    				)
-    			)
-    			(polyline
-    				(pts
-    					(xy -1.27 -1.27) (xy -1.27 1.27)
-    				)
-    				(stroke
-    					(width 0.254)
-    					(type default)
-    				)
-    				(fill
-    					(type none)
-    				)
-    			)
-    			(polyline
-    				(pts
-    					(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
-    				)
-    				(stroke
-    					(width 0.254)
-    					(type default)
-    				)
-    				(fill
-    					(type none)
-    				)
-    			)
-    		)
-    		(symbol "LED_1_1"
-    			(pin passive line
-    				(at -3.81 0 0)
-    				(length 2.54)
-    				(name "K"
-    					(effects
-    						(font
-    							(size 1.27 1.27)
-    						)
-    					)
-    				)
-    				(number "1"
-    					(effects
-    						(font
-    							(size 1.27 1.27)
-    						)
-    					)
-    				)
-    			)
-    			(pin passive line
-    				(at 3.81 0 180)
-    				(length 2.54)
-    				(name "A"
-    					(effects
-    						(font
-    							(size 1.27 1.27)
-    						)
-    					)
-    				)
-    				(number "2"
-    					(effects
-    						(font
-    							(size 1.27 1.27)
-    						)
-    					)
-    				)
-    			)
-    		)
-    		(embedded_fonts no)
-    	)
     (symbol "Device:Polyfuse"
     		(pin_numbers
     			(hide yes)
@@ -2213,7 +2030,7 @@
     (instances (project "vanchor-helm" (path "/a0000000-0000-4000-8000-000000000001/c0000000-0000-4000-8000-000000000003" (reference "J1") (unit 1))))
   )
   (symbol (lib_id "Connector_Generic:Conn_02x20_Odd_Even") (at 149.86 95.25 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp yes)
     (uuid "97c645d0-969d-5476-9ad6-c885ca588c9a")
     (property "Reference" "J2" (at 149.86 87.63 0)
       (effects (font (size 1.27 1.27))))
@@ -2458,36 +2275,6 @@
     (pin "2" (uuid "95975401-d103-5b68-8599-9a6e2d424e28"))
     (instances (project "vanchor-helm" (path "/a0000000-0000-4000-8000-000000000001/c0000000-0000-4000-8000-000000000003" (reference "J10") (unit 1))))
   )
-  (symbol (lib_id "Device:R") (at 39.37 170.18 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid "0c3429ee-068b-5ad5-afec-94348ecf9912")
-    (property "Reference" "R7" (at 39.37 162.56 0)
-      (effects (font (size 1.27 1.27))))
-    (property "Value" "1k" (at 39.37 177.8 0)
-      (effects (font (size 1.27 1.27))))
-    (property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (at 39.37 170.18 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
-    (property "Datasheet" "" (at 39.37 170.18 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
-    (pin "1" (uuid "062a2018-1ebc-5b0f-a9fb-a90196f08445"))
-    (pin "2" (uuid "738e066b-c27a-5e6b-bbda-4f96a1cd9f39"))
-    (instances (project "vanchor-helm" (path "/a0000000-0000-4000-8000-000000000001/c0000000-0000-4000-8000-000000000003" (reference "R7") (unit 1))))
-  )
-  (symbol (lib_id "Device:LED") (at 82.55 170.18 0) (unit 1)
-    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
-    (uuid "fc014edb-edc2-5fbb-ba1a-cb3dd902ad32")
-    (property "Reference" "LED4" (at 82.55 162.56 0)
-      (effects (font (size 1.27 1.27))))
-    (property "Value" "green" (at 82.55 177.8 0)
-      (effects (font (size 1.27 1.27))))
-    (property "Footprint" "LED_THT:LED_D5.0mm" (at 82.55 170.18 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
-    (property "Datasheet" "" (at 82.55 170.18 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
-    (pin "1" (uuid "e9e3c96e-e3ce-5cda-a072-4ef655c80d56"))
-    (pin "2" (uuid "c2377bcd-51ed-5356-a066-b06c545801c7"))
-    (instances (project "vanchor-helm" (path "/a0000000-0000-4000-8000-000000000001/c0000000-0000-4000-8000-000000000003" (reference "LED4") (unit 1))))
-  )
   (symbol (lib_id "power:PWR_FLAG") (at 124.46 170.18 0) (unit 1)
     (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
     (uuid "2a3a236c-075f-565d-b93f-51f8176423b7")
@@ -2716,12 +2503,6 @@
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid "d150b0b8-baad-53a0-a698-3b080fae8340")
     (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 77.47 115.57 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
-  )
-  (global_label "PI_LED" (shape passive) (at 64.77 118.11 180.0) (fields_autoplaced yes)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid "e88f8d49-99a3-5a0f-a111-bd14c58306da")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 64.77 118.11 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
   )
   (global_label "PI_GPIO20" (shape passive) (at 77.47 118.11 0.0) (fields_autoplaced yes)
@@ -2958,12 +2739,6 @@
     (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 157.48 115.57 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
   )
-  (global_label "PI_LED" (shape passive) (at 144.78 118.11 180.0) (fields_autoplaced yes)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid "9fac4356-fe34-5bf1-9239-595324ed5a15")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 144.78 118.11 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
-  )
   (global_label "PI_GPIO20" (shape passive) (at 157.48 118.11 0.0) (fields_autoplaced yes)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid "d3f20970-a689-5f9a-b9ae-8005081936ed")
@@ -3186,31 +2961,12 @@
     (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 374.65 121.92 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
   )
-  (global_label "PI_LED" (shape passive) (at 39.37 166.37 90.0) (fields_autoplaced yes)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid "4de8c128-ab73-5852-92e2-8d42534a3f8b")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 39.37 166.37 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
-  )
-  (label "LED4_A" (at 39.37 173.99 270.0) (fields_autoplaced yes)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid "dd3ced0f-60aa-5e80-89c4-c8048b8610f1")
-  )
-  (label "LED4_A" (at 86.36 170.18 0.0) (fields_autoplaced yes)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid "b3ff271b-9082-5700-9afe-85a5eed7109c")
-  )
-  (global_label "GND" (shape passive) (at 78.74 170.18 180.0) (fields_autoplaced yes)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid "f0af099b-a8c7-5db6-8a3b-dd047970eaf4")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 78.74 170.18 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
-  )
   (global_label "3V3_PI" (shape passive) (at 124.46 170.18 270.0) (fields_autoplaced yes)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid "cd31bcb0-ab74-5102-b620-81cbe6fa46ed")
     (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 124.46 170.18 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
   )
-
+  (no_connect (at 64.77 118.11) (uuid "9eae8e87-2991-527a-8f18-71f4efcc6044"))
+  (no_connect (at 144.78 118.11) (uuid "815650e9-e253-53ec-9ffb-364752a06bfd"))
 )

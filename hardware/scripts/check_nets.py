@@ -37,17 +37,13 @@ EXPECTED = {
     "ENC_SDA": 3, "ENC_SCL": 3,      # U1, pull-up, series R
     "RPWM": 2, "LPWM": 2, "R_EN": 2, "L_EN": 2,  # U1 + BTN8982
     "SERVO_IS": 4,                   # U1, R18, D8, C12
-    "THR_IS": 5,                     # U1, R37, R38, C21, D14
+    "THR_IS": 6,                     # U1, R15, R16, R38, C21, D14
     "VBAT_SENSE": 5,                 # U1, R11, R12, C5, D6
-    "THR_AHI": 3, "THR_BHI": 3, "THR_ALI": 3, "THR_BLI": 3,  # U1, U9, pulldown
-    "THR_DIS": 3,                    # U1, U9, pull-up
-    "VBAT_PWR": 3,                   # lug, ACS758, F1
-    "VBRIDGE": 8,                    # ACS758, 4 FET drains, C18, C19, C20, D15
-    "MOTOR_A": 7,                    # 4 FETs, HIP AHS, C14, lug
-    "MOTOR_B": 7,
+    "THR_RPWM": 2, "THR_LPWM": 2,    # U1 + J13
+    "THR_R_EN": 3, "THR_L_EN": 3,    # U1, J13, pulldown
     "SERVO_A": 2, "SERVO_B": 2,      # BTN OUT + terminal
     "DISP_5V": 2,
-    "LED_STAT": 2, "PI_LED": 3,
+    "LED_STAT": 2,
 }
 
 

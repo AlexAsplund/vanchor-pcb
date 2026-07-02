@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/hardware/vanchor-helm.kicad_sch")
-		(date "2026-07-02T02:34:05")
+		(date "2026-07-02T07:25:59")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
@@ -883,114 +883,6 @@
 			)
 		)
 		(comp
-			(ref "LED2")
-			(value "green")
-			(footprint "LED_THT:LED_D5.0mm")
-			(fields
-				(field
-					(name "Footprint") "LED_THT:LED_D5.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "LED")
-				(description "Light emitting diode")
-			)
-			(property
-				(name "Sheetname")
-				(value "power")
-			)
-			(property
-				(name "Sheetfile")
-				(value "power.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "LED diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED* LED_SMD:* LED_THT:*")
-			)
-			(sheetpath
-				(names "/power/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "bf984e6a-c22d-54b5-9885-0b54747886b7")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "LED3")
-			(value "green")
-			(footprint "LED_THT:LED_D5.0mm")
-			(fields
-				(field
-					(name "Footprint") "LED_THT:LED_D5.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "LED")
-				(description "Light emitting diode")
-			)
-			(property
-				(name "Sheetname")
-				(value "power")
-			)
-			(property
-				(name "Sheetfile")
-				(value "power.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "LED diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED* LED_SMD:* LED_THT:*")
-			)
-			(sheetpath
-				(names "/power/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "a2c38c25-aeac-5336-bdb8-1cca22967e3a")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "Q1")
 			(value "IRF9540N")
 			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
@@ -1162,114 +1054,6 @@
 			)
 		)
 		(comp
-			(ref "R3")
-			(value "1k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "power")
-			)
-			(property
-				(name "Sheetfile")
-				(value "power.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/power/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "37a9046a-d189-56ab-b1b8-363959055326")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R4")
-			(value "4.7k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "power")
-			)
-			(property
-				(name "Sheetfile")
-				(value "power.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/power/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "1caec4e7-2298-5a0b-82c6-15a239ac9ed0")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "U5")
 			(value "D36V50F5")
 			(footprint "vanchor-helm:Pololu_D36V50Fx")
@@ -1365,6 +1149,9 @@
 			(property
 				(name "Sheetfile")
 				(value "power.kicad_sch")
+			)
+			(property
+				(name "dnp")
 			)
 			(sheetpath
 				(names "/power/")
@@ -1657,6 +1444,9 @@
 			(property
 				(name "Sheetfile")
 				(value "pi.kicad_sch")
+			)
+			(property
+				(name "dnp")
 			)
 			(property
 				(name "ki_keywords")
@@ -2310,60 +2100,6 @@
 			)
 		)
 		(comp
-			(ref "LED4")
-			(value "green")
-			(footprint "LED_THT:LED_D5.0mm")
-			(fields
-				(field
-					(name "Footprint") "LED_THT:LED_D5.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "LED")
-				(description "Light emitting diode")
-			)
-			(property
-				(name "Sheetname")
-				(value "pi")
-			)
-			(property
-				(name "Sheetfile")
-				(value "pi.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "LED diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED* LED_SMD:* LED_THT:*")
-			)
-			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
-			)
-			(tstamps "fc014edb-edc2-5fbb-ba1a-cb3dd902ad32")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "R5")
 			(value "2.2k")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
@@ -2463,60 +2199,6 @@
 				(tstamps "/c0000000-0000-4000-8000-000000000003/")
 			)
 			(tstamps "a259749b-4b82-53a8-b5e4-78b05ad17295")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R7")
-			(value "1k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "pi")
-			)
-			(property
-				(name "Sheetfile")
-				(value "pi.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
-			)
-			(tstamps "0c3429ee-068b-5ad5-afec-94348ecf9912")
 			(units
 				(unit
 					(name "A")
@@ -2674,6 +2356,9 @@
 			(property
 				(name "Sheetfile")
 				(value "mcu.kicad_sch")
+			)
+			(property
+				(name "dnp")
 			)
 			(property
 				(name "ki_keywords")
@@ -3282,402 +2967,6 @@
 			)
 		)
 		(comp
-			(ref "C14")
-			(value "1u/50V")
-			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-			(fields
-				(field
-					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "ba6be944-c4ff-5029-898f-21b02ef05e60")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C15")
-			(value "1u/50V")
-			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-			(fields
-				(field
-					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "d01b4eb2-3ece-5ac2-bc29-4eec84834a23")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C16")
-			(value "100n")
-			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-			(fields
-				(field
-					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "8f06311e-916d-5ed0-b5bb-2bf8441bffea")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C17")
-			(value "10u/25V")
-			(footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm")
-			(fields
-				(field
-					(name "Footprint") "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C_Polarized")
-				(description "Polarized capacitor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "CP_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "7816d670-4201-5bd9-adc9-10caee0e8be7")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C18")
-			(value "2200u/63V")
-			(footprint "Capacitor_THT:CP_Radial_D18.0mm_P7.50mm")
-			(fields
-				(field
-					(name "MPN") "UVR1J222MHD (2200uF/63V)")
-				(field
-					(name "Footprint") "Capacitor_THT:CP_Radial_D18.0mm_P7.50mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C_Polarized")
-				(description "Polarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "UVR1J222MHD (2200uF/63V)")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "CP_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "d422b6bd-6c50-598a-93d4-eee6f840944d")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C19")
-			(value "2200u/63V")
-			(footprint "Capacitor_THT:CP_Radial_D18.0mm_P7.50mm")
-			(fields
-				(field
-					(name "MPN") "UVR1J222MHD (2200uF/63V)")
-				(field
-					(name "Footprint") "Capacitor_THT:CP_Radial_D18.0mm_P7.50mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C_Polarized")
-				(description "Polarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "UVR1J222MHD (2200uF/63V)")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "CP_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "0768b981-efb6-5c54-8e11-c34015570c3b")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C20")
-			(value "1u/100V film")
-			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-			(fields
-				(field
-					(name "MPN") "MKT 1uF/100V (e.g. B32522C1105K)")
-				(field
-					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "MKT 1uF/100V (e.g. B32522C1105K)")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "fd874a7c-5a27-5ccf-be81-c3b11f815105")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "C21")
 			(value "100n")
 			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
@@ -3717,126 +3006,6 @@
 				(tstamps "/c0000000-0000-4000-8000-000000000005/")
 			)
 			(tstamps "cede63f0-b876-5430-92f2-2125265601c6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D12")
-			(value "UF4007")
-			(footprint "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "UF4007")
-				(field
-					(name "Footprint") "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Diode")
-				(part "1N4007")
-				(description "1000V 1A General Purpose Rectifier Diode, DO-41")
-			)
-			(property
-				(name "MPN")
-				(value "UF4007")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "D*DO?41*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "72997b81-47a0-574c-a8e5-7c5bff7c71f4")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D13")
-			(value "UF4007")
-			(footprint "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "UF4007")
-				(field
-					(name "Footprint") "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Diode")
-				(part "1N4007")
-				(description "1000V 1A General Purpose Rectifier Diode, DO-41")
-			)
-			(property
-				(name "MPN")
-				(value "UF4007")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "D*DO?41*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "98cb9fa6-07df-54a6-a017-36cd6651a57c")
 			(units
 				(unit
 					(name "A")
@@ -3915,74 +3084,12 @@
 			)
 		)
 		(comp
-			(ref "D15")
-			(value "SMCJ58A")
-			(footprint "Diode_SMD:D_SMC")
+			(ref "J13")
+			(value "THRUST DRV")
+			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
 			(fields
 				(field
-					(name "MPN") "SMCJ58A")
-				(field
-					(name "Footprint") "Diode_SMD:D_SMC")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "D_TVS")
-				(description "Bidirectional transient-voltage-suppression diode")
-			)
-			(property
-				(name "MPN")
-				(value "SMCJ58A")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "diode TVS thyrector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO-???* *_Diode_* *SingleDiode* D_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "10209873-10c3-54aa-8579-dff43c73b60d")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J18")
-			(value "LUG BATT+")
-			(footprint "vanchor-helm:Lug_M5")
-			(fields
-				(field
-					(name "MPN") "M5 bolt lug")
-				(field
-					(name "Footprint") "vanchor-helm:Lug_M5")
+					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
 				(field
 					(name "Datasheet")
 				)
@@ -3992,12 +3099,8 @@
 			)
 			(libsource
 				(lib "Connector_Generic")
-				(part "Conn_01x01")
-				(description "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "M5 bolt lug")
+				(part "Conn_01x08")
+				(description "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)")
 			)
 			(property
 				(name "Sheetname")
@@ -4019,235 +3122,7 @@
 				(names "/thrust/")
 				(tstamps "/c0000000-0000-4000-8000-000000000005/")
 			)
-			(tstamps "99e1f4c8-36a2-5c11-b6d7-c23ba0a9faab")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J19")
-			(value "LUG MOTOR A")
-			(footprint "vanchor-helm:Lug_M5")
-			(fields
-				(field
-					(name "MPN") "M5 bolt lug")
-				(field
-					(name "Footprint") "vanchor-helm:Lug_M5")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x01")
-				(description "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "M5 bolt lug")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "e58c2ffb-043a-58bd-b2bc-f370d7568761")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J20")
-			(value "LUG MOTOR B")
-			(footprint "vanchor-helm:Lug_M5")
-			(fields
-				(field
-					(name "MPN") "M5 bolt lug")
-				(field
-					(name "Footprint") "vanchor-helm:Lug_M5")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x01")
-				(description "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "M5 bolt lug")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "d1c35a8a-a1bf-59f1-827f-811a14cc25b6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J21")
-			(value "LUG GND")
-			(footprint "vanchor-helm:Lug_M5")
-			(fields
-				(field
-					(name "MPN") "M5 bolt lug")
-				(field
-					(name "Footprint") "vanchor-helm:Lug_M5")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x01")
-				(description "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "M5 bolt lug")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "4772a099-268f-550a-ae7b-31eef4911d8d")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q3")
-			(value "IRF100P219")
-			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
-			(fields
-				(field
-					(name "MPN") "IRF100P219")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "IRLZ44N")
-				(description "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB")
-			)
-			(property
-				(name "MPN")
-				(value "IRF100P219")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "N-Channel HEXFET MOSFET Logic-Level")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO?220*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "e673ed5e-9b39-5fcd-9e87-df263206b804")
+			(tstamps "1c90df18-f34d-5719-9570-ba2c0f12ba05")
 			(units
 				(unit
 					(name "A")
@@ -4261,458 +3136,32 @@
 						(pin
 							(num "3")
 						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q4")
-			(value "IRF100P219")
-			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
-			(fields
-				(field
-					(name "MPN") "IRF100P219")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "IRLZ44N")
-				(description "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB")
-			)
-			(property
-				(name "MPN")
-				(value "IRF100P219")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "N-Channel HEXFET MOSFET Logic-Level")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO?220*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "2e024504-371f-5e93-bb35-2f903b1c1e00")
-			(units
-				(unit
-					(name "A")
-					(pins
 						(pin
-							(num "1")
+							(num "4")
 						)
 						(pin
-							(num "2")
+							(num "5")
 						)
 						(pin
-							(num "3")
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "8")
 						)
 					)
 				)
 			)
 		)
 		(comp
-			(ref "Q5")
-			(value "IRF100P219")
-			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
+			(ref "R15")
+			(value "1k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
-					(name "MPN") "IRF100P219")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "IRLZ44N")
-				(description "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB")
-			)
-			(property
-				(name "MPN")
-				(value "IRF100P219")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "N-Channel HEXFET MOSFET Logic-Level")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO?220*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "994aa6b4-527d-5ac5-828d-a43bb82bcaef")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q6")
-			(value "IRF100P219")
-			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
-			(fields
-				(field
-					(name "MPN") "IRF100P219")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "IRLZ44N")
-				(description "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB")
-			)
-			(property
-				(name "MPN")
-				(value "IRF100P219")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "N-Channel HEXFET MOSFET Logic-Level")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO?220*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "49dcd6e5-b9be-539c-b43c-16c7d45d3182")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q7")
-			(value "IRF100P219")
-			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
-			(fields
-				(field
-					(name "MPN") "IRF100P219")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "IRLZ44N")
-				(description "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB")
-			)
-			(property
-				(name "MPN")
-				(value "IRF100P219")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "N-Channel HEXFET MOSFET Logic-Level")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO?220*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "d6474d3a-f6d2-5e5c-bc3b-9a465914a920")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q8")
-			(value "IRF100P219")
-			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
-			(fields
-				(field
-					(name "MPN") "IRF100P219")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "IRLZ44N")
-				(description "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB")
-			)
-			(property
-				(name "MPN")
-				(value "IRF100P219")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "N-Channel HEXFET MOSFET Logic-Level")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO?220*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "a2c79518-869e-5a21-9753-5b5cbb9a0ca9")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q9")
-			(value "IRF100P219")
-			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
-			(fields
-				(field
-					(name "MPN") "IRF100P219")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "IRLZ44N")
-				(description "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB")
-			)
-			(property
-				(name "MPN")
-				(value "IRF100P219")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "N-Channel HEXFET MOSFET Logic-Level")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO?220*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "642dc302-a43a-55fc-989c-1dd2ce2fac4c")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q10")
-			(value "IRF100P219")
-			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
-			(fields
-				(field
-					(name "MPN") "IRF100P219")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "IRLZ44N")
-				(description "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB")
-			)
-			(property
-				(name "MPN")
-				(value "IRF100P219")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "N-Channel HEXFET MOSFET Logic-Level")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO?220*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "f5e5fd52-9e5d-5328-bb27-a9aebbcca416")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R22")
-			(value "10R")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4745,7 +3194,7 @@
 				(names "/thrust/")
 				(tstamps "/c0000000-0000-4000-8000-000000000005/")
 			)
-			(tstamps "bf17dd0e-fc91-5620-a1a9-22b1b78ad4c4")
+			(tstamps "05e80102-209d-55b4-bd62-3e757973b1c8")
 			(units
 				(unit
 					(name "A")
@@ -4761,12 +3210,12 @@
 			)
 		)
 		(comp
-			(ref "R23")
-			(value "10R")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
+			(ref "R16")
+			(value "1k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 				(field
 					(name "Datasheet")
 				)
@@ -4799,331 +3248,7 @@
 				(names "/thrust/")
 				(tstamps "/c0000000-0000-4000-8000-000000000005/")
 			)
-			(tstamps "e4ead4f8-7b58-58eb-a3ab-78074b55d3cd")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R24")
-			(value "10R")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "224e2d1a-06ac-5a2a-abf4-8b5d33a8b703")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R25")
-			(value "10R")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "d8c9cd3c-d828-55f8-acc2-e12397f4eb69")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R26")
-			(value "10R")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "0c19ed28-d0c1-5fe7-bf8e-82742f85e53f")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R27")
-			(value "10R")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "44bf2594-9850-53cf-99a0-f8c945003fa2")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R28")
-			(value "10R")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "a9f3ce05-63d6-52bb-bbc1-7cf8d6426863")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R29")
-			(value "10R")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "209ec82a-89f7-5455-a261-8040cf306703")
+			(tstamps "35846ee6-4d16-5e14-8812-f6098664ba14")
 			(units
 				(unit
 					(name "A")
@@ -5140,7 +3265,7 @@
 		)
 		(comp
 			(ref "R30")
-			(value "150k")
+			(value "100k")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
@@ -5194,7 +3319,7 @@
 		)
 		(comp
 			(ref "R32")
-			(value "10k")
+			(value "100k")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
@@ -5232,276 +3357,6 @@
 				(tstamps "/c0000000-0000-4000-8000-000000000005/")
 			)
 			(tstamps "415bcb83-b9bd-5aa6-8cb0-4e05392c3a63")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R33")
-			(value "100k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "cee872a0-69c3-544d-aeeb-a7bc84cf9298")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R34")
-			(value "100k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "506c05a1-1b31-5911-bbce-16aeb74fcb33")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R35")
-			(value "100k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "51c218dd-138c-5829-a94e-179741f42298")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R36")
-			(value "100k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "c1a360ac-c506-509b-b295-b65cdf65de48")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R37")
-			(value "10k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "0fac4f47-9fad-5630-9d4d-854cef9cf91d")
 			(units
 				(unit
 					(name "A")
@@ -5565,177 +3420,6 @@
 						)
 						(pin
 							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "U9")
-			(value "HIP4082IPZ")
-			(footprint "Package_DIP:DIP-16_W7.62mm_Socket")
-			(fields
-				(field
-					(name "MPN") "HIP4082IPZ")
-				(field
-					(name "Footprint") "Package_DIP:DIP-16_W7.62mm_Socket")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Driver_FET")
-				(part "HIP4082xP")
-				(description "80V, 1.25A Peak Current H-Bridge FET Driver, DIP-16")
-			)
-			(property
-				(name "MPN")
-				(value "HIP4082IPZ")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "Driver H-bridge")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "DIP*W7.62mm*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "7135eb8b-b3c5-5fa1-9a91-f80ece15395f")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "8")
-						)
-						(pin
-							(num "7")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "5")
-						)
-						(pin
-							(num "12")
-						)
-						(pin
-							(num "6")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "9")
-						)
-						(pin
-							(num "16")
-						)
-						(pin
-							(num "15")
-						)
-						(pin
-							(num "14")
-						)
-						(pin
-							(num "13")
-						)
-						(pin
-							(num "11")
-						)
-						(pin
-							(num "10")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "U10")
-			(value "ACS758LCB-100B")
-			(footprint "Sensor_Current:Allegro_CB_PFF")
-			(fields
-				(field
-					(name "MPN") "ACS758LCB-100B-PFF-T")
-				(field
-					(name "Footprint") "Sensor_Current:Allegro_CB_PFF")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Sensor_Current")
-				(part "ACS758xCB-100B-PFF")
-				(description "±100A Bidirectional Hall-Effect Current Sensor, +5.0V supply, 20mV/A, CB-5 PFF")
-			)
-			(property
-				(name "MPN")
-				(value "ACS758LCB-100B-PFF-T")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "hall effect current monitor sensor isolated")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Allegro*CB*PFF*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "28d1cf33-08d8-5d47-be69-554eeaaa320d")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "5")
-						)
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
 						)
 					)
 				)
@@ -6442,7 +4126,7 @@
 		)
 		(comp
 			(ref "R39")
-			(value "51k")
+			(value "47k")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
@@ -6496,7 +4180,7 @@
 		)
 		(comp
 			(ref "R40")
-			(value "51k")
+			(value "47k")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
 			(fields
 				(field
@@ -6686,35 +4370,6 @@
 	(groups)
 	(variants)
 	(libparts
-		(libpart
-			(lib "Connector_Generic")
-			(part "Conn_01x01")
-			(description "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			(footprints
-				(fp "Connector*:*_1x??_*")
-			)
-			(fields
-				(field
-					(name "Reference") "J")
-				(field
-					(name "Value") "Conn_01x01")
-				(field
-					(name "Footprint")
-				)
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description") "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "Pin_1")
-					(type "passive")
-				)
-			)
-		)
 		(libpart
 			(lib "Connector_Generic")
 			(part "Conn_01x02")
@@ -7366,43 +5021,6 @@
 		)
 		(libpart
 			(lib "Diode")
-			(part "1N4007")
-			(description "1000V 1A General Purpose Rectifier Diode, DO-41")
-			(docs "http://www.vishay.com/docs/88503/1n4001.pdf")
-			(footprints
-				(fp "D*DO?41*")
-			)
-			(fields
-				(field
-					(name "Reference") "D")
-				(field
-					(name "Value") "1N4007")
-				(field
-					(name "Footprint") "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet") "http://www.vishay.com/docs/88503/1n4001.pdf")
-				(field
-					(name "Description") "1000V 1A General Purpose Rectifier Diode, DO-41")
-				(field
-					(name "Sim.Device") "D")
-				(field
-					(name "Sim.Pins") "1=K 2=A")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "K")
-					(type "passive")
-				)
-				(pin
-					(num "2")
-					(name "A")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
-			(lib "Diode")
 			(part "BAT54S")
 			(description "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323")
 			(docs "https://www.diodes.com/assets/Datasheets/ds11005.pdf")
@@ -7436,109 +5054,6 @@
 					(num "3")
 					(name "COM")
 					(type "passive")
-				)
-			)
-		)
-		(libpart
-			(lib "Driver_FET")
-			(part "HIP4082xP")
-			(description "80V, 1.25A Peak Current H-Bridge FET Driver, DIP-16")
-			(docs "https://www.renesas.com/www/doc/datasheet/hip4082.pdf")
-			(footprints
-				(fp "DIP*W7.62mm*")
-			)
-			(fields
-				(field
-					(name "Reference") "U")
-				(field
-					(name "Value") "HIP4082xP")
-				(field
-					(name "Footprint") "Package_DIP:DIP-16_W7.62mm")
-				(field
-					(name "Datasheet") "https://www.renesas.com/www/doc/datasheet/hip4082.pdf")
-				(field
-					(name "Description") "80V, 1.25A Peak Current H-Bridge FET Driver, DIP-16")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "BHB")
-					(type "input")
-				)
-				(pin
-					(num "2")
-					(name "BHI")
-					(type "input")
-				)
-				(pin
-					(num "3")
-					(name "BLI")
-					(type "input")
-				)
-				(pin
-					(num "4")
-					(name "ALI")
-					(type "input")
-				)
-				(pin
-					(num "5")
-					(name "DEL")
-					(type "passive")
-				)
-				(pin
-					(num "6")
-					(name "VSS")
-					(type "power_in")
-				)
-				(pin
-					(num "7")
-					(name "AHI")
-					(type "input")
-				)
-				(pin
-					(num "8")
-					(name "DIS")
-					(type "input")
-				)
-				(pin
-					(num "9")
-					(name "AHB")
-					(type "input")
-				)
-				(pin
-					(num "10")
-					(name "AHO")
-					(type "output")
-				)
-				(pin
-					(num "11")
-					(name "AHS")
-					(type "passive")
-				)
-				(pin
-					(num "12")
-					(name "VDD")
-					(type "power_in")
-				)
-				(pin
-					(num "13")
-					(name "ALO")
-					(type "output")
-				)
-				(pin
-					(num "14")
-					(name "BLO")
-					(type "output")
-				)
-				(pin
-					(num "15")
-					(name "BHS")
-					(type "passive")
-				)
-				(pin
-					(num "16")
-					(name "BHO")
-					(type "output")
 				)
 			)
 		)
@@ -7781,54 +5296,6 @@
 			)
 		)
 		(libpart
-			(lib "Sensor_Current")
-			(part "ACS758xCB-100B-PFF")
-			(description "±100A Bidirectional Hall-Effect Current Sensor, +5.0V supply, 20mV/A, CB-5 PFF")
-			(docs "http://www.allegromicro.com/~/media/Files/Datasheets/ACS758-Datasheet.ashx?la=en")
-			(footprints
-				(fp "Allegro*CB*PFF*")
-			)
-			(fields
-				(field
-					(name "Reference") "U")
-				(field
-					(name "Value") "ACS758xCB-100B-PFF")
-				(field
-					(name "Footprint") "Sensor_Current:Allegro_CB_PFF")
-				(field
-					(name "Datasheet") "http://www.allegromicro.com/~/media/Files/Datasheets/ACS758-Datasheet.ashx?la=en")
-				(field
-					(name "Description") "±100A Bidirectional Hall-Effect Current Sensor, +5.0V supply, 20mV/A, CB-5 PFF")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "VCC")
-					(type "power_in")
-				)
-				(pin
-					(num "2")
-					(name "GND")
-					(type "power_in")
-				)
-				(pin
-					(num "3")
-					(name "VIOUT")
-					(type "output")
-				)
-				(pin
-					(num "4")
-					(name "IP+")
-					(type "passive")
-				)
-				(pin
-					(num "5")
-					(name "IP-")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
 			(lib "Transistor_FET")
 			(part "IRF9540N")
 			(description "-23A Id, -100V Vds, 117mOhm Rds, P-Channel HEXFET Power MOSFET, TO-220")
@@ -7847,44 +5314,6 @@
 					(name "Datasheet") "http://www.irf.com/product-info/datasheets/data/irf9540n.pdf")
 				(field
 					(name "Description") "-23A Id, -100V Vds, 117mOhm Rds, P-Channel HEXFET Power MOSFET, TO-220")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "G")
-					(type "input")
-				)
-				(pin
-					(num "2")
-					(name "D")
-					(type "passive")
-				)
-				(pin
-					(num "3")
-					(name "S")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
-			(lib "Transistor_FET")
-			(part "IRLZ44N")
-			(description "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB")
-			(docs "http://www.irf.com/product-info/datasheets/data/irlz44n.pdf")
-			(footprints
-				(fp "TO?220*")
-			)
-			(fields
-				(field
-					(name "Reference") "Q")
-				(field
-					(name "Value") "IRLZ44N")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
-				(field
-					(name "Datasheet") "http://www.irf.com/product-info/datasheets/data/irlz44n.pdf")
-				(field
-					(name "Description") "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB")
 			)
 			(pins
 				(pin
@@ -8024,16 +5453,8 @@
 			(uri "${KICAD9_SYMBOL_DIR}/Diode.kicad_sym")
 		)
 		(library
-			(logical "Driver_FET")
-			(uri "${KICAD9_SYMBOL_DIR}/Driver_FET.kicad_sym")
-		)
-		(library
 			(logical "MCU_Module")
 			(uri "${KICAD9_SYMBOL_DIR}/MCU_Module.kicad_sym")
-		)
-		(library
-			(logical "Sensor_Current")
-			(uri "${KICAD9_SYMBOL_DIR}/Sensor_Current.kicad_sym")
 		)
 		(library
 			(logical "Transistor_FET")
@@ -8097,11 +5518,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R32")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
 				(ref "R9")
 				(pin "1")
 				(pintype "passive")
@@ -8140,6 +5556,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J13")
+				(pin "7")
+				(pinfunction "Pin_7_7")
+				(pintype "passive")
+			)
+			(node
 				(ref "J2")
 				(pin "2")
 				(pinfunction "Pin_2_2")
@@ -8158,20 +5580,9 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R3")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
 				(ref "U1")
 				(pin "39")
 				(pinfunction "VSYS_39")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U10")
-				(pin "1")
-				(pinfunction "VCC_1")
 				(pintype "power_in")
 			)
 			(node
@@ -8185,16 +5596,6 @@
 			(code "3")
 			(name "+12V")
 			(class "Default")
-			(node
-				(ref "C16")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "C17")
-				(pin "1")
-				(pintype "passive")
-			)
 			(node
 				(ref "C22")
 				(pin "1")
@@ -8211,26 +5612,9 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "D12")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "D13")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
 				(ref "J17")
 				(pin "2")
 				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R4")
-				(pin "1")
 				(pintype "passive")
 			)
 			(node
@@ -8249,12 +5633,6 @@
 				(ref "U8")
 				(pin "7")
 				(pinfunction "VS_7")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U9")
-				(pin "12")
-				(pinfunction "VDD_12")
 				(pintype "power_in")
 			)
 		)
@@ -8292,22 +5670,6 @@
 		)
 		(net
 			(code "6")
-			(name "/pi/LED4_A")
-			(class "Default")
-			(node
-				(ref "LED4")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R7")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "7")
 			(name "/power/BATT_IN")
 			(class "Default")
 			(node
@@ -8323,7 +5685,7 @@
 			)
 		)
 		(net
-			(code "8")
+			(code "7")
 			(name "/power/LED1_A")
 			(class "Default")
 			(node
@@ -8339,39 +5701,7 @@
 			)
 		)
 		(net
-			(code "9")
-			(name "/power/LED2_A")
-			(class "Default")
-			(node
-				(ref "LED2")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R3")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "10")
-			(name "/power/LED3_A")
-			(class "Default")
-			(node
-				(ref "LED3")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R4")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "11")
+			(code "8")
 			(name "/power/Q1_G")
 			(class "Default")
 			(node
@@ -8393,7 +5723,7 @@
 			)
 		)
 		(net
-			(code "12")
+			(code "9")
 			(name "/power/VIN_RAW")
 			(class "Default")
 			(node
@@ -8409,7 +5739,7 @@
 			)
 		)
 		(net
-			(code "13")
+			(code "10")
 			(name "/servo/ENC_SCL_J")
 			(class "Default")
 			(node
@@ -8431,7 +5761,7 @@
 			)
 		)
 		(net
-			(code "14")
+			(code "11")
 			(name "/servo/ENC_SDA_J")
 			(class "Default")
 			(node
@@ -8453,7 +5783,7 @@
 			)
 		)
 		(net
-			(code "15")
+			(code "12")
 			(name "/servo/SERVO_IS_RAW")
 			(class "Default")
 			(node
@@ -8480,7 +5810,7 @@
 			)
 		)
 		(net
-			(code "16")
+			(code "13")
 			(name "/servo/SR_A")
 			(class "Default")
 			(node
@@ -8496,7 +5826,7 @@
 			)
 		)
 		(net
-			(code "17")
+			(code "14")
 			(name "/servo/SR_B")
 			(class "Default")
 			(node
@@ -8512,295 +5842,39 @@
 			)
 		)
 		(net
-			(code "18")
-			(name "/thrust/AHB")
+			(code "15")
+			(name "/thrust/L_IS")
 			(class "Default")
 			(node
-				(ref "C14")
-				(pin "1")
+				(ref "J13")
+				(pin "6")
+				(pinfunction "Pin_6_6")
 				(pintype "passive")
 			)
 			(node
-				(ref "D12")
+				(ref "R16")
 				(pin "1")
-				(pinfunction "K_1")
 				(pintype "passive")
-			)
-			(node
-				(ref "U9")
-				(pin "9")
-				(pinfunction "AHB_9")
-				(pintype "input")
 			)
 		)
 		(net
-			(code "19")
-			(name "/thrust/AHO")
+			(code "16")
+			(name "/thrust/R_IS")
 			(class "Default")
 			(node
-				(ref "R22")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R23")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U9")
-				(pin "10")
-				(pinfunction "AHO_10")
-				(pintype "output")
-			)
-		)
-		(net
-			(code "20")
-			(name "/thrust/ALO")
-			(class "Default")
-			(node
-				(ref "R24")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R25")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U9")
-				(pin "13")
-				(pinfunction "ALO_13")
-				(pintype "output")
-			)
-		)
-		(net
-			(code "21")
-			(name "/thrust/BHB")
-			(class "Default")
-			(node
-				(ref "C15")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D13")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U9")
-				(pin "1")
-				(pinfunction "BHB_1")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "22")
-			(name "/thrust/BHO")
-			(class "Default")
-			(node
-				(ref "R26")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R27")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U9")
-				(pin "16")
-				(pinfunction "BHO_16")
-				(pintype "output")
-			)
-		)
-		(net
-			(code "23")
-			(name "/thrust/BLO")
-			(class "Default")
-			(node
-				(ref "R28")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "R29")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U9")
-				(pin "14")
-				(pinfunction "BLO_14")
-				(pintype "output")
-			)
-		)
-		(net
-			(code "24")
-			(name "/thrust/DEL")
-			(class "Default")
-			(node
-				(ref "R30")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U9")
+				(ref "J13")
 				(pin "5")
-				(pinfunction "DEL_5")
+				(pinfunction "Pin_5_5")
 				(pintype "passive")
 			)
-		)
-		(net
-			(code "25")
-			(name "/thrust/G_AH1")
-			(class "Default")
 			(node
-				(ref "Q3")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "R22")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "26")
-			(name "/thrust/G_AH2")
-			(class "Default")
-			(node
-				(ref "Q4")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "R23")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "27")
-			(name "/thrust/G_AL1")
-			(class "Default")
-			(node
-				(ref "Q5")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "R24")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "28")
-			(name "/thrust/G_AL2")
-			(class "Default")
-			(node
-				(ref "Q6")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "R25")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "29")
-			(name "/thrust/G_BH1")
-			(class "Default")
-			(node
-				(ref "Q7")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "R26")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "30")
-			(name "/thrust/G_BH2")
-			(class "Default")
-			(node
-				(ref "Q8")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "R27")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "31")
-			(name "/thrust/G_BL1")
-			(class "Default")
-			(node
-				(ref "Q9")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "R28")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "32")
-			(name "/thrust/G_BL2")
-			(class "Default")
-			(node
-				(ref "Q10")
-				(pin "1")
-				(pinfunction "G_1")
-				(pintype "input")
-			)
-			(node
-				(ref "R29")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "33")
-			(name "/thrust/THR_IS_5V")
-			(class "Default")
-			(node
-				(ref "R37")
+				(ref "R15")
 				(pin "1")
 				(pintype "passive")
 			)
-			(node
-				(ref "U10")
-				(pin "3")
-				(pinfunction "VIOUT_3")
-				(pintype "output")
-			)
 		)
 		(net
-			(code "34")
+			(code "17")
 			(name "3V3_PI")
 			(class "Default")
 			(node
@@ -8875,7 +5949,7 @@
 			)
 		)
 		(net
-			(code "35")
+			(code "18")
 			(name "DISP_5V")
 			(class "Default")
 			(node
@@ -8891,7 +5965,7 @@
 			)
 		)
 		(net
-			(code "36")
+			(code "19")
 			(name "ENC_SCL")
 			(class "Default")
 			(node
@@ -8912,7 +5986,7 @@
 			)
 		)
 		(net
-			(code "37")
+			(code "20")
 			(name "ENC_SDA")
 			(class "Default")
 			(node
@@ -8933,7 +6007,7 @@
 			)
 		)
 		(net
-			(code "38")
+			(code "21")
 			(name "GND")
 			(class "Default")
 			(node
@@ -8947,32 +6021,7 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "C16")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "C17")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "C18")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "C19")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
 				(ref "C2")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "C20")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -9022,12 +6071,6 @@
 				(ref "D14")
 				(pin "1")
 				(pinfunction "A_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D15")
-				(pin "2")
-				(pinfunction "A2_2")
 				(pintype "passive")
 			)
 			(node
@@ -9115,6 +6158,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J13")
+				(pin "8")
+				(pinfunction "Pin_8_8")
+				(pintype "passive")
+			)
+			(node
 				(ref "J16")
 				(pin "2")
 				(pinfunction "Pin_2_2")
@@ -9169,12 +6218,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "J21")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
 				(ref "J3")
 				(pin "4")
 				(pinfunction "Pin_4_4")
@@ -9223,51 +6266,9 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "LED2")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "LED3")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "LED4")
-				(pin "1")
-				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
 				(ref "LED5")
 				(pin "1")
 				(pinfunction "K_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q10")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q5")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q6")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q9")
-				(pin "3")
-				(pinfunction "S_3")
 				(pintype "passive")
 			)
 			(node
@@ -9291,22 +6292,7 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R33")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R34")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R35")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R36")
+				(ref "R32")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -9380,12 +6366,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U10")
-				(pin "2")
-				(pinfunction "GND_2")
-				(pintype "power_in")
-			)
-			(node
 				(ref "U5")
 				(pin "2")
 				(pinfunction "GND_2")
@@ -9409,15 +6389,9 @@
 				(pinfunction "GND_1")
 				(pintype "power_in")
 			)
-			(node
-				(ref "U9")
-				(pin "6")
-				(pinfunction "VSS_6")
-				(pintype "power_in")
-			)
 		)
 		(net
-			(code "39")
+			(code "22")
 			(name "LED_STAT")
 			(class "Default")
 			(node
@@ -9433,7 +6407,7 @@
 			)
 		)
 		(net
-			(code "40")
+			(code "23")
 			(name "LPWM")
 			(class "Default")
 			(node
@@ -9450,7 +6424,7 @@
 			)
 		)
 		(net
-			(code "41")
+			(code "24")
 			(name "L_EN")
 			(class "Default")
 			(node
@@ -9467,99 +6441,7 @@
 			)
 		)
 		(net
-			(code "42")
-			(name "MOTOR_A")
-			(class "Default")
-			(node
-				(ref "C14")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "J19")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q3")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q4")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q5")
-				(pin "2")
-				(pinfunction "D_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q6")
-				(pin "2")
-				(pinfunction "D_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U9")
-				(pin "11")
-				(pinfunction "AHS_11")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "43")
-			(name "MOTOR_B")
-			(class "Default")
-			(node
-				(ref "C15")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "J20")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q10")
-				(pin "2")
-				(pinfunction "D_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q7")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q8")
-				(pin "3")
-				(pinfunction "S_3")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q9")
-				(pin "2")
-				(pinfunction "D_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U9")
-				(pin "15")
-				(pinfunction "BHS_15")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "44")
+			(code "25")
 			(name "PICO_GP0")
 			(class "Default")
 			(node
@@ -9576,7 +6458,7 @@
 			)
 		)
 		(net
-			(code "45")
+			(code "26")
 			(name "PICO_GP1")
 			(class "Default")
 			(node
@@ -9593,7 +6475,7 @@
 			)
 		)
 		(net
-			(code "46")
+			(code "27")
 			(name "PICO_GP2")
 			(class "Default")
 			(node
@@ -9610,7 +6492,7 @@
 			)
 		)
 		(net
-			(code "47")
+			(code "28")
 			(name "PICO_GP3")
 			(class "Default")
 			(node
@@ -9627,7 +6509,7 @@
 			)
 		)
 		(net
-			(code "48")
+			(code "29")
 			(name "PICO_GP18")
 			(class "Default")
 			(node
@@ -9644,7 +6526,7 @@
 			)
 		)
 		(net
-			(code "49")
+			(code "30")
 			(name "PICO_GP19")
 			(class "Default")
 			(node
@@ -9661,7 +6543,7 @@
 			)
 		)
 		(net
-			(code "50")
+			(code "31")
 			(name "PI_GPIO6")
 			(class "Default")
 			(node
@@ -9678,7 +6560,7 @@
 			)
 		)
 		(net
-			(code "51")
+			(code "32")
 			(name "PI_GPIO7")
 			(class "Default")
 			(node
@@ -9695,7 +6577,7 @@
 			)
 		)
 		(net
-			(code "52")
+			(code "33")
 			(name "PI_GPIO10")
 			(class "Default")
 			(node
@@ -9712,7 +6594,7 @@
 			)
 		)
 		(net
-			(code "53")
+			(code "34")
 			(name "PI_GPIO11")
 			(class "Default")
 			(node
@@ -9729,7 +6611,7 @@
 			)
 		)
 		(net
-			(code "54")
+			(code "35")
 			(name "PI_GPIO16")
 			(class "Default")
 			(node
@@ -9746,7 +6628,7 @@
 			)
 		)
 		(net
-			(code "55")
+			(code "36")
 			(name "PI_GPIO18")
 			(class "Default")
 			(node
@@ -9763,7 +6645,7 @@
 			)
 		)
 		(net
-			(code "56")
+			(code "37")
 			(name "PI_GPIO19")
 			(class "Default")
 			(node
@@ -9780,7 +6662,7 @@
 			)
 		)
 		(net
-			(code "57")
+			(code "38")
 			(name "PI_GPIO20")
 			(class "Default")
 			(node
@@ -9797,7 +6679,7 @@
 			)
 		)
 		(net
-			(code "58")
+			(code "39")
 			(name "PI_GPIO21")
 			(class "Default")
 			(node
@@ -9814,7 +6696,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "40")
 			(name "PI_GPIO22")
 			(class "Default")
 			(node
@@ -9831,7 +6713,7 @@
 			)
 		)
 		(net
-			(code "60")
+			(code "41")
 			(name "PI_GPIO23")
 			(class "Default")
 			(node
@@ -9848,7 +6730,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "42")
 			(name "PI_GPIO24")
 			(class "Default")
 			(node
@@ -9871,7 +6753,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "43")
 			(name "PI_GPIO25")
 			(class "Default")
 			(node
@@ -9894,7 +6776,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "44")
 			(name "PI_GPIO27")
 			(class "Default")
 			(node
@@ -9911,29 +6793,7 @@
 			)
 		)
 		(net
-			(code "64")
-			(name "PI_LED")
-			(class "Default")
-			(node
-				(ref "J1")
-				(pin "37")
-				(pinfunction "Pin_37_37")
-				(pintype "passive")
-			)
-			(node
-				(ref "J2")
-				(pin "37")
-				(pinfunction "Pin_37_37")
-				(pintype "passive")
-			)
-			(node
-				(ref "R7")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "65")
+			(code "45")
 			(name "PI_PICO_RUN")
 			(class "Default")
 			(node
@@ -9955,7 +6815,7 @@
 			)
 		)
 		(net
-			(code "66")
+			(code "46")
 			(name "PI_SCL")
 			(class "Default")
 			(node
@@ -9989,7 +6849,7 @@
 			)
 		)
 		(net
-			(code "67")
+			(code "47")
 			(name "PI_SDA")
 			(class "Default")
 			(node
@@ -10023,7 +6883,7 @@
 			)
 		)
 		(net
-			(code "68")
+			(code "48")
 			(name "RPWM")
 			(class "Default")
 			(node
@@ -10040,7 +6900,7 @@
 			)
 		)
 		(net
-			(code "69")
+			(code "49")
 			(name "R_EN")
 			(class "Default")
 			(node
@@ -10057,7 +6917,7 @@
 			)
 		)
 		(net
-			(code "70")
+			(code "50")
 			(name "SERVO_A")
 			(class "Default")
 			(node
@@ -10074,7 +6934,7 @@
 			)
 		)
 		(net
-			(code "71")
+			(code "51")
 			(name "SERVO_B")
 			(class "Default")
 			(node
@@ -10091,7 +6951,7 @@
 			)
 		)
 		(net
-			(code "72")
+			(code "52")
 			(name "SERVO_IS")
 			(class "Default")
 			(node
@@ -10118,117 +6978,7 @@
 			)
 		)
 		(net
-			(code "73")
-			(name "THR_AHI")
-			(class "Default")
-			(node
-				(ref "R33")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "16")
-				(pinfunction "GPIO12_16")
-				(pintype "bidirectional")
-			)
-			(node
-				(ref "U9")
-				(pin "7")
-				(pinfunction "AHI_7")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "74")
-			(name "THR_ALI")
-			(class "Default")
-			(node
-				(ref "R35")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "19")
-				(pinfunction "GPIO14_19")
-				(pintype "bidirectional")
-			)
-			(node
-				(ref "U9")
-				(pin "4")
-				(pinfunction "ALI_4")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "75")
-			(name "THR_BHI")
-			(class "Default")
-			(node
-				(ref "R34")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "17")
-				(pinfunction "GPIO13_17")
-				(pintype "bidirectional")
-			)
-			(node
-				(ref "U9")
-				(pin "2")
-				(pinfunction "BHI_2")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "76")
-			(name "THR_BLI")
-			(class "Default")
-			(node
-				(ref "R36")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "20")
-				(pinfunction "GPIO15_20")
-				(pintype "bidirectional")
-			)
-			(node
-				(ref "U9")
-				(pin "3")
-				(pinfunction "BLI_3")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "77")
-			(name "THR_DIS")
-			(class "Default")
-			(node
-				(ref "R32")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "21")
-				(pinfunction "GPIO16_21")
-				(pintype "bidirectional")
-			)
-			(node
-				(ref "U9")
-				(pin "8")
-				(pinfunction "DIS_8")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "78")
+			(code "53")
 			(name "THR_IS")
 			(class "Default")
 			(node
@@ -10243,7 +6993,12 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R37")
+				(ref "R15")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R16")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -10260,7 +7015,85 @@
 			)
 		)
 		(net
-			(code "79")
+			(code "54")
+			(name "THR_LPWM")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "17")
+				(pinfunction "GPIO13_17")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "55")
+			(name "THR_L_EN")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "4")
+				(pinfunction "Pin_4_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "R32")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "20")
+				(pinfunction "GPIO15_20")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "56")
+			(name "THR_RPWM")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "16")
+				(pinfunction "GPIO12_16")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "57")
+			(name "THR_R_EN")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "3")
+				(pinfunction "Pin_3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R30")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "19")
+				(pinfunction "GPIO14_19")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "58")
 			(name "UART0_RX")
 			(class "Default")
 			(node
@@ -10283,7 +7116,7 @@
 			)
 		)
 		(net
-			(code "80")
+			(code "59")
 			(name "UART0_TX")
 			(class "Default")
 			(node
@@ -10306,7 +7139,7 @@
 			)
 		)
 		(net
-			(code "81")
+			(code "60")
 			(name "UART2_RX")
 			(class "Default")
 			(node
@@ -10329,7 +7162,7 @@
 			)
 		)
 		(net
-			(code "82")
+			(code "61")
 			(name "UART2_TX")
 			(class "Default")
 			(node
@@ -10352,7 +7185,7 @@
 			)
 		)
 		(net
-			(code "83")
+			(code "62")
 			(name "UART3_RX")
 			(class "Default")
 			(node
@@ -10375,7 +7208,7 @@
 			)
 		)
 		(net
-			(code "84")
+			(code "63")
 			(name "UART3_TX")
 			(class "Default")
 			(node
@@ -10398,7 +7231,7 @@
 			)
 		)
 		(net
-			(code "85")
+			(code "64")
 			(name "UART4_RX")
 			(class "Default")
 			(node
@@ -10421,7 +7254,7 @@
 			)
 		)
 		(net
-			(code "86")
+			(code "65")
 			(name "UART4_TX")
 			(class "Default")
 			(node
@@ -10444,7 +7277,7 @@
 			)
 		)
 		(net
-			(code "87")
+			(code "66")
 			(name "UART5_RX")
 			(class "Default")
 			(node
@@ -10467,7 +7300,7 @@
 			)
 		)
 		(net
-			(code "88")
+			(code "67")
 			(name "UART5_TX")
 			(class "Default")
 			(node
@@ -10490,24 +7323,7 @@
 			)
 		)
 		(net
-			(code "89")
-			(name "VBAT_PWR")
-			(class "Default")
-			(node
-				(ref "J18")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U10")
-				(pin "4")
-				(pinfunction "IP+_4")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "90")
+			(code "68")
 			(name "VBAT_SENSE")
 			(class "Default")
 			(node
@@ -10539,63 +7355,7 @@
 			)
 		)
 		(net
-			(code "91")
-			(name "VBRIDGE")
-			(class "Default")
-			(node
-				(ref "C18")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "C19")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "C20")
-				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "D15")
-				(pin "1")
-				(pinfunction "A1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q3")
-				(pin "2")
-				(pinfunction "D_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q4")
-				(pin "2")
-				(pinfunction "D_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q7")
-				(pin "2")
-				(pinfunction "D_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "Q8")
-				(pin "2")
-				(pinfunction "D_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U10")
-				(pin "5")
-				(pinfunction "IP-_5")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "92")
+			(code "69")
 			(name "VIN")
 			(class "Default")
 			(node
@@ -10656,7 +7416,29 @@
 			)
 		)
 		(net
-			(code "93")
+			(code "70")
+			(name "unconnected-(J1-Pin_37-Pad37)")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "37")
+				(pinfunction "Pin_37_37")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "71")
+			(name "unconnected-(J2-Pin_37-Pad37)")
+			(class "Default")
+			(node
+				(ref "J2")
+				(pin "37")
+				(pinfunction "Pin_37_37")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "72")
 			(name "unconnected-(U1-3V3_EN-Pad37)")
 			(class "Default")
 			(node
@@ -10667,7 +7449,7 @@
 			)
 		)
 		(net
-			(code "94")
+			(code "73")
 			(name "unconnected-(U1-ADC_VREF-Pad35)")
 			(class "Default")
 			(node
@@ -10678,7 +7460,18 @@
 			)
 		)
 		(net
-			(code "95")
+			(code "74")
+			(name "unconnected-(U1-GPIO16-Pad21)")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "21")
+				(pinfunction "GPIO16_21")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "75")
 			(name "unconnected-(U1-GPIO20-Pad26)")
 			(class "Default")
 			(node
@@ -10689,7 +7482,7 @@
 			)
 		)
 		(net
-			(code "96")
+			(code "76")
 			(name "unconnected-(U1-GPIO21-Pad27)")
 			(class "Default")
 			(node
@@ -10700,7 +7493,7 @@
 			)
 		)
 		(net
-			(code "97")
+			(code "77")
 			(name "unconnected-(U1-GPIO22-Pad29)")
 			(class "Default")
 			(node
@@ -10711,7 +7504,7 @@
 			)
 		)
 		(net
-			(code "98")
+			(code "78")
 			(name "unconnected-(U1-VBUS-Pad40)")
 			(class "Default")
 			(node
@@ -10722,7 +7515,7 @@
 			)
 		)
 		(net
-			(code "99")
+			(code "79")
 			(name "unconnected-(U5-EN-Pad4)")
 			(class "Default")
 			(node
@@ -10733,7 +7526,7 @@
 			)
 		)
 		(net
-			(code "100")
+			(code "80")
 			(name "unconnected-(U5-PG-Pad5)")
 			(class "Default")
 			(node
@@ -10744,7 +7537,7 @@
 			)
 		)
 		(net
-			(code "101")
+			(code "81")
 			(name "unconnected-(U5-VRP-Pad6)")
 			(class "Default")
 			(node
@@ -10755,7 +7548,7 @@
 			)
 		)
 		(net
-			(code "102")
+			(code "82")
 			(name "unconnected-(U6-EN-Pad4)")
 			(class "Default")
 			(node
@@ -10766,7 +7559,7 @@
 			)
 		)
 		(net
-			(code "103")
+			(code "83")
 			(name "unconnected-(U6-PG-Pad5)")
 			(class "Default")
 			(node
@@ -10777,7 +7570,7 @@
 			)
 		)
 		(net
-			(code "104")
+			(code "84")
 			(name "unconnected-(U6-VRP-Pad6)")
 			(class "Default")
 			(node
