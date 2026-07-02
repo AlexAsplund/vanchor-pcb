@@ -27,9 +27,9 @@ COMPONENTS = [
          at=(130, 100, 0), pins={
             "1": "GND", "2": "LPWM", "3": "L_EN",
             "4": "SERVO_B", "5": ".SR_B", "6": ".SERVO_IS_RAW", "7": "+12V"}),
-    dict(lib="Device:R", ref="R39", value="51k", fp=R_AX,     # slew-rate set
+    dict(lib="Device:R", ref="R39", value="47k", fp=R_AX,     # slew-rate set
          at=grid(0), pins={"1": ".SR_A", "2": "GND"}),
-    dict(lib="Device:R", ref="R40", value="51k", fp=R_AX,
+    dict(lib="Device:R", ref="R40", value="47k", fp=R_AX,
          at=grid(1), pins={"1": ".SR_B", "2": "GND"}),
     dict(lib="Device:C_Polarized", ref="C22", value="220u/25V",
          fp="Capacitor_THT:CP_Radial_D8.0mm_P3.50mm",

@@ -60,7 +60,7 @@ COMPONENTS = [
     dict(lib="Device:LED", ref="LED5", value="yellow", fp=LED5MM,
          at=grid(8), pins={"2": ".LED5_A", "1": "GND"}),
 
-    dict(lib="Connector_Generic:Conn_01x08", ref="J12", value="PICO UTIL", fp=HDR1x8,
+    dict(lib="Connector_Generic:Conn_01x08", ref="J12", value="PICO UTIL", fp=HDR1x8, dnp=True,
          at=(200, 110, 0), pins={
             "1": "+3V3", "2": "PICO_GP0", "3": "PICO_GP1", "4": "PICO_GP2",
             "5": "PICO_GP3", "6": "PICO_GP18", "7": "PICO_GP19", "8": "GND"}),

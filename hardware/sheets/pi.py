@@ -50,7 +50,7 @@ PI40 = {
     "34": "GND",
     "35": "PI_GPIO19",
     "36": "PI_GPIO16",
-    "37": "PI_LED",           # GPIO26 heartbeat LED
+    "37": None,               # GPIO26 free (heartbeat LED dropped, pass 2)
     "38": "PI_GPIO20",
     "39": "GND",
     "40": "PI_GPIO21",
@@ -59,7 +59,7 @@ PI40 = {
 COMPONENTS = [
     dict(lib="Connector_Generic:Conn_02x20_Odd_Even", ref="J1", value="PI_40PIN_STACK",
          fp=PSOCK2x20, at=(70, 95, 0), pins=dict(PI40)),
-    dict(lib="Connector_Generic:Conn_02x20_Odd_Even", ref="J2", value="PI_BREAKOUT",
+    dict(lib="Connector_Generic:Conn_02x20_Odd_Even", ref="J2", value="PI_BREAKOUT", dnp=True,
          fp=HDR2x20, at=(150, 95, 0), pins=dict(PI40)),
 
     dict(lib="Connector_Generic:Conn_01x04", ref="J3", value="UART0 ttyAMA0", fp=XH4,
@@ -87,10 +87,6 @@ COMPONENTS = [
     dict(lib="Connector_Generic:Conn_01x02", ref="J10", value="DISP PWR 5V", fp=XH2,
          at=(380, 120, 0), pins={"1": "DISP_5V", "2": "GND"}),
 
-    dict(lib="Device:R", ref="R7", value="1k", fp=R_AX,
-         at=grid(0), pins={"1": "PI_LED", "2": ".LED4_A"}),
-    dict(lib="Device:LED", ref="LED4", value="green", fp=LED5MM,
-         at=grid(1), pins={"2": ".LED4_A", "1": "GND"}),
     dict(lib="power:PWR_FLAG", ref="#FLG04", value="PWR_FLAG",
          at=grid(2), pins={"1": "3V3_PI"}),
 ]
