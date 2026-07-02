@@ -15,10 +15,13 @@ TEXTS = [
 ]
 
 COMPONENTS = [
-    # Board logic taps the battery at the BATT+ lug (thrust sheet), upstream
-    # of the ACS758 so board loads don't pollute the motor-current reading.
+    # Logic feed: its own small terminal, wired externally to the BATT+ lug
+    # (or a separate house battery). Keeps the 67A pour region free of a
+    # logic trace and keeps board draw out of the ACS758 reading.
+    dict(lib="Connector_Generic:Conn_01x02", ref="J16", value="LOGIC 12-48V", fp=TB2,
+         at=(40, 70, 0), pins={"1": ".BATT_IN", "2": "GND"}),
     dict(lib="Device:Fuse", ref="F1", value="10A blade", fp=FUSE_BLADE,
-         at=(70, 70, 0), pins={"1": "VBAT_PWR", "2": ".VIN_RAW"}),
+         at=(70, 70, 0), pins={"1": ".BATT_IN", "2": ".VIN_RAW"}),
     dict(lib="Transistor_FET:IRF9540N", ref="Q1", value="IRF9540N", fp=TO220,
          at=(105, 70, 0), pins={"1": ".Q1_G", "2": ".VIN_RAW", "3": "VIN"}),
     dict(lib="Device:R", ref="R1", value="47k", fp=R_AX,

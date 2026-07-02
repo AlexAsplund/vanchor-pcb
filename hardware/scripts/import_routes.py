@@ -6,11 +6,62 @@ BOARD = "/config/vanchor-pcb/hardware/vanchor-helm.kicad_pcb"
 SES = "/config/vanchor-pcb/hardware/vanchor-helm.ses"
 OX, OY = 20.0, 20.0
 
+# The board file must be the exact BASE_GND=0 variant the DSN was exported
+# from; the session replaces its routing 1:1. Base GND pours are added HERE,
+# after import, so they never round-trip through freerouting.
 board = pcbnew.LoadBoard(BOARD)
 ok = pcbnew.ImportSpecctraSES(board, SES)
 print("SES import:", ok)
 if not ok:
     raise SystemExit(1)
+
+W, H = 160.0, 120.0
+have_base = any(z.GetNetname() == "GND" and not z.GetZoneName() and
+                z.GetAssignedPriority() == 0 for z in board.Zones())
+if not have_base:
+    gndnet = board.GetNetsByName()["GND"]
+
+    def add_gnd_zone(layer, pts, priority, solid):
+        zone = pcbnew.ZONE(board)
+        zone.SetLayer(layer)
+        zone.SetNet(gndnet)
+        outline = zone.Outline()
+        outline.NewOutline()
+        for px, py in pts:
+            outline.Append(pcbnew.VECTOR2I_MM(OX + px, OY + py))
+        zone.SetAssignedPriority(priority)
+        zone.SetPadConnection(pcbnew.ZONE_CONNECTION_FULL if solid
+                              else pcbnew.ZONE_CONNECTION_THERMAL)
+        zone.SetMinThickness(pcbnew.FromMM(0.25))
+        zone.SetThermalReliefGap(pcbnew.FromMM(0.5))
+        zone.SetThermalReliefSpokeWidth(pcbnew.FromMM(1.0))
+        zone.SetLocalClearance(pcbnew.FromMM(0.5))
+        board.Add(zone)
+
+    # power-band GND copper (was omitted in the routable-GND export variant)
+    add_gnd_zone(pcbnew.F_Cu,
+                 [(1, 98.6), (19, 98.6), (19, 114), (1, 114)], 40, True)
+    add_gnd_zone(pcbnew.F_Cu,
+                 [(25.5, 96.8), (35, 96.8), (35, 101.4), (25.5, 101.4)], 41, True)
+    add_gnd_zone(pcbnew.B_Cu,
+                 [(0.6, 0.6), (56, 0.6), (56, 119.4), (0.6, 119.4)], 1, True)
+    for layer in (pcbnew.F_Cu, pcbnew.B_Cu):
+        zone = pcbnew.ZONE(board)
+        zone.SetLayer(layer)
+        zone.SetNet(gndnet)
+        outline = zone.Outline()
+        outline.NewOutline()
+        for px, py in [(0, 0), (W, 0), (W, H), (0, H)]:
+            outline.Append(pcbnew.VECTOR2I_MM(OX + px, OY + py))
+        zone.SetAssignedPriority(0)
+        zone.SetPadConnection(pcbnew.ZONE_CONNECTION_THERMAL)
+        zone.SetMinThickness(pcbnew.FromMM(0.25))
+        zone.SetThermalReliefGap(pcbnew.FromMM(0.5))
+        zone.SetThermalReliefSpokeWidth(pcbnew.FromMM(1.0))
+        zone.SetLocalClearance(pcbnew.FromMM(0.5))
+        board.Add(zone)
+    print("base GND pours added")
+
 filler = pcbnew.ZONE_FILLER(board)
 filler.Fill(board.Zones())
 
@@ -31,9 +82,18 @@ def area_ok(zs, layer, x, y, m=0.7):
                for dx in (-m, 0, m) for dy in (-m, 0, m))
 
 
+# keep stitching vias clear of the power lugs (hole-to-hole spacing)
+lugs = []
+for fp in board.GetFootprints():
+    if fp.GetReference() in ("J18", "J19", "J20", "J21"):
+        p0 = fp.GetPosition()
+        lugs.append((pcbnew.ToMM(p0.x) - OX, pcbnew.ToMM(p0.y) - OY))
+
 added = 0
 for xi in range(4, 157, 7):
     for yi in range(4, 117, 7):
+        if any((xi - lx) ** 2 + (yi - ly) ** 2 < 8 ** 2 for lx, ly in lugs):
+            continue
         if area_ok(fz, pcbnew.F_Cu, xi, yi) and area_ok(bz, pcbnew.B_Cu, xi, yi):
             via = pcbnew.PCB_VIA(board)
             via.SetPosition(pcbnew.VECTOR2I_MM(OX + xi, OY + yi))
