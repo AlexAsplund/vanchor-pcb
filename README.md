@@ -25,6 +25,15 @@ cost-optimization passes (see `docs/cost-optimization-log.md`) brought a
 12 V build from ~$111 to **~$41 per assembled board** (~$35 parts + ~$6 PCB).
 The v2 on-board-bridge design remains available at git tag/commit `bf91c4a`.
 
+## Boards
+
+- `boards/helm/` — the helm/carrier board (Orange Pi Zero 3 + Pico 2, servo
+  bridge, XL4015 buck daughterboard, PWM output header J13).
+- `boards/thrust-driver/` — 12-24 V trolling-motor H-bridge (2-4× BTN8982TA),
+  connects to helm J13 with a straight 8-wire cable. See its README for the
+  base (~30 A) vs high-power (~50 A) variants and the solder-lane
+  reinforcement technique.
+
 ## Repository layout
 
 | Path | Content |

@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "vanchor-helm")(type "KiCad")(uri "${KIPRJMOD}/../helm/vanchor-helm-lib.kicad_sym")(options "")(descr "shared project symbols"))
+)

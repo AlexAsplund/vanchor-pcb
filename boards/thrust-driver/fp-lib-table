@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "vanchor-helm")(type "KiCad")(uri "${KIPRJMOD}/../helm/footprints.pretty")(options "")(descr "shared project footprints"))
+)
