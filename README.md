@@ -2,7 +2,7 @@
 
 Carrier PCB for the [vanchor-ng](../vanchor-ng) trolling-motor autopilot:
 a **Raspberry Pi 4/5** (autopilot computer) + **Raspberry Pi Pico 2** (real-time
-motor controller, I²C slave) on one 160×120 mm 2-layer board (**order in 2 oz
+motor controller, I²C slave) on one 200×150 mm 2-layer board (**order in 2 oz
 copper**) with BOTH motor drivers on board.
 
 ```

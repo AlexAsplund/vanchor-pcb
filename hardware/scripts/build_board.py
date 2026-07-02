@@ -1,19 +1,26 @@
 #!/usr/bin/env python3
-"""Build vanchor-helm.kicad_pcb from the exported netlist + placement table.
+"""Build vanchor-helm.kicad_pcb (v2, 200x150mm) from netlist + placement.
 
-Run inside the container:
-    python3 build_board.py
+v2 design goals (lessons from the 160x120 v1):
+- Generous spacing everywhere: 14mm FET pitch, 15mm JST pitch, 20mm+ routing
+  corridors. The autorouter converges cleanly when it has room.
+- Pre-lay ONLY the high-current copper (VBRIDGE spine, MOTOR rails, lug
+  feeders, battery pocket). Every logic net is left to freerouting.
+- No pre-laid vias (they hang freerouting 1.9's DSN preprocessing).
 
-Placement philosophy (board plan coords, 0..100 x, 0..110 y, origin top-left;
-absolute board coords add OFFSET):
-- Pi 4/5 mounts flat over the right/centre of the board on 11 mm stacking
-  header J1; its USB/ETH end overhangs the right board edge. All 4 standoffs
-  on-board. Only low-profile parts (<9 mm) under the Pi.
-- Top band: JST connector row (UARTs, I2C). Right edge: AS5600 + display JSTs.
-- Left band: J2 GPIO breakout column + the two Pololu buck modules.
-- Bottom band: screw terminals (battery, knob, 12V link, contactor), fuse,
-  bulk caps, fan, then header row (J12 utility, J15 IBT-2).
-- Under Pi: Pico (soldered direct), DIP sockets, flat TO-220s, passives.
+Zones (plan coords, 0..200 x / 0..150 y):
+- x 0..70   thrust power stage: mirrored FET columns (A x10, B x60), gate
+            resistors outboard (x4 / x66), VBRIDGE spine x31..41 with the
+            bulk caps' + pads inside and GND pads in the 41..46 gap, MOTOR
+            rails x16..24 / x46..54 with lug arms, driver block at the bottom.
+- x 72..118 mid band: GPIO breakout, bucks, input protection, servo bridge,
+            small logic, bottom terminal row.
+- x 115..200 Pi field: Pi mounts BELOW (flush, no overhang), Pico 2 above it
+            on the top side, JST row along the top edge, LEDs, right-edge
+            display/AS5600 JSTs.
+
+Run inside the container:  python3 build_board.py   (BASE_GND=0 for the
+routable-GND freerouting variant; import_routes.py restores the pours).
 """
 import os
 import re
@@ -27,109 +34,83 @@ NETLIST = f"{HW}/vanchor-helm.net"
 BOARD = f"{HW}/vanchor-helm.kicad_pcb"
 STD_FP = "/usr/share/kicad/footprints"
 
-OX, OY = 20.0, 20.0     # board origin offset in page coords
-W, H = 160.0, 120.0     # board size (power stage adds a 58mm left band)
-XS = 58.0               # x-shift applied to the pre-revision layout
+OX, OY = 20.0, 20.0
+W, H = 200.0, 150.0
 
-# Geometry-critical parts, anchored by PAD position with auto-solved rotation.
-# ref -> (pad-anchored target, {pad: expected offset from pad1 after rotation})
-# J1 defines where the Pi sits: pad1 = Pi header pin1; even row toward Pi edge
-# (top, -y); pins increase along +x. Pi mounting holes in MOUNTING must match.
-# J1 is flipped to the board bottom: the Pi stacks BENEATH the carrier via an
-# extra-tall (19.5mm) stacking header, HAT-style, clearing its USB/ETH tower.
-# Viewed from the carrier top, the Pi below has even pins toward its board
-# edge (-y) and pins increasing +x — reachable only with the bottom-side flip.
+# Pad-anchored, rotation-auto-solved parts. J1 flips to the bottom (the Pi
+# stacks beneath, HAT-style, on a 19.5mm header). Pi is fully on-board:
+# holes (118.5/176.5, 28.5/77.5), pin1 = left hole + 4.87mm along the edge.
 ANCHORED = {
-    "J1": ((41.37 + 58, 26.77), {"2": (0, -2.54), "3": (2.54, 0)}, True),
-    "U1": ((89.0 + 58, 33.0), {"2": (-2.54, 0), "40": (0, 17.78)}, False),  # Pico horizontal, pad1 right
+    "J1": ((123.37, 29.77), {"2": (0, -2.54), "3": (2.54, 0)}, True),
+    "U1": ((168.0, 42.0), {"2": (-2.54, 0), "40": (0, 17.78)}, False),  # Pico horiz, pad1 right
 }
 
-# New power stage (absolute coords in the new left band, x 0..56, NOT shifted)
-POWER_PLACE = {
-    # A switch column (x=8) and mirrored B column (x=48); high pair on top
-    "Q3": (8.0, 32.0, 270), "Q4": (8.0, 44.0, 270),
-    "Q5": (8.0, 62.0, 270), "Q6": (8.0, 74.0, 270),
-    "Q7": (48.0, 32.0, 90), "Q8": (48.0, 44.0, 90),
-    "Q9": (48.0, 62.0, 90), "Q10": (48.0, 74.0, 90),
-    # vertical-mount gate resistors outboard of each column (at the G pads)
-    "R22": (3.2, 26.0, 90), "R23": (3.2, 40.0, 90),
-    "R24": (59.0, 90.0, 90), "R25": (59.0, 103.0, 90),
-    "R26": (54.8, 30.0, 90), "R27": (54.8, 44.0, 90),
-    "R28": (54.8, 60.0, 90), "R29": (54.8, 74.0, 90),
-    # battery entry + hall sensor, top of the band
-    "J18": (11.0, 14.0, 0),
-    "U10": (30.0, 14.0, 180),
-    # bulk + clamp on the centre spine
-    "C18": (31.0, 50.0, 0), "C19": (31.0, 72.0, 0),
-    "D15": (32.0, 86.0, 0), "C20": (27.3, 96.5, 270),
-    # lugs
-    "J19": (11.0, 90.0, 0), "J20": (45.0, 90.0, 0), "J21": (11.0, 105.0, 0),
-    # driver block at the band bottom
-    "U9": (33.0, 107.0, 270),
-    "R30": (46.0, 112.0, 90), "R32": (55.5, 104.0, 90),
-    "C16": (28.5, 116.5, 180), "C17": (37.3, 114.3, 90),
-    "D12": (23.8, 94.0, 90), "D13": (55.6, 90.0, 90),
-    "C14": (20.0, 86.0, 90), "C15": (49.0, 81.0, 180),
-    # HIP logic pulldowns + ACS/servo ADC conditioning live outside the band
-    "R33": (95.0, 106.0, 0), "R34": (95.0, 110.0, 0),
-    "R35": (95.0, 114.0, 0), "R36": (108.0, 110.0, 0),
-    "R37": (94.0, 36.0, 90), "R38": (94.0, 50.0, 90),
-    "C21": (94.0, 62.0, 90), "D14": (94.0, 68.0, 0),
-    # servo bridge (old DIP zone; coords absolute)
-    "U7": (108.0, 62.0, 0), "U8": (126.0, 62.0, 0),
-    "R39": (111.0, 76.0, 0), "R40": (126.0, 74.0, 0),
-    "C22": (140.0, 62.0, 0), "C23": (140.0, 70.0, 90),
-    "J22": (133.0, 96.0, 0),
-    "R18": (117.0, 86.0, 0), "R19": (117.0, 90.0, 0),
-    "D8": (106.0, 86.0, 0), "C12": (96.0, 84.0, 90),
-}
-
-# Everything else: ref -> (center x, center y, rot), courtyard-center placed.
-# These coordinates predate the power-stage revision and are shifted +XS at
-# placement time.
-# Coordinates were tiled against measured courtyard bboxes (see git history);
-# the DRC courtyard check is the enforcement gate.
 PLACE = {
-    "J2": (4.5, 48.0, 0),         # GPIO breakout column, left edge
-    # --- top band: JST row ---
-    "J3":  (16.0, 7.0, 0), "J4": (29.5, 7.0, 0), "J5": (43.0, 7.0, 0),
-    "J6":  (56.5, 7.0, 0), "J7": (70.0, 7.0, 0), "J8": (83.5, 7.0, 0),
-    # --- right edge, above Pi zone ---
-    "J11": (96.0, 15.5, 90), "J10": (96.0, 36.0, 90),
-    "R20": (86.0, 12.0, 0), "R21": (86.0, 15.5, 0),
-    "D10": (86.0, 19.0, 0), "D11": (90.5, 19.0, 0),
-    # --- LED row + resistors ---
-    "LED1": (22.0, 15.0, 0), "LED2": (35.0, 15.0, 0), "LED3": (48.0, 15.0, 0),
-    "LED4": (61.0, 15.0, 0), "LED5": (74.0, 15.0, 0),
-    "R2": (24.0, 20.5, 0), "R3": (37.0, 20.5, 0), "R4": (50.0, 20.5, 0),
-    "R7": (63.0, 20.5, 0), "R13": (76.0, 20.5, 0),
-    "R5": (11.0, 19.0, 0), "R6": (11.0, 15.0, 0),
-    # --- left band ---
-    "U5": (20.5, 35.0, 0), "U6": (20.5, 63.0, 0),
-    # --- centre (Pi is BELOW the board here; top side is unrestricted) ---
-    "C5": (94.0, 60.0, 90), "D6": (94.0, 66.0, 0),
-    "R8": (46.0, 82.0, 0), "R9": (60.0, 82.0, 0), "R10": (74.0, 82.0, 0),
-    "R11": (94.0, 50.0, 90), "R12": (98.0, 50.0, 90),
-    # --- left-bottom: reverse protection chain ---
-    "Q1": (8.0, 80.0, 0), "R1": (8.0, 88.0, 0),
-    "D4": (22.0, 80.0, 0), "D5": (22.0, 85.0, 0),
-    # --- conditioning strip y 78-88 ---
-    # --- bottom row A: terminals, fuse, bulk caps ---
-    "J16": (10.0, 96.0, 0), "F1": (22.0, 97.0, 90),
-    "C1": (33.0, 96.0, 0), "C2": (46.0, 96.0, 0),
-    "C3": (56.0, 96.0, 90), "C4": (63.0, 96.0, 90),
-    "J17": (90.0, 96.0, 0),
-    "F2": (86.0, 104.0, 0), "J9": (96.0, 106.0, 0),
-    # --- bottom row B: headers + contactor terminal ---
-    "J12": (18.0, 108.0, 90), }
+    # ---- thrust power stage (left band) ----
+    "Q3": (10.0, 30.0, 270), "Q4": (10.0, 44.0, 270),
+    "Q5": (10.0, 66.0, 270), "Q6": (10.0, 80.0, 270),
+    "Q7": (60.0, 30.0, 90), "Q8": (60.0, 44.0, 90),
+    "Q9": (60.0, 66.0, 90), "Q10": (60.0, 80.0, 90),
+    "R22": (4.0, 27.5, 90), "R23": (4.0, 41.5, 90),
+    "R24": (4.0, 63.5, 90), "R25": (4.0, 77.5, 90),
+    "R26": (66.0, 32.5, 90), "R27": (66.0, 46.5, 90),
+    "R28": (66.0, 68.5, 90), "R29": (66.0, 82.5, 90),
+    "J18": (13.0, 13.0, 0),          # BATT+ lug
+    "U10": (35.0, 16.0, 180),        # ACS758, IP+ west / IP- east
+    "C18": (39.8, 57.0, 0), "C19": (39.8, 76.0, 0),   # +pad in spine, GND pad in gap
+    "D15": (39.8, 90.0, 0), "C20": (39.5, 97.0, 0),
+    "J19": (17.0, 104.0, 0), "J20": (53.0, 104.0, 0), "J21": (10.0, 132.0, 0),
+    # driver block (open area at the band bottom)
+    "U9": (45.0, 124.0, 270),
+    "R30": (33.0, 135.0, 90), "R32": (74.0, 124.0, 90),
+    "C16": (41.0, 135.0, 0), "C17": (50.0, 137.5, 0),
+    "D12": (29.5, 124.0, 90), "D13": (65.0, 128.0, 90),
+    "C14": (27.0, 141.0, 0), "C15": (66.0, 144.0, 0),   # bootstrap caps beside their diodes
+    "R33": (72.0, 140.0, 90), "R34": (75.5, 140.0, 90),
+    "R35": (79.0, 140.0, 90), "R36": (82.5, 140.0, 90),
+    # ---- mid band ----
+    "J2": (74.0, 48.0, 0),
+    "U5": (94.0, 30.0, 0), "U6": (94.0, 62.0, 0),
+    "Q1": (80.0, 84.0, 0), "R1": (80.0, 90.0, 0),
+    "D4": (93.0, 84.0, 0), "D5": (93.0, 90.0, 0),
+    # servo bridge
+    "U7": (84.0, 112.0, 0), "U8": (102.0, 112.0, 0),
+    "R39": (84.0, 124.0, 0), "R40": (102.0, 124.0, 0),
+    "C22": (117.0, 106.0, 0), "C23": (117.0, 114.0, 90),
+    "J22": (90.0, 140.0, 0),
+    "R18": (122.0, 124.0, 0), "R19": (122.0, 128.0, 0),
+    "D8": (122.0, 132.0, 0), "C12": (131.0, 128.0, 90),
+    # pico support + telemetry conditioning
+    "R8": (104.0, 95.0, 0), "R9": (104.0, 99.0, 0), "R10": (104.0, 103.0, 0),
+    "R11": (110.0, 74.0, 90), "R12": (113.3, 74.0, 90),
+    "C5": (111.0, 86.0, 90), "D6": (115.5, 86.0, 0),
+    "R37": (111.0, 52.0, 90), "R38": (114.0, 52.0, 90),
+    "C21": (111.0, 64.0, 90), "D14": (111.5, 44.0, 0),
+    # ---- bottom terminal row ----
+    "F1": (108.0, 141.0, 90), "J16": (122.0, 141.0, 0), "J17": (138.0, 141.0, 0),
+    "C1": (152.0, 136.0, 0), "C2": (166.0, 136.0, 0),
+    "C3": (176.0, 136.0, 90), "C4": (183.0, 136.0, 90),
+    "F2": (176.0, 127.0, 0), "J9": (190.0, 136.0, 0),
+    "J12": (155.0, 146.0, 90),
+    # ---- top band: JSTs, LEDs, misc ----
+    "J3": (111.0, 8.0, 0), "J4": (125.0, 8.0, 0), "J5": (139.0, 8.0, 0),
+    "J6": (153.0, 8.0, 0), "J7": (167.0, 8.0, 0), "J8": (181.0, 8.0, 0),
+    "J11": (189.0, 19.0, 90), "J10": (196.0, 60.0, 90),
+    "LED1": (114.0, 17.0, 0), "LED2": (127.0, 17.0, 0), "LED3": (140.0, 17.0, 0),
+    "LED4": (153.0, 17.0, 0), "LED5": (166.0, 17.0, 0),
+    "R2": (114.0, 22.0, 0), "R3": (127.0, 22.0, 0), "R4": (140.0, 22.0, 0),
+    "R7": (153.0, 22.0, 0), "R13": (166.0, 22.0, 0),
+    "R5": (86.0, 10.0, 0), "R6": (86.0, 14.0, 0),
+    "R20": (178.0, 17.5, 90), "R21": (182.0, 17.5, 90),
+    "D10": (186.0, 28.0, 0), "D11": (186.0, 32.0, 0),
+}
 
 MOUNTING = [
-    # (footprint, x, y) — absolute, new 160x120 outline
-    ("MountingHole_3.2mm_M3", 5.0, 5.0), ("MountingHole_3.2mm_M3", 155.0, 5.0),
-    ("MountingHole_3.2mm_M3", 5.0, 115.0), ("MountingHole_3.2mm_M3", 155.0, 115.0),
-    ("MountingHole_3.2mm_M3", 56.0, 5.0),
-    ("MountingHole_2.7mm_M2.5", 94.5, 25.5), ("MountingHole_2.7mm_M2.5", 152.5, 25.5),
-    ("MountingHole_2.7mm_M2.5", 94.5, 74.5), ("MountingHole_2.7mm_M2.5", 152.5, 74.5),
+    ("MountingHole_3.2mm_M3", 5.0, 5.0), ("MountingHole_3.2mm_M3", 195.0, 5.0),
+    ("MountingHole_3.2mm_M3", 5.0, 145.0), ("MountingHole_3.2mm_M3", 195.0, 145.0),
+    ("MountingHole_3.2mm_M3", 100.0, 5.0), ("MountingHole_3.2mm_M3", 100.0, 145.0),
+    ("MountingHole_2.7mm_M2.5", 118.5, 28.5), ("MountingHole_2.7mm_M2.5", 176.5, 28.5),
+    ("MountingHole_2.7mm_M2.5", 118.5, 77.5), ("MountingHole_2.7mm_M2.5", 176.5, 77.5),
 ]
 
 
@@ -144,7 +125,7 @@ def parse_netlist(path):
         ref, body = m.group(1), m.group(2)
         fp = re.search(r'\(footprint\s+"([^"]+)"\)', body)
         val = re.search(r'\(value\s+"([^"]+)"\)', body)
-        dnp = '(property "dnp")' in body or '(field (name "DNP")' in body
+        dnp = '(property "dnp")' in body
         comps[ref] = {"fp": fp.group(1) if fp else "", "value": val.group(1) if val else "",
                       "dnp": dnp}
     pin_net = {}
@@ -159,10 +140,7 @@ def parse_netlist(path):
 
 def load_footprint(fpid):
     lib, name = fpid.split(":", 1)
-    if lib == "vanchor-helm":
-        libpath = f"{HW}/footprints.pretty"
-    else:
-        libpath = f"{STD_FP}/{lib}.pretty"
+    libpath = f"{HW}/footprints.pretty" if lib == "vanchor-helm" else f"{STD_FP}/{lib}.pretty"
     fp = pcbnew.FootprintLoad(libpath, name)
     if fp is None:
         raise SystemExit(f"footprint not found: {fpid}")
@@ -178,8 +156,6 @@ SKELETON = """(kicad_pcb
   (layers
     (0 "F.Cu" signal)
     (31 "B.Cu" signal)
-    (32 "B.Adhes" user "B.Adhesive")
-    (33 "F.Adhes" user "F.Adhesive")
     (34 "B.Paste" user)
     (35 "F.Paste" user)
     (36 "B.SilkS" user "B.Silkscreen")
@@ -187,7 +163,6 @@ SKELETON = """(kicad_pcb
     (38 "B.Mask" user)
     (39 "F.Mask" user)
     (40 "Dwgs.User" user "User.Drawings")
-    (41 "Cmts.User" user "User.Comments")
     (44 "Edge.Cuts" user)
     (46 "B.CrtYd" user "B.Courtyard")
     (47 "F.CrtYd" user "F.Courtyard")
@@ -201,24 +176,22 @@ SKELETON = """(kicad_pcb
 
 
 def main():
-    # regenerate from a clean canvas every run
     with open(BOARD, "w") as f:
         f.write(SKELETON)
     board = pcbnew.LoadBoard(BOARD)
 
     comps, pin_net, net_names = parse_netlist(NETLIST)
-
     nets = {}
     for name in sorted(net_names):
         ni = pcbnew.NETINFO_ITEM(board, name)
         board.Add(ni)
         nets[name] = ni
 
-    placed_refs = set(PLACE) | set(ANCHORED) | set(POWER_PLACE)
-    missing = [r for r in comps if r not in placed_refs and not r.startswith("#")]
-    unplaced = [r for r in placed_refs if r not in comps]
-    if unplaced:
-        raise SystemExit(f"placement refs not in netlist: {unplaced}")
+    placed = set(PLACE) | set(ANCHORED)
+    missing = [r for r in comps if r not in placed and not r.startswith("#")]
+    extra = [r for r in placed if r not in comps]
+    if extra:
+        raise SystemExit(f"placement refs not in netlist: {extra}")
     if missing:
         raise SystemExit(f"netlist refs without placement: {missing}")
 
@@ -235,7 +208,6 @@ def main():
         fp.SetReference(ref)
         fp.SetValue(info["value"])
         board.Add(fp)
-
         if ref in ANCHORED:
             (tx, ty), expect, flip = ANCHORED[ref]
             if flip:
@@ -254,31 +226,14 @@ def main():
                     solved = rot
                     break
             if solved is None:
-                raise SystemExit(f"{ref}: no rotation satisfies pad-vector constraints")
-            delta = mm(tx, ty) - pad_pos(fp, "1")
-            fp.SetPosition(fp.GetPosition() + delta)
-        elif ref in POWER_PLACE:
-            x, y, rot = POWER_PLACE[ref]
-            fp.SetOrientationDegrees(rot)
-            court = fp.GetCourtyard(pcbnew.F_CrtYd)
-            if court.OutlineCount():
-                bb = court.BBox()
-            else:
-                bb = fp.GetBoundingBox(False)
-            center = bb.GetCenter()
-            fp.SetPosition(fp.GetPosition() + (mm(x, y) - center))
+                raise SystemExit(f"{ref}: no rotation satisfies pad vectors")
+            fp.SetPosition(fp.GetPosition() + (mm(tx, ty) - pad_pos(fp, "1")))
         else:
             x, y, rot = PLACE[ref]
-            x += XS
             fp.SetOrientationDegrees(rot)
             court = fp.GetCourtyard(pcbnew.F_CrtYd)
-            if court.OutlineCount():
-                bb = court.BBox()
-            else:
-                bb = fp.GetBoundingBox(False)
-            center = bb.GetCenter()
-            fp.SetPosition(fp.GetPosition() + (mm(x, y) - center))
-
+            bb = court.BBox() if court.OutlineCount() else fp.GetBoundingBox(False)
+            fp.SetPosition(fp.GetPosition() + (mm(x, y) - bb.GetCenter()))
         if info["dnp"]:
             fp.SetDNP(True)
         for pad in fp.Pads():
@@ -293,7 +248,6 @@ def main():
         fp.SetPosition(mm(x, y))
         board.Add(fp)
 
-    # board outline
     pts = [(0, 0), (W, 0), (W, H), (0, H)]
     for i in range(4):
         seg = pcbnew.PCB_SHAPE(board, pcbnew.SHAPE_T_SEGMENT)
@@ -303,6 +257,7 @@ def main():
         seg.SetWidth(pcbnew.FromMM(0.1))
         board.Add(seg)
 
+    # ---------------- power copper ----------------
     def pad_xy(ref, num):
         for fp in board.GetFootprints():
             if fp.GetReference() == ref:
@@ -310,7 +265,9 @@ def main():
                 return pcbnew.ToMM(p.x) - OX, pcbnew.ToMM(p.y) - OY
         raise SystemExit(f"no footprint {ref}")
 
-    def add_zone(net, layer, pts, priority=0, solid=False):
+    zprio = [10]
+
+    def add_zone(net, layer, pts, priority, solid):
         zone = pcbnew.ZONE(board)
         zone.SetLayer(layer)
         zone.SetNet(nets[net])
@@ -326,39 +283,15 @@ def main():
         zone.SetThermalReliefSpokeWidth(pcbnew.FromMM(1.0))
         zone.SetLocalClearance(pcbnew.FromMM(0.5))
         board.Add(zone)
-        return zone
-
-    def band_with_fingers(y_top, y_bot, x_l, x_r, finger_pads, half_w=1.1):
-        """Rectangle band plus vertical fingers reaching the listed pad centres
-        (fingers keep 0.4mm+ to the neighbouring 2.54mm-pitch pads)."""
-        pts = [(x_l, y_top), (x_r, y_top), (x_r, y_bot)]
-        below = [rp for rp in finger_pads if pad_xy(*rp)[1] >= y_bot]
-        above = [rp for rp in finger_pads if pad_xy(*rp)[1] < y_top]
-        for ref, num in sorted(below, key=lambda rp: -pad_xy(*rp)[0]):
-            px, py = pad_xy(ref, num)
-            pts += [(px + half_w, y_bot), (px + half_w, py + half_w),
-                    (px - half_w, py + half_w), (px - half_w, y_bot)]
-        pts.append((x_l, y_bot))
-        pts.append((x_l, y_top))
-        for ref, num in sorted(above, key=lambda rp: pad_xy(*rp)[0]):
-            px, py = pad_xy(ref, num)
-            pts += [(px - half_w, y_top), (px - half_w, py - half_w),
-                    (px + half_w, py - half_w), (px + half_w, y_top)]
-        return pts
-
-    # ---- power-stage copper (2oz, solid zones) ----
-    # Mirrored columns: A switch at x=8, B at x=48; VBRIDGE centre spine on
-    # both layers with B-side fingers to the high-side drains; MOTOR rails on
-    # F (paralleled on B below the finger band) with arms to the bolt lugs;
-    # low-side sources land in the solid B-side GND plane.
-    zprio = [10]
 
     def pz(net, layer, pts):
         zprio[0] += 1
-        add_zone(net, layer, pts, zprio[0], solid=True)
+        add_zone(net, layer, pts, zprio[0], True)
 
-    def fingers_h(rail_x0, rail_x1, pads, half_w=1.1):
-        """Fingers span the full rail width so the same-net fills merge."""
+    def rect(x0, y0, x1, y1):
+        return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
+
+    def fingers_h(rail_x0, rail_x1, pads, half_w=1.3):
         polys = []
         for ref, num in pads:
             px, py = pad_xy(ref, num)
@@ -368,47 +301,45 @@ def main():
                           (x1, py + half_w), (x0, py + half_w)])
         return polys
 
-    def rect(x0, y0, x1, y1):
-        return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
-
-    # VBRIDGE: centre spine (F short, B long incl. clamp/bulk pads), top wing
-    # under the ACS, B fingers to the four high-side drains
-    pz("VBRIDGE", pcbnew.F_Cu, rect(26.4, 29, 32, 96))
-    pz("VBRIDGE", pcbnew.F_Cu, rect(31, 16, 40.2, 24))    # ACS IP- patch
-    pz("VBRIDGE", pcbnew.B_Cu, rect(31, 16, 40.2, 24))
-    pz("VBRIDGE", pcbnew.B_Cu, rect(26.4, 6, 32, 96))
-    for poly in fingers_h(26.4, 32, [("Q3", "2"), ("Q4", "2"), ("Q7", "2"), ("Q8", "2")]):
+    # VBRIDGE: spine (F+B), ACS IP- patch, B fingers to the high-side drains
+    pz("VBRIDGE", pcbnew.F_Cu, rect(31, 30, 41, 118))
+    pz("VBRIDGE", pcbnew.B_Cu, rect(31, 30, 41, 118))
+    pz("VBRIDGE", pcbnew.B_Cu, rect(35.6, 26, 41, 30.5))
+    pz("VBRIDGE", pcbnew.F_Cu, rect(35.4, 20, 44.8, 31.5))
+    pz("VBRIDGE", pcbnew.B_Cu, rect(35.4, 20, 44.8, 31.5))
+    for poly in fingers_h(31, 41, [("Q3", "2"), ("Q4", "2"), ("Q7", "2"), ("Q8", "2")]):
         pz("VBRIDGE", pcbnew.B_Cu, poly)
 
-    # MOTOR rails + lug arms; F fingers to high-side sources / low-side drains
-    pz("MOTOR_A", pcbnew.F_Cu, rect(11, 31, 18, 82))
-    pz("MOTOR_A", pcbnew.F_Cu, rect(4, 78.5, 18, 98))
-    pz("MOTOR_A", pcbnew.B_Cu, rect(11, 42, 18, 82))
-    pz("MOTOR_A", pcbnew.B_Cu, rect(4, 78.5, 18, 98))
-    for poly in fingers_h(11, 18, [("Q3", "3"), ("Q4", "3"), ("Q5", "2"), ("Q6", "2")]):
+    # MOTOR rails + lug arms; F fingers to high-S / low-D pads
+    pz("MOTOR_A", pcbnew.F_Cu, rect(16, 26, 24, 96))
+    pz("MOTOR_A", pcbnew.F_Cu, rect(10, 94, 24, 114))
+    pz("MOTOR_A", pcbnew.B_Cu, rect(16, 48, 24, 96))
+    pz("MOTOR_A", pcbnew.B_Cu, rect(10, 94, 24, 114))
+    pz("MOTOR_A", pcbnew.F_Cu, rect(21, 94, 27.3, 118))
+    for poly in fingers_h(16, 24, [("Q3", "3"), ("Q4", "3"), ("Q5", "2"), ("Q6", "2")]):
         pz("MOTOR_A", pcbnew.F_Cu, poly)
-
-    pz("MOTOR_B", pcbnew.F_Cu, rect(38, 27.4, 45, 82))
-    pz("MOTOR_B", pcbnew.F_Cu, rect(38, 78.5, 52, 98))
-    pz("MOTOR_B", pcbnew.B_Cu, rect(38, 42, 45, 82))
-    pz("MOTOR_B", pcbnew.B_Cu, rect(38, 78.5, 52, 98))
-    for poly in fingers_h(38, 45, [("Q7", "3"), ("Q8", "3"), ("Q9", "2"), ("Q10", "2")]):
+    pz("MOTOR_B", pcbnew.F_Cu, rect(46, 26, 54, 96))
+    pz("MOTOR_B", pcbnew.F_Cu, rect(46, 94, 61.0, 114))
+    pz("MOTOR_B", pcbnew.B_Cu, rect(46, 48, 54, 96))
+    pz("MOTOR_B", pcbnew.B_Cu, rect(46, 94, 61.0, 114))
+    for poly in fingers_h(46, 54, [("Q7", "3"), ("Q8", "3"), ("Q9", "2"), ("Q10", "2")]):
         pz("MOTOR_B", pcbnew.F_Cu, poly)
 
-    # battery pocket (lug + ACS IP+) and GND pocket (lug)
-    pz("VBAT_PWR", pcbnew.F_Cu, rect(1, 1, 20, 18))
-    pz("VBAT_PWR", pcbnew.F_Cu, rect(19, 12, 27.9, 28.4))  # reaches ACS IP+
-    pz("VBAT_PWR", pcbnew.B_Cu, rect(1, 1, 20, 18))
-    pz("VBAT_PWR", pcbnew.B_Cu, rect(19, 12, 27.9, 28.4))
+    # battery pocket + GND lug pocket
+    pz("VBAT_PWR", pcbnew.F_Cu, rect(1, 1, 24, 20))
+    pz("VBAT_PWR", pcbnew.B_Cu, rect(1, 1, 24, 20))
+    pz("VBAT_PWR", pcbnew.F_Cu, rect(18, 1, 31.9, 9.5))
+    pz("VBAT_PWR", pcbnew.B_Cu, rect(18, 1, 31.9, 9.5))
+    pz("VBAT_PWR", pcbnew.F_Cu, rect(25.2, 6, 34.6, 29))
+    pz("VBAT_PWR", pcbnew.B_Cu, rect(25.2, 6, 34.6, 29))
     if os.environ.get("BASE_GND") != "0":
-        pz("GND", pcbnew.F_Cu, rect(1, 98.6, 19, 114))
-        pz("GND", pcbnew.F_Cu, rect(25.5, 96.8, 35, 101.4))  # C20 GND relief
-        # solid GND plane over the whole power band on B
-        add_zone("GND", pcbnew.B_Cu, rect(0.6, 0.6, 56, 119.4), 1, solid=True)
+        pz("GND", pcbnew.F_Cu, rect(1, 120, 20, 143))
+        add_zone("GND", pcbnew.B_Cu, rect(0.6, 0.6, 70, 149.4), 1, True)
 
-    # ---- pre-laid power tracks (freerouting keeps existing wiring fixed;
-    # they guarantee net continuity even where signal tracks slice the fills) ----
+    # ---------------- pre-laid fat tracks (power only, no vias) ----------------
     def add_track(net, layer, x0, y0, x1, y1, w):
+        if abs(x1 - x0) < 0.01 and abs(y1 - y0) < 0.01:
+            return
         t = pcbnew.PCB_TRACK(board)
         t.SetStart(mm(x0, y0))
         t.SetEnd(mm(x1, y1))
@@ -418,186 +349,64 @@ def main():
         board.Add(t)
 
     def chain(net, layer, pts, w):
-        for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
-            if abs(x1 - x0) < 0.01 and abs(y1 - y0) < 0.01:
-                continue   # zero-length segments hang freerouting
-            add_track(net, layer, x0, y0, x1, y1, w)
+        for (a, b), (c, d) in zip(pts, pts[1:]):
+            add_track(net, layer, a, b, c, d, w)
 
-    # STRIP env: comma list of chains to include (aho,alo,bho,del,p12,gnd1,j14)
-    # or unset = all
-    strip_sel = os.environ.get("STRIP", "aho,alo,bho,del,p12,gnd1,j14").split(",")
+    chain("VBRIDGE", pcbnew.B_Cu, [(36, 31), (36, 112)], 6.0)
+    chain("VBRIDGE", pcbnew.F_Cu, [(36, 31), (36, 112)], 6.0)
+    chain("MOTOR_A", pcbnew.F_Cu, [(20, 28), (20, 96), (17, 100), (17, 104)], 6.0)
+    chain("MOTOR_A", pcbnew.B_Cu, [(20, 50), (20, 96), (17, 100), (17, 104)], 6.0)
+    chain("MOTOR_B", pcbnew.F_Cu, [(50, 28), (50, 96), (53, 100), (53, 104)], 6.0)
+    chain("MOTOR_B", pcbnew.B_Cu, [(50, 50), (50, 96), (53, 100), (53, 104)], 6.0)
+    gx, gy = pad_xy("J21", "1")
+    chain("GND", pcbnew.B_Cu, [(gx, gy), (gx, 121)], 6.0)
+    # HIP4082 AHS/BHS sense pins into the motor arms (plane nets are
+    # invisible to freerouting, so these two need pre-laid stubs)
+    ax, ay = pad_xy("U9", "11")
+    chain("MOTOR_A", pcbnew.F_Cu,
+          [(ax, ay), (ax, 131.8), (26.5, 131.8), (26.5, 117)], 0.8)
+    add_track("MOTOR_A", pcbnew.F_Cu, 17, 104, 26.5, 117, 2.0)
+    bx2, by2 = pad_xy("U9", "15")
+    chain("MOTOR_B", pcbnew.F_Cu, [(bx2, by2), (bx2, 133), (60.5, 133), (60.5, 107)], 0.8)
+    # J1 pins 2/4 are both +5V and adjacent: bond them so the autorouter
+    # only has to reach one of them
+    j2x, j2y = pad_xy("J1", "2")
+    j4x, j4y = pad_xy("J1", "4")
+    add_track("+5V", pcbnew.F_Cu, j2x, j2y, j4x, j4y, 0.8)
 
-    def want(k):
-        return k in strip_sel
-
-    # VBRIDGE spine both layers + stubs
-    chain("VBRIDGE", pcbnew.B_Cu, [(29.2, 31), (29.2, 94)], 5.0)
-    chain("VBRIDGE", pcbnew.F_Cu, [(29.2, 31), (29.2, 94)], 5.0)
-    chain("VBRIDGE", pcbnew.B_Cu, [(32, 20), (32, 32)], 2.5)  # patch->spine link
-    for ref in ("Q3", "Q4", "Q7", "Q8"):
-        px, py = pad_xy(ref, "2")
-        add_track("VBRIDGE", pcbnew.B_Cu, px, py, 29.2, py, 2.2)
-    for ref, num in (("C18", "1"), ("C19", "1"), ("D15", "1")):
-        px, py = pad_xy(ref, num)
-        add_track("VBRIDGE", pcbnew.F_Cu, px, py, 29.2, py, 1.8)
-
-    # MOTOR rails + lug drops + FET stubs
-    chain("MOTOR_A", pcbnew.F_Cu, [(14.5, 33), (14.5, 89), (11, 89), (11, 90)], 5.0)
-    chain("MOTOR_A", pcbnew.B_Cu, [(14.5, 48.5), (14.5, 89), (11, 89), (11, 90)], 5.0)
+    # explicit pad-to-rail joins (zone fills alone leave fill-margin islands)
     for ref, num in (("Q3", "3"), ("Q4", "3"), ("Q5", "2"), ("Q6", "2")):
         px, py = pad_xy(ref, num)
-        add_track("MOTOR_A", pcbnew.F_Cu, px, py, 14.5, py, 2.2)
-    px, py = pad_xy("C14", "2")
-    add_track("MOTOR_A", pcbnew.F_Cu, px, py, 14.5, py, 1.8)
-
-    chain("MOTOR_B", pcbnew.F_Cu, [(41.5, 30), (41.5, 89), (45, 89), (45, 90)], 5.0)
-    chain("MOTOR_B", pcbnew.B_Cu, [(41.5, 48.5), (41.5, 89), (45, 89), (45, 90)], 5.0)
+        add_track("MOTOR_A", pcbnew.F_Cu, px, py, 20, py, 2.0)
     for ref, num in (("Q7", "3"), ("Q8", "3"), ("Q9", "2"), ("Q10", "2")):
         px, py = pad_xy(ref, num)
-        add_track("MOTOR_B", pcbnew.F_Cu, px, py, 41.5, py, 2.2)
-    px, py = pad_xy("C15", "2")
-    add_track("MOTOR_B", pcbnew.F_Cu, px, py, 41.5, py, 1.8)
+        add_track("MOTOR_B", pcbnew.F_Cu, px, py, 50, py, 2.0)
+    for ref, num in (("Q3", "2"), ("Q4", "2"), ("Q7", "2"), ("Q8", "2")):
+        px, py = pad_xy(ref, num)
+        add_track("VBRIDGE", pcbnew.B_Cu, px, py, 36, py, 2.0)
+    for ref in ("C18", "C19", "D15", "C20"):
+        px, py = pad_xy(ref, "1")
+        add_track("VBRIDGE", pcbnew.F_Cu, px, py, 36, py, 2.0)
 
-    # GND: lug feeder into the band plane (low-side sources connect via the
-    # solid priority-1 B plane directly)
-    chain("GND", pcbnew.B_Cu, [(11, 105), (11, 101)], 5.6)
-
-    # VBAT: lug -> ACS IP+
-    bx, by = pad_xy("J18", "1")
-    chain("VBAT_PWR", pcbnew.F_Cu, [(bx, by), (23, by), (23, 19)], 4.0)
-    chain("VBAT_PWR", pcbnew.B_Cu, [(bx, by), (23, by), (23, 19)], 4.0)
-
-    # HIP4082 AHS/BHS phase-sense pins into the motor arms (plane nets)
-    p11x, p11y = pad_xy("U9", "11")
-    chain("MOTOR_A", pcbnew.F_Cu,
-          [(p11x, p11y), (p11x, 119.1), (2.5, 119.1), (2.5, 95), (6, 95)], 0.5)
-    p15x, p15y = pad_xy("U9", "15")
-    chain("MOTOR_B", pcbnew.F_Cu,
-          [(p15x, p15y), (p15x, 119.1), (52.9, 119.1), (52.9, 95), (50, 95)], 0.5)
-
-    # +12V trunk from BUCK2 outer VOUT pad to the servo bridge VS pin
-    u6pads = [pad for fp in board.GetFootprints() if fp.GetReference() == "U6"
-              for pad in fp.Pads() if pad.GetNumber() == "3"]
-    u6p = max(u6pads, key=lambda pad: pad.GetPosition().y).GetPosition()
-    u6x, u6y = pcbnew.ToMM(u6p.x) - OX, pcbnew.ToMM(u6p.y) - OY
-    u7x, u7y = pad_xy("U7", "7")
-    chain("+12V", pcbnew.F_Cu,
-          [(u6x, u6y), (u6x, 78.1), (u7x, 78.1), (u7x, u7y + 0.4)], 0.6)
-    # west leg: feeds the bootstrap diode anodes (D13 direct, D12 via spur)
-    d13x, d13y = pad_xy("D13", "2")
-    chain("+12V", pcbnew.F_Cu,
-          [(u6x, u6y), (u6x, 76.4), (58.5, 76.4), (58.5, d13y), (d13x, d13y)], 0.6)
-    c17x2, c17y2 = pad_xy("C17", "1")
-    d12x, d12y = pad_xy("D12", "2")
-    chain("+12V", pcbnew.F_Cu,
-          [(c17x2, c17y2), (21.9, c17y2), (21.9, d12y), (d12x, d12y)], 0.5)
-
-    # +12V for the +12V LED resistor (unroutable for the autorouter 5x)
-    r4x, r4y = pad_xy("R4", "1")
-    j17x, j17y = pad_xy("J17", "2")
-    if want("p12"):
-        chain("+12V", pcbnew.F_Cu,
-              [(r4x, r4y), (r4x, 9.6), (157.7, 9.6), (157.7, 90),
-               (j17x, 90), (j17x, j17y)], 0.5)
-
-    if want("j14"):
-        # J1 pin 14 GND: hand-routed stub into open pour area (no via — a
-        # pre-laid via makes freerouting 1.9 hang in DSN preprocessing)
-        j14x, j14y = pad_xy("J1", "14")
-        chain("GND", pcbnew.F_Cu,
-              [(j14x, j14y), (j14x, 22.6), (98, 22.6), (98, 19.2)], 0.5)
-
-    # ---- driver-strip pre-lays (coherent lane plan; no crossings) ----
-
-    # Lanes: F y106.4 = +12V inter-row feed; F y104.9 = DEL; F y110.6/x53.9 =
-    # +12V island link; B y112.5/x21.8/y119.1/x1.0 = AHO (outer-left);
-    # B y113.6/x21.15/y118.35/x1.7 = ALO (inner-left); B x41.9/y119.1/x57.3 =
-    # BHO; F x29.2 & x39.4..52.9 = the two AHS/BHS sense runs.
+    # AHO: the one >60mm gate-driver run freerouting drops intermittently
     p10x, p10y = pad_xy("U9", "10")
     r22x, r22y = pad_xy("R22", "1")
-    r23x, r23y = pad_xy("R23", "1")
-    if want("aho"):
-        chain("/thrust/AHO", pcbnew.B_Cu,
-              [(p10x, p10y), (p10x, 112.5), (18.75, 112.5), (18.75, 119.1),
-               (1.0, 119.1), (1.0, r22y), (r22x, r22y)], 0.35)
-        add_track("/thrust/AHO", pcbnew.B_Cu, 1.0, r23y, r23x, r23y, 0.35)
+    chain("/thrust/AHO", pcbnew.B_Cu,
+          [(p10x, p10y), (p10x, 131.35), (24.9, 131.35), (24.9, 114.9),
+           (7.4, 114.9), (7.4, r22y), (r22x, r22y)], 0.4)
 
+    # ALO: the mirror-image long gate run, on F via the east loop and the
+    # y115.9 corridor (clears the B-side AHO lanes by layer)
     p13x, p13y = pad_xy("U9", "13")
     r24x, r24y = pad_xy("R24", "1")
-    r25x, r25y = pad_xy("R25", "1")
-    if want("alo"):
-        # ALO exits east around J12/C1, descends at x92.3, approaches each
-        # gate resistor from the side away from its GND pad
-        _, r24gy = pad_xy("R24", "2")
-        _, r25gy = pad_xy("R25", "2")
-        a24 = r24y + (2.3 if r24y > r24gy else -2.3)
-        a25 = r25y + (2.3 if r25y > r25gy else -2.3)
-        chain("/thrust/ALO", pcbnew.B_Cu,
-              [(p13x, p13y), (p13x, 118.5), (92.3, 118.5), (92.3, a24),
-               (59, a24), (59, r24y)], 0.35)
-        chain("/thrust/ALO", pcbnew.B_Cu,
-              [(92.3, a25), (60.4, a25), (60.4, r25y), (r25x, r25y)], 0.35)
+    chain("/thrust/ALO", pcbnew.F_Cu,
+          [(p13x, p13y), (p13x, 133.2), (23.3, 133.2), (23.3, 115.9),
+           (6.3, 115.9), (6.3, r24y), (r24x, r24y)], 0.4)
+    # GND band<->rest bridges across the x70 seam (B side, in open corridors)
+    add_track("GND", pcbnew.B_Cu, 64, 5, 82, 5, 2.0)
+    add_track("GND", pcbnew.B_Cu, 64, 98, 80, 98, 2.0)
 
-    p16x, p16y = pad_xy("U9", "16")
-    r26x, r26y = pad_xy("R26", "1")
-    r27x, r27y = pad_xy("R27", "1")
-    if want("bho"):
-        chain("/thrust/BHO", pcbnew.F_Cu,
-              [(p16x, p16y), (p16x, 115.5), (57.3, 115.5), (57.3, r26y), (r26x, r26y)], 0.35)
-        add_track("/thrust/BHO", pcbnew.F_Cu, 57.3, r27y, r27x, r27y, 0.35)
-
-    # DEL resistor: inter-row lane above the +12V feed onto R30's DEL pad,
-    # approaching so we never cross its GND pad
-    p5x, p5y = pad_xy("U9", "5")
-    r30x, r30y = pad_xy("R30", "1")
-    _, r30gy = pad_xy("R30", "2")
-    if want("del"):
-        if abs(r30y - 104.9) <= abs(r30gy - 104.9):
-            chain("/thrust/DEL", pcbnew.F_Cu,
-                  [(p5x, p5y), (p5x, 104.9), (r30x, 104.9), (r30x, r30y)], 0.4)
-        else:
-            chain("/thrust/DEL", pcbnew.F_Cu,
-                  [(p5x, p5y), (p5x, 104.9), (50.5, 104.9), (50.5, r30y),
-                   (r30x, r30y)], 0.4)
-
-    # +12V: C16/C17 stack share a pad column; inter-row feed to U9.12; island
-    # link runs east between the sense drops, then down the x53.9 lane
-    c16x, c16y = pad_xy("C16", "1")
-    c17x, c17y = pad_xy("C17", "1")
-    u9x, u9y = pad_xy("U9", "12")
-    if want("p12"):
-        # C16 (bottom row) feeds U9.12 east of the A-sense drop; C17 joins
-        # along y117.8; island link runs the inter-row + x53.9 lane
-        chain("+12V", pcbnew.F_Cu,
-              [(c16x, c16y), (c16x, 112.4), (u9x, 112.4), (u9x, u9y)], 0.5)
-        chain("+12V", pcbnew.F_Cu,
-              [(c17x, c17y), (35.8, c17y), (35.8, 112.4), (u9x, 112.4)], 0.5)
-        chain("+12V", pcbnew.F_Cu,
-              [(u9x, u9y), (u9x, 106.4), (44.3, 106.4), (44.3, 110.2),
-               (51.9, 110.2)], 0.4)
-        chain("+12V", pcbnew.B_Cu, [(51.9, 110.2), (53.9, 110.2)], 0.4)
-        chain("+12V", pcbnew.F_Cu,
-              [(53.9, 110.2), (53.9, 82.7), (58.5, 82.7), (58.5, 84.9)], 0.4)
-    if want("gnd1"):
-        # GND band<->base bridge above the escape seam
-        add_track("GND", pcbnew.B_Cu, 52, 16, 70, 16, 2.0)
-
-    # +12V for the +12V LED resistor (unroutable for the autorouter 5x)
-    r4x, r4y = pad_xy("R4", "1")
-    j17x, j17y = pad_xy("J17", "2")
-    if want("p12"):
-        chain("+12V", pcbnew.F_Cu,
-              [(r4x, r4y), (r4x, 9.6), (157.7, 9.6), (157.7, 90),
-               (j17x, 90), (j17x, j17y)], 0.5)
-
-    if want("j14"):
-        # J1 pin 14 GND: hand-routed stub into open pour area (no via — a
-        # pre-laid via makes freerouting 1.9 hang in DSN preprocessing)
-        j14x, j14y = pad_xy("J1", "14")
-        chain("GND", pcbnew.F_Cu,
-              [(j14x, j14y), (j14x, 22.6), (98, 22.6), (98, 19.2)], 0.5)
-
-    # top-edge routing keepout (freerouting keeps planting vias at the edge)
+    # top-edge via/track keepout: freerouting otherwise hugs the edge
     for klayer in (pcbnew.F_Cu, pcbnew.B_Cu):
         ka = pcbnew.ZONE(board)
         ka.SetIsRuleArea(True)
@@ -607,36 +416,18 @@ def main():
         ka.SetLayer(klayer)
         ko = ka.Outline()
         ko.NewOutline()
-        for px, py in [(58, 0), (158, 0), (158, 1.3), (58, 1.3)]:
+        for px, py in [(75, 0), (199, 0), (199, 1.3), (75, 1.3)]:
             ko.Append(mm(px, py))
         board.Add(ka)
 
-    # GND pours both sides (base planes). BASE_GND=0 omits them so the DSN
-    # export makes freerouting route logic-GND pads as tracks (the power-band
-    # GND planes above always stay: the low-side FETs need them).
-    base_layers = () if os.environ.get("BASE_GND") == "0" else (pcbnew.F_Cu, pcbnew.B_Cu)
-    for layer in base_layers:
-        zone = pcbnew.ZONE(board)
-        zone.SetLayer(layer)
-        zone.SetNet(nets["GND"])
-        outline = zone.Outline()
-        outline.NewOutline()
-        for px, py in [(0, 0), (W, 0), (W, H), (0, H)]:
-            outline.Append(mm(px, py))
-        zone.SetAssignedPriority(0)
-        zone.SetPadConnection(pcbnew.ZONE_CONNECTION_THERMAL)
-        zone.SetMinThickness(pcbnew.FromMM(0.25))
-        zone.SetThermalReliefGap(pcbnew.FromMM(0.5))
-        zone.SetThermalReliefSpokeWidth(pcbnew.FromMM(1.0))
-        zone.SetLocalClearance(pcbnew.FromMM(0.5))
-        board.Add(zone)
+    if os.environ.get("BASE_GND") != "0":
+        for layer in (pcbnew.F_Cu, pcbnew.B_Cu):
+            add_zone("GND", layer, rect(0, 0, W, H), 0, False)
 
     pcbnew.ZONE_FILLER(board).Fill(board.Zones())
     pcbnew.SaveBoard(BOARD, board)
-
-    # report
     print(f"placed {len([r for r in comps if not r.startswith('#')])} footprints, "
-          f"{len(MOUNTING)} mounting holes, {len(nets)} nets")
+          f"{len(MOUNTING)} holes, {len(nets)} nets")
 
 
 if __name__ == "__main__":

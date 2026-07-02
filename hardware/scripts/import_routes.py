@@ -40,11 +40,9 @@ if not have_base:
 
     # power-band GND copper (was omitted in the routable-GND export variant)
     add_gnd_zone(pcbnew.F_Cu,
-                 [(1, 98.6), (19, 98.6), (19, 114), (1, 114)], 40, True)
-    add_gnd_zone(pcbnew.F_Cu,
-                 [(25.5, 96.8), (35, 96.8), (35, 101.4), (25.5, 101.4)], 41, True)
+                 [(1, 120), (20, 120), (20, 143), (1, 143)], 40, True)
     add_gnd_zone(pcbnew.B_Cu,
-                 [(0.6, 0.6), (56, 0.6), (56, 119.4), (0.6, 119.4)], 1, True)
+                 [(0.6, 0.6), (70, 0.6), (70, 149.4), (0.6, 149.4)], 1, True)
     for layer in (pcbnew.F_Cu, pcbnew.B_Cu):
         zone = pcbnew.ZONE(board)
         zone.SetLayer(layer)
