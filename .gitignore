@@ -10,3 +10,6 @@ fp-info-cache
 hardware/.history/
 __pycache__/
 boards/helm/.history/
+
+# Claude working files + vendored skills
+.claude/
