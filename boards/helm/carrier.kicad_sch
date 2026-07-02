@@ -2937,7 +2937,7 @@
     (uuid "6a2fc106-a7c7-5bba-9684-1eacae49623e")
     (property "Reference" "J2" (at 149.86 196.85 0)
       (effects (font (size 1.27 1.27))))
-    (property "Value" "OPI_BREAKOUT" (at 149.86 212.09 0)
+    (property "Value" "SBC2_OPI_RPI26" (at 149.86 212.09 0)
       (effects (font (size 1.27 1.27))))
     (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x13_P2.54mm_Vertical" (at 149.86 204.47 0)
       (effects (font (size 1.27 1.27)) (hide yes)))

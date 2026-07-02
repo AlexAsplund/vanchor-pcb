@@ -4,7 +4,14 @@ fan, fused aux 5V.
 J1 = 2x13 MALE header; the Zero 3 (pre-soldered pins-up variant) connects
 via a standard 26-way 1:1 IDC ribbon (original-RPi style). Module is
 powered THROUGH the ribbon 5V pins from the on-board buck — no USB-C.
-J2 = 1:1 breakout of all 26 pins (DNP).
+J2 = 1:1 breakout of all 26 pins (DNP). The net map follows the CLASSIC
+Raspberry Pi 26-pin positions (the Zero 3 header mimics it), so J2 doubles
+as an alternate SBC port: ribbon a Raspberry Pi (pins 1-26 of the 40-pin
+header, aligned at pin 1) instead of the Orange Pi. Power, I2C link to the
+Pico (RPi SDA1/SCL1), console UART (RPi TXD0/RXD0), SPI and the SWD/RUN
+GPIOs all land on equivalent RPi pins. Caveats: fit ONE SBC only (J1 and
+J2 share the bus); on an RPi, pins 11/13 (J4 "UART2" JST) are plain GPIOs
+- no hardware UART there, use bit-bang or skip J4.
 
 The Zero 3's 26-pin header exposes two usable UARTs (UART5 on PH2/PH3,
 UART2 on PC5/PC6) plus TWI3 (I2C) — the Pico link rides TWI3. The H618
@@ -19,6 +26,7 @@ TEXTS = [
     (30, 40, "ORANGE PI ZERO 3 CARRIER: J1 male header -> 26-way IDC ribbon to the module"),
     (30, 46, "Module is powered through header 5V pins - do NOT also plug USB-C power"),
     (30, 52, "UART TX/RX directions per OPi manual - if a device stays silent, swap TX/RX at the JST"),
+    (30, 58, "J2 = same bus, classic RPi 26-pin positions: fits a Raspberry Pi (40-pin header pins 1-26). ONE SBC only"),
 ]
 
 # Orange Pi Zero 3 26-pin header net map (H618 port in comments)
@@ -59,7 +67,7 @@ J2_PINS = dict(PI26, **{"9": None})
 COMPONENTS = [
     dict(lib="Connector_Generic:Conn_02x13_Odd_Even", ref="J1", value="OPI_Z3_26PIN",
          fp=HDR2x13, at=(70, 95, 0), pins=J1_PINS),
-    dict(lib="Connector_Generic:Conn_02x13_Odd_Even", ref="J2", value="OPI_BREAKOUT", dnp=True,
+    dict(lib="Connector_Generic:Conn_02x13_Odd_Even", ref="J2", value="SBC2_OPI_RPI26", dnp=True,
          fp=HDR2x13, at=(150, 95, 0), pins=J2_PINS),
 
     dict(lib="Connector_Generic:Conn_01x04", ref="J3", value="UART5 ttyAS5", fp=XH4,

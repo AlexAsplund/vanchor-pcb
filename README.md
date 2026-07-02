@@ -27,7 +27,7 @@ The v2 on-board-bridge design remains available at git tag/commit `bf91c4a`.
 
 ## Boards
 
-- `boards/helm/` — the helm/carrier board (Orange Pi Zero 3 + Pico 2, servo
+- `boards/helm/` — the helm/carrier board (Orange Pi Zero 3 *or* Raspberry Pi + Pico 2, servo
   bridge, XL4015 buck daughterboard, PWM output header J13).
 - `boards/thrust-driver/` — 12-24 V trolling-motor H-bridge (2-4× BTN8982TA),
   connects to helm J13 with a straight 8-wire cable. See its README for the
