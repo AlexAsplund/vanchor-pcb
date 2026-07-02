@@ -5,7 +5,7 @@ set -e
 HW=/config/vanchor-pcb/hardware
 ROOT_UUID=a0000000-0000-4000-8000-000000000001
 
-for s in power pi mcu thrust servo; do
+for s in carrier control; do
   docker exec vanchor-kicad python3 $HW/scripts/gen_sheet.py \
     $HW/sheets/$s.py $HW/$s.kicad_sch vanchor-helm $ROOT_UUID
   docker exec vanchor-kicad python3 $HW/scripts/embed_symbols.py $HW/$s.kicad_sch

@@ -4,14 +4,13 @@
 
 `kicad-cli sch erc --severity-error` → clean. Waived warnings:
 
-| Check | Symbol | Why waived |
-|---|---|---|
-| lib_symbol_mismatch | D12, D13 (UF4007 on 1N4007 symbol) | Our embedder flattens derived symbols; electrically identical. |
+(No waived warnings in the v4.1 two-page schematic.)
 
 Deliberate ERC-related choices: Pico GND/AGND pins retyped passive (see
 `PIN_TYPE_OVERRIDES` in `scripts/embed_symbols.py`); `+12V` needs no PWR_FLAG
 (U6 VOUT drives it; with U6 DNP the net has no power-in pins); Pi I²C pull-ups
-R5/R6 DNP by design.
+R5/R6 DNP by design. Schematic is 2 pages (carrier / control) generated
+from merged net-specs; see sheets/carrier.py + control.py.
 
 ## DRC: 0 errors, 0 unconnected (v4 Orange Pi Zero 3 board, 2026-07-02)
 

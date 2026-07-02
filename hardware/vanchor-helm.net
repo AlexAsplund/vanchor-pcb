@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/hardware/vanchor-helm.kicad_sch")
-		(date "2026-07-02T11:39:39")
+		(date "2026-07-02T14:10:46")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
@@ -11,16 +11,16 @@
 			(title_block
 				(title "Vanchor Helm Board")
 				(company "vanchor-ng")
-				(rev "A")
-				(date "2026-07-01")
+				(rev "v4.1")
+				(date "2026-07-02")
 				(source "vanchor-helm.kicad_sch")
 				(comment
 					(number "1")
-					(value "Pi 4/5 carrier + Pico 2: trolling motor thrust (digipot hijack) + AS5600 servo")
+					(value "Orange Pi Zero 3 (IDC ribbon) + Pico 2; external IBT-2 thrust driver; on-board servo bridge")
 				)
 				(comment
 					(number "2")
-					(value "12-48V in; 1500W path stays off-board (external controller + contactor)")
+					(value "12V battery only; 5V from generic buck module on J14")
 				)
 				(comment
 					(number "3")
@@ -54,14 +54,14 @@
 		)
 		(sheet
 			(number "2")
-			(name "/power/")
+			(name "/carrier/")
 			(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			(title_block
 				(title)
 				(company)
 				(rev)
 				(date)
-				(source "power.kicad_sch")
+				(source "carrier.kicad_sch")
 				(comment
 					(number "1")
 					(value "")
@@ -102,158 +102,14 @@
 		)
 		(sheet
 			(number "3")
-			(name "/pi/")
-			(tstamps "/c0000000-0000-4000-8000-000000000003/")
-			(title_block
-				(title)
-				(company)
-				(rev)
-				(date)
-				(source "pi.kicad_sch")
-				(comment
-					(number "1")
-					(value "")
-				)
-				(comment
-					(number "2")
-					(value "")
-				)
-				(comment
-					(number "3")
-					(value "")
-				)
-				(comment
-					(number "4")
-					(value "")
-				)
-				(comment
-					(number "5")
-					(value "")
-				)
-				(comment
-					(number "6")
-					(value "")
-				)
-				(comment
-					(number "7")
-					(value "")
-				)
-				(comment
-					(number "8")
-					(value "")
-				)
-				(comment
-					(number "9")
-					(value "")
-				)
-			)
-		)
-		(sheet
-			(number "4")
-			(name "/mcu/")
+			(name "/control/")
 			(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			(title_block
 				(title)
 				(company)
 				(rev)
 				(date)
-				(source "mcu.kicad_sch")
-				(comment
-					(number "1")
-					(value "")
-				)
-				(comment
-					(number "2")
-					(value "")
-				)
-				(comment
-					(number "3")
-					(value "")
-				)
-				(comment
-					(number "4")
-					(value "")
-				)
-				(comment
-					(number "5")
-					(value "")
-				)
-				(comment
-					(number "6")
-					(value "")
-				)
-				(comment
-					(number "7")
-					(value "")
-				)
-				(comment
-					(number "8")
-					(value "")
-				)
-				(comment
-					(number "9")
-					(value "")
-				)
-			)
-		)
-		(sheet
-			(number "5")
-			(name "/thrust/")
-			(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			(title_block
-				(title)
-				(company)
-				(rev)
-				(date)
-				(source "thrust.kicad_sch")
-				(comment
-					(number "1")
-					(value "")
-				)
-				(comment
-					(number "2")
-					(value "")
-				)
-				(comment
-					(number "3")
-					(value "")
-				)
-				(comment
-					(number "4")
-					(value "")
-				)
-				(comment
-					(number "5")
-					(value "")
-				)
-				(comment
-					(number "6")
-					(value "")
-				)
-				(comment
-					(number "7")
-					(value "")
-				)
-				(comment
-					(number "8")
-					(value "")
-				)
-				(comment
-					(number "9")
-					(value "")
-				)
-			)
-		)
-		(sheet
-			(number "6")
-			(name "/servo/")
-			(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			(title_block
-				(title)
-				(company)
-				(rev)
-				(date)
-				(source "servo.kicad_sch")
+				(source "control.kicad_sch")
 				(comment
 					(number "1")
 					(value "")
@@ -321,11 +177,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "power")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "power.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -336,7 +192,7 @@
 				(value "CP_*")
 			)
 			(sheetpath
-				(names "/power/")
+				(names "/carrier/")
 				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
 			(tstamps "4fbfcec6-caf8-5184-810e-c890ef51e678")
@@ -381,11 +237,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "power")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "power.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -396,7 +252,7 @@
 				(value "CP_*")
 			)
 			(sheetpath
-				(names "/power/")
+				(names "/carrier/")
 				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
 			(tstamps "b3a31dd3-b220-5d63-94bf-19723d2c7311")
@@ -441,11 +297,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "power")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "power.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -456,7 +312,7 @@
 				(value "CP_*")
 			)
 			(sheetpath
-				(names "/power/")
+				(names "/carrier/")
 				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
 			(tstamps "49ae35b7-c687-56e6-923f-8896281fa3e5")
@@ -501,11 +357,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "power")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "power.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -516,7 +372,7 @@
 				(value "TO-???* *_Diode_* *SingleDiode* D_*")
 			)
 			(sheetpath
-				(names "/power/")
+				(names "/carrier/")
 				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
 			(tstamps "dd1ac791-24f4-5e01-8d3d-cee2c48eca88")
@@ -561,11 +417,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "power")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "power.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -576,7 +432,7 @@
 				(value "TO-???* *_Diode_* *SingleDiode* D_*")
 			)
 			(sheetpath
-				(names "/power/")
+				(names "/carrier/")
 				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
 			(tstamps "c481d591-8232-5cba-9d4a-37c8a14395c1")
@@ -621,11 +477,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "power")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "power.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -636,7 +492,7 @@
 				(value "*Fuse*")
 			)
 			(sheetpath
-				(names "/power/")
+				(names "/carrier/")
 				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
 			(tstamps "a63c09aa-09c1-5fa6-9817-573d833fd4ff")
@@ -655,353 +511,14 @@
 			)
 		)
 		(comp
-			(ref "J14")
-			(value "BUCK 5V")
-			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "Sheetname")
-				(value "power")
-			)
-			(property
-				(name "Sheetfile")
-				(value "power.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/power/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "65362c4a-a960-56d2-bbf5-a6619b4ec63b")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J16")
-			(value "BATT 12V")
-			(footprint "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x02")
-				(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "Sheetname")
-				(value "power")
-			)
-			(property
-				(name "Sheetfile")
-				(value "power.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/power/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "2c7a164f-29a1-58fd-9116-37b5b9f7a48a")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "LED1")
-			(value "green")
-			(footprint "LED_THT:LED_D5.0mm")
-			(fields
-				(field
-					(name "Footprint") "LED_THT:LED_D5.0mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "LED")
-				(description "Light emitting diode")
-			)
-			(property
-				(name "Sheetname")
-				(value "power")
-			)
-			(property
-				(name "Sheetfile")
-				(value "power.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "LED diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "LED* LED_SMD:* LED_THT:*")
-			)
-			(sheetpath
-				(names "/power/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "9fe52058-1f77-52bf-bfb8-87119460206a")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "Q1")
-			(value "IRF9540N")
-			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
-			(fields
-				(field
-					(name "MPN") "IRF9540NPBF")
-				(field
-					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Transistor_FET")
-				(part "IRF9540N")
-				(description "-23A Id, -100V Vds, 117mOhm Rds, P-Channel HEXFET Power MOSFET, TO-220")
-			)
-			(property
-				(name "MPN")
-				(value "IRF9540NPBF")
-			)
-			(property
-				(name "Sheetname")
-				(value "power")
-			)
-			(property
-				(name "Sheetfile")
-				(value "power.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "P-Channel MOSFET HEXFET")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "TO?220*")
-			)
-			(sheetpath
-				(names "/power/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "b9944922-01ea-5147-9c48-19ce943815a9")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R1")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "power")
-			)
-			(property
-				(name "Sheetfile")
-				(value "power.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/power/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "be94aecc-39e5-5e38-86aa-b93701a5cc79")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R2")
-			(value "2.2k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "power")
-			)
-			(property
-				(name "Sheetfile")
-				(value "power.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/power/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "95db780c-6617-5206-8763-a8fe55cbc1c0")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "F2")
 			(value "MF-R200 2A")
-			(footprint "Fuse:Fuse_Bourns_MF-RG400")
+			(footprint "Fuse:Fuse_Bourns_MF-RG300")
 			(fields
 				(field
 					(name "MPN") "Bourns MF-R200")
 				(field
-					(name "Footprint") "Fuse:Fuse_Bourns_MF-RG400")
+					(name "Footprint") "Fuse:Fuse_Bourns_MF-RG300")
 				(field
 					(name "Datasheet")
 				)
@@ -1020,11 +537,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "pi")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "pi.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1035,10 +552,10 @@
 				(value "*polyfuse* *PTC*")
 			)
 			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
-			(tstamps "7210fdff-50a1-5e0a-9d5b-9652cb0eb0ce")
+			(tstamps "c44340f3-9d32-55c8-b2b0-e3770490ff9f")
 			(units
 				(unit
 					(name "A")
@@ -1059,7 +576,7 @@
 			(footprint "Connector_PinHeader_2.54mm:PinHeader_2x13_P2.54mm_Vertical")
 			(fields
 				(field
-					(name "MPN") "Adafruit 1979 (2x20 stacking, extra-tall ~19.5mm) or ESQ-120-39-G-D")
+					(name "MPN") "61302621121 (Wurth 2x13 2.54mm male header)")
 				(field
 					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_2x13_P2.54mm_Vertical")
 				(field
@@ -1076,15 +593,15 @@
 			)
 			(property
 				(name "MPN")
-				(value "Adafruit 1979 (2x20 stacking, extra-tall ~19.5mm) or ESQ-120-39-G-D")
+				(value "61302621121 (Wurth 2x13 2.54mm male header)")
 			)
 			(property
 				(name "Sheetname")
-				(value "pi")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "pi.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1095,10 +612,10 @@
 				(value "Connector*:*_2x??_*")
 			)
 			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
-			(tstamps "7af5d7e5-d155-5913-a215-02ca3e65b006")
+			(tstamps "1b0ff9e0-ae45-55ab-be33-bcf876704dd7")
 			(units
 				(unit
 					(name "A")
@@ -1206,11 +723,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "pi")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "pi.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "dnp")
@@ -1224,10 +741,10 @@
 				(value "Connector*:*_2x??_*")
 			)
 			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
-			(tstamps "97c645d0-969d-5476-9ad6-c885ca588c9a")
+			(tstamps "6a2fc106-a7c7-5bba-9684-1eacae49623e")
 			(units
 				(unit
 					(name "A")
@@ -1341,11 +858,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "pi")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "pi.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1356,10 +873,10 @@
 				(value "Connector*:*_1x??_*")
 			)
 			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
-			(tstamps "a6d1de46-926c-5e05-b322-2f267da016af")
+			(tstamps "5111ce7c-52e8-5bf3-b440-f73e7ddf1446")
 			(units
 				(unit
 					(name "A")
@@ -1407,11 +924,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "pi")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "pi.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1422,10 +939,10 @@
 				(value "Connector*:*_1x??_*")
 			)
 			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
-			(tstamps "eac94ed8-5b90-58d6-9c99-0e3c4f8f9086")
+			(tstamps "bed877dd-37a2-5889-a7a9-65b609f7fe42")
 			(units
 				(unit
 					(name "A")
@@ -1473,11 +990,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "pi")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "pi.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1488,10 +1005,10 @@
 				(value "Connector*:*_1x??_*")
 			)
 			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
-			(tstamps "a8a10a89-af28-5694-ab8a-fe82285a8e36")
+			(tstamps "22e175c4-6c34-5cef-8213-2e1fea226da0")
 			(units
 				(unit
 					(name "A")
@@ -1533,11 +1050,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "pi")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "pi.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1548,10 +1065,10 @@
 				(value "Connector*:*_1x??_*")
 			)
 			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
-			(tstamps "d2fac263-30fb-5c8a-bf6b-6d2de0ab53ae")
+			(tstamps "fec829f5-190f-5885-9d2a-61e68b5d6a4d")
 			(units
 				(unit
 					(name "A")
@@ -1593,11 +1110,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "pi")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "pi.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1608,10 +1125,349 @@
 				(value "Connector*:*_1x??_*")
 			)
 			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
-			(tstamps "935683e5-85e8-5cc5-8cfa-1302d284ea86")
+			(tstamps "c7468410-c84a-526f-85e2-1a4ae6a57c5a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J14")
+			(value "BUCK 5V")
+			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x04")
+				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "carrier")
+			)
+			(property
+				(name "Sheetfile")
+				(value "carrier.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "65362c4a-a960-56d2-bbf5-a6619b4ec63b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J16")
+			(value "BATT 12V")
+			(footprint "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x02")
+				(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "carrier")
+			)
+			(property
+				(name "Sheetfile")
+				(value "carrier.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "2c7a164f-29a1-58fd-9116-37b5b9f7a48a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "LED1")
+			(value "green")
+			(footprint "LED_THT:LED_D5.0mm")
+			(fields
+				(field
+					(name "Footprint") "LED_THT:LED_D5.0mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "LED")
+				(description "Light emitting diode")
+			)
+			(property
+				(name "Sheetname")
+				(value "carrier")
+			)
+			(property
+				(name "Sheetfile")
+				(value "carrier.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "LED diode")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "LED* LED_SMD:* LED_THT:*")
+			)
+			(sheetpath
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "9fe52058-1f77-52bf-bfb8-87119460206a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "Q1")
+			(value "IRF9540N")
+			(footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
+			(fields
+				(field
+					(name "MPN") "IRF9540NPBF")
+				(field
+					(name "Footprint") "Package_TO_SOT_THT:TO-220-3_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Transistor_FET")
+				(part "IRF9540N")
+				(description "-23A Id, -100V Vds, 117mOhm Rds, P-Channel HEXFET Power MOSFET, TO-220")
+			)
+			(property
+				(name "MPN")
+				(value "IRF9540NPBF")
+			)
+			(property
+				(name "Sheetname")
+				(value "carrier")
+			)
+			(property
+				(name "Sheetfile")
+				(value "carrier.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "P-Channel MOSFET HEXFET")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "TO?220*")
+			)
+			(sheetpath
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "b9944922-01ea-5147-9c48-19ce943815a9")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R1")
+			(value "47k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "carrier")
+			)
+			(property
+				(name "Sheetfile")
+				(value "carrier.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "be94aecc-39e5-5e38-86aa-b93701a5cc79")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R2")
+			(value "2.2k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "carrier")
+			)
+			(property
+				(name "Sheetfile")
+				(value "carrier.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "95db780c-6617-5206-8763-a8fe55cbc1c0")
 			(units
 				(unit
 					(name "A")
@@ -1647,11 +1503,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "pi")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "pi.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "dnp")
@@ -1665,10 +1521,10 @@
 				(value "R_*")
 			)
 			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
-			(tstamps "38e74c16-e025-5ea1-a6de-22ebd05f865f")
+			(tstamps "60e69b7e-196a-5258-9ca7-f7cd3b5df099")
 			(units
 				(unit
 					(name "A")
@@ -1704,11 +1560,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "pi")
+				(value "carrier")
 			)
 			(property
 				(name "Sheetfile")
-				(value "pi.kicad_sch")
+				(value "carrier.kicad_sch")
 			)
 			(property
 				(name "dnp")
@@ -1722,10 +1578,10 @@
 				(value "R_*")
 			)
 			(sheetpath
-				(names "/pi/")
-				(tstamps "/c0000000-0000-4000-8000-000000000003/")
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
-			(tstamps "a259749b-4b82-53a8-b5e4-78b05ad17295")
+			(tstamps "346243aa-e365-50e3-8b9e-107326085303")
 			(units
 				(unit
 					(name "A")
@@ -1761,11 +1617,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1776,10 +1632,232 @@
 				(value "C_*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "7a04a9a2-0888-5974-8f7c-bdb16649721a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C12")
+			(value "100n")
+			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
+			(fields
+				(field
+					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "de88bb13-7e1f-585d-9002-4ed3df8a7303")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C21")
+			(value "100n")
+			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
+			(fields
+				(field
+					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "ce5a343d-1e86-53dc-af98-0beb1720bc67")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C22")
+			(value "220u/25V")
+			(footprint "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm")
+			(fields
+				(field
+					(name "MPN") "EEU-FR1E221 (220uF/25V)")
+				(field
+					(name "Footprint") "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C_Polarized")
+				(description "Polarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "EEU-FR1E221 (220uF/25V)")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "CP_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "fb20f51b-4028-525e-a776-b34e14e18df1")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C23")
+			(value "100n")
+			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
+			(fields
+				(field
+					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "e8a58f27-b815-5f25-9708-d4b8cbb7f3e9")
 			(units
 				(unit
 					(name "A")
@@ -1821,11 +1899,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1836,7 +1914,7 @@
 				(value "SOT?23*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "3834168c-8dc4-5c9c-b527-40db3da77cbc")
@@ -1852,6 +1930,324 @@
 						)
 						(pin
 							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D8")
+			(value "BAT54S")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(fields
+				(field
+					(name "MPN") "BAT54S,215")
+				(field
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Diode")
+				(part "BAT54S")
+				(description "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323")
+			)
+			(property
+				(name "MPN")
+				(value "BAT54S,215")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "schottky diode")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "SOT?23*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "ddeedde1-d5df-569f-982b-364ec69d14ea")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D10")
+			(value "BAT54S")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(fields
+				(field
+					(name "MPN") "BAT54S,215")
+				(field
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Diode")
+				(part "BAT54S")
+				(description "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323")
+			)
+			(property
+				(name "MPN")
+				(value "BAT54S,215")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "schottky diode")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "SOT?23*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "ba1e9e22-666c-5a45-bb9c-b8249cd9ed88")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D11")
+			(value "BAT54S")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(fields
+				(field
+					(name "MPN") "BAT54S,215")
+				(field
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Diode")
+				(part "BAT54S")
+				(description "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323")
+			)
+			(property
+				(name "MPN")
+				(value "BAT54S,215")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "schottky diode")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "SOT?23*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "0fd60eb8-105f-5365-aefe-f747a8858dd4")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D14")
+			(value "BAT54S")
+			(footprint "Package_TO_SOT_SMD:SOT-23")
+			(fields
+				(field
+					(name "MPN") "BAT54S,215")
+				(field
+					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Diode")
+				(part "BAT54S")
+				(description "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323")
+			)
+			(property
+				(name "MPN")
+				(value "BAT54S,215")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "schottky diode")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "SOT?23*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "2bbb75aa-fa21-5194-97c5-68fcdbff67f3")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J11")
+			(value "AS5600")
+			(footprint "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical")
+			(fields
+				(field
+					(name "MPN") "JST B4B-XH-A(LF)(SN)")
+				(field
+					(name "Footprint") "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x04")
+				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "MPN")
+				(value "JST B4B-XH-A(LF)(SN)")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "b59d7393-a105-5464-9285-396c9ec34451")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
 						)
 					)
 				)
@@ -1878,11 +2274,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "dnp")
@@ -1896,7 +2292,7 @@
 				(value "Connector*:*_1x??_*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "84c3c8b2-1876-58b6-8cf4-7842a472e594")
@@ -1933,6 +2329,138 @@
 			)
 		)
 		(comp
+			(ref "J13")
+			(value "THRUST DRV")
+			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x08")
+				(description "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "b08a61c5-5e50-5e46-a35e-ac45718d4e34")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "8")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J22")
+			(value "SERVO MOTOR")
+			(footprint "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal")
+			(fields
+				(field
+					(name "MPN") "CUI TB007-508-02")
+				(field
+					(name "Footprint") "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x02")
+				(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "MPN")
+				(value "CUI TB007-508-02")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "242dee6a-031f-50bd-a285-a074c2e60ec3")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
 			(ref "LED5")
 			(value "yellow")
 			(footprint "LED_THT:LED_D5.0mm")
@@ -1953,11 +2481,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1968,7 +2496,7 @@
 				(value "LED* LED_SMD:* LED_THT:*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "dc1217db-d8b4-593e-9e69-183d98c2cafd")
@@ -2007,11 +2535,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2022,7 +2550,7 @@
 				(value "R_*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "d82c4e5b-fce4-57b2-84ff-d3bcd87d462d")
@@ -2061,11 +2589,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2076,7 +2604,7 @@
 				(value "R_*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "324f1599-89f3-5fa8-91f4-70b681958195")
@@ -2115,11 +2643,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2130,7 +2658,7 @@
 				(value "R_*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "181e56db-f0af-51b4-8b12-55641d5af20c")
@@ -2169,11 +2697,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2184,7 +2712,7 @@
 				(value "R_*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "179b2b2f-ae96-583f-bae8-8ee7eadc3906")
@@ -2223,11 +2751,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2238,7 +2766,7 @@
 				(value "R_*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "4604bf94-0c94-5264-9b8c-d6e37b4fc429")
@@ -2277,11 +2805,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2292,10 +2820,604 @@
 				(value "R_*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "7264b1bf-274f-5e04-beb4-0b842007498f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R15")
+			(value "1k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "9c4b7bf3-7e5b-5f82-a9d5-425ebf31ecee")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R16")
+			(value "1k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "70613a90-e3dc-5fb5-90ea-9d6432dff435")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R18")
+			(value "10k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "c378db85-e1dc-5cdf-939e-42073bd058c0")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R19")
+			(value "1k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "c9c46bcf-c1c3-590f-8b1b-4faa10fc0d0f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R20")
+			(value "100R")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "b54755d7-fefc-563d-8878-b6d5bcd1d23f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R21")
+			(value "100R")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "e3743729-5fbc-5353-9dbc-5abd35ce06aa")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R30")
+			(value "100k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "b532de43-fc77-5c60-b1d2-ac46a9506f22")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R32")
+			(value "100k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "a12fb5ac-cb68-51b9-9d98-fe78a0d26add")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R38")
+			(value "20k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "fb759a9d-74d2-5b72-ba68-a7a29b5bbce6")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R39")
+			(value "47k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "6ee48810-2261-522d-a658-85974d596d20")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R40")
+			(value "47k")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+			(fields
+				(field
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "control")
+			)
+			(property
+				(name "Sheetfile")
+				(value "control.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
+			)
+			(tstamps "d618def6-b769-531d-8a62-0c949d7dd347")
 			(units
 				(unit
 					(name "A")
@@ -2337,11 +3459,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "mcu")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "mcu.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2352,7 +3474,7 @@
 				(value "RaspberryPi?Pico?SMD*")
 			)
 			(sheetpath
-				(names "/mcu/")
+				(names "/control/")
 				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
 			(tstamps "3ac255ac-d2e3-5c9b-b63c-5c8a6aceb85d")
@@ -2494,1272 +3616,6 @@
 			)
 		)
 		(comp
-			(ref "C21")
-			(value "100n")
-			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-			(fields
-				(field
-					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "cede63f0-b876-5430-92f2-2125265601c6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D14")
-			(value "BAT54S")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(fields
-				(field
-					(name "MPN") "BAT54S,215")
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Diode")
-				(part "BAT54S")
-				(description "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323")
-			)
-			(property
-				(name "MPN")
-				(value "BAT54S,215")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "schottky diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "SOT?23*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "338d6183-d0c5-50cf-8040-d3a6abddc541")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J13")
-			(value "THRUST DRV")
-			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x08")
-				(description "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "1c90df18-f34d-5719-9570-ba2c0f12ba05")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "5")
-						)
-						(pin
-							(num "6")
-						)
-						(pin
-							(num "7")
-						)
-						(pin
-							(num "8")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R15")
-			(value "1k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "05e80102-209d-55b4-bd62-3e757973b1c8")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R16")
-			(value "1k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "35846ee6-4d16-5e14-8812-f6098664ba14")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R30")
-			(value "100k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "5a910d94-563b-5a3e-bf9e-b247b27ca9c2")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R32")
-			(value "100k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "415bcb83-b9bd-5aa6-8cb0-4e05392c3a63")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R38")
-			(value "20k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "thrust")
-			)
-			(property
-				(name "Sheetfile")
-				(value "thrust.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/thrust/")
-				(tstamps "/c0000000-0000-4000-8000-000000000005/")
-			)
-			(tstamps "806f701d-3980-534f-8706-770c4fef39a6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C12")
-			(value "100n")
-			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-			(fields
-				(field
-					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "b5339ae3-159a-5664-85b5-3934a9f1637f")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C22")
-			(value "220u/25V")
-			(footprint "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm")
-			(fields
-				(field
-					(name "MPN") "EEU-FR1E221 (220uF/25V)")
-				(field
-					(name "Footprint") "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C_Polarized")
-				(description "Polarized capacitor")
-			)
-			(property
-				(name "MPN")
-				(value "EEU-FR1E221 (220uF/25V)")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "CP_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "3fb65fcf-b991-507f-825a-9f363f269bc6")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C23")
-			(value "100n")
-			(footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-			(fields
-				(field
-					(name "Footprint") "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "C")
-				(description "Unpolarized capacitor")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "cap capacitor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "C_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "047d4cef-9a59-584c-9e68-717aecac7293")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D8")
-			(value "BAT54S")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(fields
-				(field
-					(name "MPN") "BAT54S,215")
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Diode")
-				(part "BAT54S")
-				(description "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323")
-			)
-			(property
-				(name "MPN")
-				(value "BAT54S,215")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "schottky diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "SOT?23*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "de719a3f-0034-51d7-bbbf-f77164a469bc")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D10")
-			(value "BAT54S")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(fields
-				(field
-					(name "MPN") "BAT54S,215")
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Diode")
-				(part "BAT54S")
-				(description "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323")
-			)
-			(property
-				(name "MPN")
-				(value "BAT54S,215")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "schottky diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "SOT?23*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "0d5e0f45-42b8-5a9f-8654-1a6ad4c22582")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "D11")
-			(value "BAT54S")
-			(footprint "Package_TO_SOT_SMD:SOT-23")
-			(fields
-				(field
-					(name "MPN") "BAT54S,215")
-				(field
-					(name "Footprint") "Package_TO_SOT_SMD:SOT-23")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Diode")
-				(part "BAT54S")
-				(description "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323")
-			)
-			(property
-				(name "MPN")
-				(value "BAT54S,215")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "schottky diode")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "SOT?23*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "2be72a47-e1bb-54c0-a118-8e33419f04dd")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J11")
-			(value "AS5600")
-			(footprint "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical")
-			(fields
-				(field
-					(name "MPN") "JST B4B-XH-A(LF)(SN)")
-				(field
-					(name "Footprint") "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "JST B4B-XH-A(LF)(SN)")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "3c2dbbd4-9e66-54fe-ba66-40eb9c4ca0af")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "J22")
-			(value "SERVO MOTOR")
-			(footprint "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal")
-			(fields
-				(field
-					(name "MPN") "CUI TB007-508-02")
-				(field
-					(name "Footprint") "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x02")
-				(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "MPN")
-				(value "CUI TB007-508-02")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "1e9a7192-52d1-532e-a6e1-00117e464d6f")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R18")
-			(value "10k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "3520f307-4c8f-542b-8269-f0e30564b068")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R19")
-			(value "1k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "e00b334a-f301-5b4d-9256-12ec7f894abd")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R20")
-			(value "100R")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "87491e95-f407-5dae-8154-83833405f8ee")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R21")
-			(value "100R")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "6541aeda-0930-5b4c-9c66-8312861d7701")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R39")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "48a03632-6bea-5cc2-97b9-a637867ab5fb")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "R40")
-			(value "47k")
-			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-			(fields
-				(field
-					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Device")
-				(part "R")
-				(description "Resistor")
-			)
-			(property
-				(name "Sheetname")
-				(value "servo")
-			)
-			(property
-				(name "Sheetfile")
-				(value "servo.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "R res resistor")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "R_*")
-			)
-			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
-			)
-			(tstamps "9ee786ad-0b9d-50a9-8753-26fa1a504d54")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "U7")
 			(value "BTN8982TA")
 			(footprint "Package_TO_SOT_SMD:TO-263-7_TabPin4")
@@ -3786,17 +3642,17 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "servo")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "servo.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
-			(tstamps "c6de939f-2fcf-5160-a0b1-54b143276a2c")
+			(tstamps "1c03c301-594c-57f8-ad86-3207dfebf7a8")
 			(units
 				(unit
 					(name "A")
@@ -3853,17 +3709,17 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "servo")
+				(value "control")
 			)
 			(property
 				(name "Sheetfile")
-				(value "servo.kicad_sch")
+				(value "control.kicad_sch")
 			)
 			(sheetpath
-				(names "/servo/")
-				(tstamps "/c0000000-0000-4000-8000-000000000006/")
+				(names "/control/")
+				(tstamps "/c0000000-0000-4000-8000-000000000004/")
 			)
-			(tstamps "853915f8-87ca-52ba-8ed4-198241f9492d")
+			(tstamps "84993b49-c596-5c10-a5b4-bdc05ba8cf76")
 			(units
 				(unit
 					(name "A")
@@ -5001,39 +4857,7 @@
 		)
 		(net
 			(code "3")
-			(name "/mcu/LED5_A")
-			(class "Default")
-			(node
-				(ref "LED5")
-				(pin "2")
-				(pinfunction "A_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R13")
-				(pin "2")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "4")
-			(name "/mcu/PICO_RUN")
-			(class "Default")
-			(node
-				(ref "R8")
-				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "30")
-				(pinfunction "RUN_30")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "5")
-			(name "/power/BATT_IN")
+			(name "/carrier/BATT_IN")
 			(class "Default")
 			(node
 				(ref "F1")
@@ -5048,8 +4872,8 @@
 			)
 		)
 		(net
-			(code "6")
-			(name "/power/LED1_A")
+			(code "4")
+			(name "/carrier/LED1_A")
 			(class "Default")
 			(node
 				(ref "LED1")
@@ -5064,8 +4888,8 @@
 			)
 		)
 		(net
-			(code "7")
-			(name "/power/Q1_G")
+			(code "5")
+			(name "/carrier/Q1_G")
 			(class "Default")
 			(node
 				(ref "D4")
@@ -5086,8 +4910,8 @@
 			)
 		)
 		(net
-			(code "8")
-			(name "/power/VIN_RAW")
+			(code "6")
+			(name "/carrier/VIN_RAW")
 			(class "Default")
 			(node
 				(ref "F1")
@@ -5102,8 +4926,8 @@
 			)
 		)
 		(net
-			(code "9")
-			(name "/servo/ENC_SCL_J")
+			(code "7")
+			(name "/control/ENC_SCL_J")
 			(class "Default")
 			(node
 				(ref "D11")
@@ -5124,8 +4948,8 @@
 			)
 		)
 		(net
-			(code "10")
-			(name "/servo/ENC_SDA_J")
+			(code "8")
+			(name "/control/ENC_SDA_J")
 			(class "Default")
 			(node
 				(ref "D10")
@@ -5146,8 +4970,72 @@
 			)
 		)
 		(net
+			(code "9")
+			(name "/control/LED5_A")
+			(class "Default")
+			(node
+				(ref "LED5")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R13")
+				(pin "2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "10")
+			(name "/control/L_IS")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "6")
+				(pinfunction "Pin_6_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "R16")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
 			(code "11")
-			(name "/servo/SERVO_IS_RAW")
+			(name "/control/PICO_RUN")
+			(class "Default")
+			(node
+				(ref "R8")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "30")
+				(pinfunction "RUN_30")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "12")
+			(name "/control/R_IS")
+			(class "Default")
+			(node
+				(ref "J13")
+				(pin "5")
+				(pinfunction "Pin_5_5")
+				(pintype "passive")
+			)
+			(node
+				(ref "R15")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "13")
+			(name "/control/SERVO_IS_RAW")
 			(class "Default")
 			(node
 				(ref "R18")
@@ -5173,8 +5061,8 @@
 			)
 		)
 		(net
-			(code "12")
-			(name "/servo/SR_A")
+			(code "14")
+			(name "/control/SR_A")
 			(class "Default")
 			(node
 				(ref "R39")
@@ -5189,8 +5077,8 @@
 			)
 		)
 		(net
-			(code "13")
-			(name "/servo/SR_B")
+			(code "15")
+			(name "/control/SR_B")
 			(class "Default")
 			(node
 				(ref "R40")
@@ -5201,38 +5089,6 @@
 				(ref "U8")
 				(pin "5")
 				(pinfunction "SR_5")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "14")
-			(name "/thrust/L_IS")
-			(class "Default")
-			(node
-				(ref "J13")
-				(pin "6")
-				(pinfunction "Pin_6_6")
-				(pintype "passive")
-			)
-			(node
-				(ref "R16")
-				(pin "1")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "15")
-			(name "/thrust/R_IS")
-			(class "Default")
-			(node
-				(ref "J13")
-				(pin "5")
-				(pinfunction "Pin_5_5")
-				(pintype "passive")
-			)
-			(node
-				(ref "R15")
-				(pin "1")
 				(pintype "passive")
 			)
 		)
@@ -5433,12 +5289,6 @@
 			)
 			(node
 				(ref "J1")
-				(pin "14")
-				(pinfunction "Pin_14_14")
-				(pintype "passive")
-			)
-			(node
-				(ref "J1")
 				(pin "20")
 				(pinfunction "Pin_20_20")
 				(pintype "passive")
@@ -5525,12 +5375,6 @@
 				(ref "J2")
 				(pin "6")
 				(pinfunction "Pin_6_6")
-				(pintype "passive")
-			)
-			(node
-				(ref "J2")
-				(pin "9")
-				(pinfunction "Pin_9_9")
 				(pintype "passive")
 			)
 			(node
@@ -6507,6 +6351,28 @@
 		)
 		(net
 			(code "59")
+			(name "unconnected-(J1-Pin_14-Pad14)")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "14")
+				(pinfunction "Pin_14_14")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "60")
+			(name "unconnected-(J2-Pin_9-Pad9)")
+			(class "Default")
+			(node
+				(ref "J2")
+				(pin "9")
+				(pinfunction "Pin_9_9")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "61")
 			(name "unconnected-(U1-3V3_EN-Pad37)")
 			(class "Default")
 			(node
@@ -6517,7 +6383,7 @@
 			)
 		)
 		(net
-			(code "60")
+			(code "62")
 			(name "unconnected-(U1-ADC_VREF-Pad35)")
 			(class "Default")
 			(node
@@ -6528,7 +6394,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "63")
 			(name "unconnected-(U1-GPIO16-Pad21)")
 			(class "Default")
 			(node
@@ -6539,7 +6405,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "64")
 			(name "unconnected-(U1-GPIO20-Pad26)")
 			(class "Default")
 			(node
@@ -6550,7 +6416,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "65")
 			(name "unconnected-(U1-GPIO21-Pad27)")
 			(class "Default")
 			(node
@@ -6561,7 +6427,7 @@
 			)
 		)
 		(net
-			(code "64")
+			(code "66")
 			(name "unconnected-(U1-GPIO22-Pad29)")
 			(class "Default")
 			(node
@@ -6572,7 +6438,7 @@
 			)
 		)
 		(net
-			(code "65")
+			(code "67")
 			(name "unconnected-(U1-VBUS-Pad40)")
 			(class "Default")
 			(node

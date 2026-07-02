@@ -1,4 +1,4 @@
-### Footprint positions - created on 2026-07-02T11:52:06 ###
+### Footprint positions - created on 2026-07-02T14:11:34 ###
 ### Printed by KiCad version 10.0.3
 ## Unit = mm, Angle = deg.
 ## Side : All
@@ -19,7 +19,7 @@ D10       BAT54S           SOT-23                                               
 D11       BAT54S           SOT-23                                                    48.0000   -37.0000    0.0000  top
 D14       BAT54S           SOT-23                                                    53.0000   -88.0000    0.0000  top
 F1        10A_blade        Fuseholder_Blade_Mini_Keystone_3568                       65.0400   -80.3000    0.0000  top
-F2        MF-R200_2A       Fuse_Bourns_MF-RG400                                     134.4500   -52.4000    0.0000  top
+F2        MF-R200_2A       Fuse_Bourns_MF-RG300                                     134.4500   -52.4000    0.0000  top
 J1        OPI_Z3_26PIN     PinHeader_2x13_P2.54mm_Vertical                           34.0000   -76.0400   90.0000  top
 J2        OPI_BREAKOUT     PinHeader_2x13_P2.54mm_Vertical                           34.7650   -65.8750   90.0000  top
 J3        UART5_ttyAS5     JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical                     80.2500  -107.4750    0.0000  top
