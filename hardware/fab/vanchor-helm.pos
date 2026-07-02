@@ -1,4 +1,4 @@
-### Footprint positions - created on 2026-07-02T09:17:45 ###
+### Footprint positions - created on 2026-07-02T11:52:06 ###
 ### Printed by KiCad version 10.0.3
 ## Unit = mm, Angle = deg.
 ## Side : All
@@ -20,15 +20,15 @@ D11       BAT54S           SOT-23                                               
 D14       BAT54S           SOT-23                                                    53.0000   -88.0000    0.0000  top
 F1        10A_blade        Fuseholder_Blade_Mini_Keystone_3568                       65.0400   -80.3000    0.0000  top
 F2        MF-R200_2A       Fuse_Bourns_MF-RG400                                     134.4500   -52.4000    0.0000  top
-J1        OPI_Z3_26PIN     PinSocket_2x13_P2.54mm_Vertical                           34.0000   -73.5000   90.0000  top
-J2        OPI_BREAKOUT     PinHeader_2x13_P2.54mm_Vertical                           34.7650   -66.2750   90.0000  top
+J1        OPI_Z3_26PIN     PinHeader_2x13_P2.54mm_Vertical                           34.0000   -76.0400   90.0000  top
+J2        OPI_BREAKOUT     PinHeader_2x13_P2.54mm_Vertical                           34.7650   -65.8750   90.0000  top
 J3        UART5_ttyAS5     JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical                     80.2500  -107.4750    0.0000  top
 J4        UART2_ttyAS2     JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical                     94.2500  -107.4750    0.0000  top
 J8        I2C3_spare       JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical                    108.2500  -107.4750    0.0000  top
 J9        FAN_5V           PinHeader_1x02_P2.54mm_Vertical                          135.7250   -47.0000   90.0000  top
 J10       AUX_5V_(screen)  JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical                    136.4750   -35.2500   90.0000  top
 J11       AS5600           JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical                    122.2500  -107.4750    0.0000  top
-J12       PICO_UTIL        PinHeader_1x08_P2.54mm_Vertical                           41.1100   -69.4000   90.0000  top
+J12       PICO_UTIL        PinHeader_1x08_P2.54mm_Vertical                           41.1100   -69.9000   90.0000  top
 J13       THRUST_DRV       PinHeader_1x08_P2.54mm_Vertical                           30.1100  -111.0000   90.0000  top
 J14       BUCK_5V          PinHeader_1x04_P2.54mm_Vertical                          130.1900   -94.0000   90.0000  top
 J16       BATT_12V         TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal    55.1600  -108.7750    0.0000  top
