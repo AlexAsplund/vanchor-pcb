@@ -79,6 +79,46 @@ COMPONENTS = [
     dict(lib="Device:LED", ref="D1", value="green", fp=LED5MM,
          at=grid(15), pins={"2": ".LED_A", "1": "GND"}),
 
+    # ---- NMEA2000 node provision (ALL DNP: holes only, populate later) ----
+    # Smart-node mode: fit U5 (Pico 2), U6 (TSR-1/R-78E5.0 SIP-3 regulator),
+    # R12/R13 (1k ADC series) and a 3.3V CAN transceiver on J6; the node then
+    # self-powers from VBAT and takes commands over NMEA2000 (can2040 on
+    # GP18/GP19). Leave J1 unconnected in that mode. Dumb mode: leave all of
+    # this unpopulated and drive via J1 as today. Same GPIO map as the helm
+    # Pico: GP12-15 drive, GP26/27 sense, GP18/19 CAN.
+    dict(lib="MCU_Module:RaspberryPi_Pico_Debug", ref="U5", value="Pico 2 (DNP)", dnp=True,
+         fp="vanchor-helm:RaspberryPi_Pico_TH_SWD",
+         at=(140, 210, 0), pins={
+            "3": "GND", "8": "GND", "13": "GND", "18": "GND", "23": "GND",
+            "28": "GND", "33": "GND", "38": "GND",
+            "16": "RPWM", "17": "LPWM", "19": "R_EN", "20": "L_EN",
+            "24": "CAN_TX", "25": "CAN_RX",
+            "31": "L_ADC", "32": "R_ADC",
+            "36": "+3V3", "39": "+5V",
+            **{str(n): None for n in (1, 2, 4, 5, 6, 7, 9, 10, 11, 12, 14, 15,
+                                      21, 22, 26, 27, 29, 30, 34, 35, 37, 40)},
+            "D1": None, "D2": None, "D3": None}),
+    dict(lib="Converter_DCDC:TSR_1-2450", ref="U6", value="R-78E5.0-0.5 (DNP)", dnp=True,
+         fp="Converter_DCDC:Converter_DCDC_TRACO_TSR-1_THT",
+         at=(240, 200, 0), pins={"1": "VBAT", "2": "GND", "3": "+5V"}),
+    dict(lib="Connector_Generic:Conn_01x04", ref="J6", value="CAN XCVR 3V3", fp=HDR1x8.replace("1x08", "1x04"),
+         at=(280, 200, 0), pins={"1": "+3V3", "2": "GND", "3": "CAN_TX", "4": "CAN_RX"}),
+    dict(lib="Connector_Generic:Conn_01x03", ref="J7", value="NMEA2000 PWR",
+         fp="Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical",
+         at=(320, 200, 0), pins={"1": "N2K_VP", "2": "GND", "3": "N2K_SHLD"}),
+    dict(lib="Device:R", ref="R10", value="0R DNP", dnp=True,
+         fp="Resistor_SMD:R_0805_2012Metric",
+         at=(240, 240, 0), pins={"1": "N2K_VP", "2": "VBAT"}),
+    dict(lib="Device:R", ref="R11", value="0R DNP", dnp=True,
+         fp="Resistor_SMD:R_0805_2012Metric",
+         at=(260, 240, 0), pins={"1": "N2K_SHLD", "2": "GND"}),
+    dict(lib="Device:R", ref="R12", value="1k DNP", dnp=True,
+         fp="Resistor_SMD:R_0805_2012Metric",
+         at=(280, 240, 0), pins={"1": "R_IS", "2": "R_ADC"}),
+    dict(lib="Device:R", ref="R13", value="1k DNP", dnp=True,
+         fp="Resistor_SMD:R_0805_2012Metric",
+         at=(300, 240, 0), pins={"1": "L_IS", "2": "L_ADC"}),
+
     # power lugs
     dict(lib="Connector_Generic:Conn_01x01", ref="J2", value="LUG BATT+", fp=LUG,
          at=(320, 90, 0), pins={"1": "VBAT"}),

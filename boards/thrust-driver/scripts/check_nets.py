@@ -22,7 +22,9 @@ EXPECTED = {
     "RPWM": 3, "LPWM": 3,            # J1 + 2 BTN INs
     "R_EN": 4, "L_EN": 4,            # J1, 2 BTN INH, pulldown
     "R_IS": 4, "L_IS": 4,            # J1, 2 BTN IS, 1k load
-    "+5V": 2,                        # J1, R9
+    "+5V": 4,                        # J1, R9, U5.39, U6.3
+    "+3V3": 2, "CAN_TX": 2, "CAN_RX": 2,
+    "N2K_VP": 2, "N2K_SHLD": 2, "R_ADC": 2, "L_ADC": 2,
 }
 
 

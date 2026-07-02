@@ -1,6 +1,6 @@
 # vanchor-thrust — trolling-motor DC driver
 
-95×75 mm 2-layer board. Full H-bridge for a 12–24 V brushed trolling motor,
+95×92 mm 2-layer board. Full H-bridge for a 12–24 V brushed trolling motor,
 controlled by the vanchor-helm board over one straight 8-wire cable. Two
 build variants share the same PCB:
 
@@ -61,6 +61,29 @@ practice treat the effective kILIS as ~8500 with U1/U2 only and ~17000 per
 device (halved reading) when paralleled. Calibrate `THR_IS` scaling in the
 Pico firmware after choosing the variant.
 
+## NMEA2000 smart-node option (v1.1 provision, all DNP)
+
+The board carries unpopulated through-hole provision to become a
+standalone NMEA2000 node — same pattern as the helm board:
+
+- **U5** Pico 2 (GP12-15 wired in parallel with J1's RPWM/LPWM/R_EN/L_EN,
+  GP26/27 read the IS sense via R12/R13 1k series, GP18/19 run CAN via
+  can2040 — identical GPIO map to the helm Pico, so the thrust firmware
+  ports directly).
+- **U6** SIP-3 5V regulator (R-78E5.0-0.5 or TSR 1-2450): powers the node
+  from the motor battery (12-24V in).
+- **J6** 4-pin CAN header: 3V3 / GND / TX / RX to a Waveshare SN65HVD230
+  transceiver module; CAN_H/L go to the module's screw terminal.
+- **J7** XH-3 lands the N2K drop cable's V+ / GND / SHIELD. R10 (0R DNP)
+  optionally feeds the backbone from VBAT (fuse the drop cable); R11
+  (0R DNP) bonds shield to GND at this node only if nowhere else does.
+
+Dumb mode (default): populate nothing, drive via the J1 cable as before.
+Smart mode: fit U5 + U6 + R12 + R13 + transceiver, **leave J1
+unconnected** (both would drive the same nets), and implement a command
+watchdog in the node firmware (hard-stop to neutral if the command PGN
+stream halts >300-500 ms).
+
 ## Assembly order
 
 1. SMD: BTN8982s (U1/U2, plus U3/U4 for high power), D2.
@@ -81,6 +104,8 @@ HASL, 5/5 mil, 0.3 mm min drill, tented vias. Upload
 - `solder_mask_bridge` warnings (~200): intentional exposed solder lanes.
 - `pth/npth_inside_courtyard`, `courtyards_overlap`: warnings only, from
   the lug/cap density; verified manually.
+- `solder_mask_bridge` is set to *ignore* in the project (the exposed
+  solder lanes intentionally span nets' mask apertures).
 - The routed .kicad_pcb includes hand-placed link tracks and via-hops for
   the DNP-pair nets (RPWM/LPWM/R_EN/L_EN/R_IS/L_IS between U1/U2 and
   U3/U4) — regenerating the board from `scripts/build_board.py` requires

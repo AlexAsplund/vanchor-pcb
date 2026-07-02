@@ -1,31 +1,39 @@
-### Footprint positions - created on 2026-07-02T17:12:00 ###
+### Footprint positions - created on 2026-07-02T19:50:00 ###
 ### Printed by KiCad version 10.0.3
 ## Unit = mm, Angle = deg.
 ## Side : All
-# Ref     Val           Package                                                 PosX       PosY       Rot  Side
-C1        2200u/35V     CP_Radial_D18.0mm_P7.50mm                            88.7488   -57.0000    0.0000  top
-C2        2200u/35V     CP_Radial_D18.0mm_P7.50mm                            31.2488   -57.0000    0.0000  top
-C3        100n          C_Disc_D5.0mm_W2.5mm_P5.00mm                         51.5000   -28.0000    0.0000  top
-C4        100n          C_Disc_D5.0mm_W2.5mm_P5.00mm                         75.5000   -28.0000    0.0000  top
-C5        1u/100V_film  C_Rect_L13.0mm_W6.0mm_P10.00mm_FKS3_FKP3_MKS4        61.0000   -28.0000    0.0000  top
-D1        green         LED_D5.0mm                                           42.7250   -88.0000    0.0000  top
-D2        SMCJ33A       D_SMC                                                44.0000   -28.0000    0.0000  top
-J1        HELM_J13_1:1  PinHeader_1x08_P2.54mm_Vertical                      23.5000   -48.1100    0.0000  top
-J2        LUG_BATT+     Lug_M5                                               30.0012   -32.0000    0.0000  top
-J3        LUG_BATT-     Lug_M5                                               30.0012   -83.0000    0.0000  top
-J4        LUG_MOT_A     Lug_M5                                              105.0012   -32.0000    0.0000  top
-J5        LUG_MOT_B     Lug_M5                                              105.0012   -83.0000    0.0000  top
-R1        100k          R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    29.9200   -44.0000    0.0000  top
-R2        100k          R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    29.9200   -70.0000    0.0000  top
-R3        51k           R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    47.9200   -54.0000    0.0000  top
-R4        51k           R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    47.9200   -62.0000    0.0000  top
-R5        1k            R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    47.9200   -58.0000    0.0000  top
-R6        1k            R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    69.9200   -58.0000    0.0000  top
-R7        51k           R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    69.9200   -54.0000    0.0000  top
-R8        51k           R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    69.9200   -62.0000    0.0000  top
-R9        1k            R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    48.9200   -88.0000    0.0000  top
-U1        BTN8982TA     TO-263-7_TabPin4                                     55.8750   -44.0000    0.0000  top
-U2        BTN8982TA     TO-263-7_TabPin4                                     55.8750   -70.0000    0.0000  top
-U3        BTN8982TA     TO-263-7_TabPin4                                     75.8750   -44.0000    0.0000  top
-U4        BTN8982TA     TO-263-7_TabPin4                                     75.8750   -70.0000    0.0000  top
+# Ref     Val             Package                                                 PosX       PosY       Rot  Side
+C1        2200u/35V       CP_Radial_D18.0mm_P7.50mm                            88.7488   -57.0000    0.0000  top
+C2        2200u/35V       CP_Radial_D18.0mm_P7.50mm                            31.2488   -57.0000    0.0000  top
+C3        100n            C_Disc_D5.0mm_W2.5mm_P5.00mm                         51.5000   -28.0000    0.0000  top
+C4        100n            C_Disc_D5.0mm_W2.5mm_P5.00mm                         75.5000   -28.0000    0.0000  top
+C5        1u/100V_film    C_Rect_L13.0mm_W6.0mm_P10.00mm_FKS3_FKP3_MKS4        61.0000   -28.0000    0.0000  top
+D1        green           LED_D5.0mm                                           40.2250   -83.6000    0.0000  top
+D2        SMCJ33A         D_SMC                                                44.0000   -28.0000    0.0000  top
+J1        HELM_J13_1:1    PinHeader_1x08_P2.54mm_Vertical                      23.5000   -48.1100    0.0000  top
+J2        LUG_BATT+       Lug_M5                                               30.0012   -32.0000    0.0000  top
+J3        LUG_BATT-       Lug_M5                                               30.0012   -83.0000    0.0000  top
+J4        LUG_MOT_A       Lug_M5                                              105.0012   -32.0000    0.0000  top
+J5        LUG_MOT_B       Lug_M5                                              105.0012   -83.0000    0.0000  top
+J6        CAN_XCVR        PinHeader_1x04_P2.54mm_Vertical                      95.0000  -102.1900    0.0000  top
+J7        NMEA2000_PWR    JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical               106.4750  -103.0000   90.0000  top
+R1        100k            R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    29.9200   -44.0000    0.0000  top
+R2        100k            R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    29.9200   -70.0000    0.0000  top
+R3        51k             R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    47.9200   -54.0000    0.0000  top
+R4        51k             R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    47.9200   -62.0000    0.0000  top
+R5        1k              R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    47.9200   -58.0000    0.0000  top
+R6        1k              R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    69.9200   -58.0000    0.0000  top
+R7        51k             R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    69.9200   -54.0000    0.0000  top
+R8        51k             R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    69.9200   -62.0000    0.0000  top
+R9        1k              R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    48.9200   -88.0000    0.0000  top
+R10       0R_DNP          R_0805_2012Metric                                   101.0000  -106.5000   90.0000  top
+R11       0R_DNP          R_0805_2012Metric                                   104.8000  -109.3000   90.0000  top
+R12       1k_DNP          R_0805_2012Metric                                    42.8000   -75.0000  -90.0000  top
+R13       1k_DNP          R_0805_2012Metric                                    46.2000   -78.2000  -90.0000  top
+U1        BTN8982TA       TO-263-7_TabPin4                                     55.8750   -44.0000    0.0000  top
+U2        BTN8982TA       TO-263-7_TabPin4                                     55.8750   -70.0000    0.0000  top
+U3        BTN8982TA       TO-263-7_TabPin4                                     75.8750   -44.0000    0.0000  top
+U4        BTN8982TA       TO-263-7_TabPin4                                     75.8750   -70.0000    0.0000  top
+U5        Pico_2_(DNP)    RaspberryPi_Pico_TH_SWD                              36.2450  -109.8900   90.0000  top
+U6        R-78E5.0_(DNP)  Converter_DCDC_TRACO_TSR-1_THT                       24.4500  -100.3000    0.0000  top
 ## End

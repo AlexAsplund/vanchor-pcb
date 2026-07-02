@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/boards/thrust-driver/vanchor-thrust.kicad_sch")
-		(date "2026-07-02T16:15:06")
+		(date "2026-07-02T19:17:09")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
@@ -757,6 +757,123 @@
 			)
 		)
 		(comp
+			(ref "J6")
+			(value "CAN XCVR 3V3")
+			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x04")
+				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "driver")
+			)
+			(property
+				(name "Sheetfile")
+				(value "driver.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/driver/")
+				(tstamps "/d0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "2b13aea0-15ec-507b-8a38-27d4691f1541")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J7")
+			(value "NMEA2000 PWR")
+			(footprint "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical")
+			(fields
+				(field
+					(name "Footprint") "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x03")
+				(description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "driver")
+			)
+			(property
+				(name "Sheetfile")
+				(value "driver.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/driver/")
+				(tstamps "/d0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "0cc111ac-5185-54fa-a895-819fe3e05fc5")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
 			(ref "R1")
 			(value "100k")
 			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
@@ -1249,6 +1366,234 @@
 			)
 		)
 		(comp
+			(ref "R10")
+			(value "0R DNP")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "driver")
+			)
+			(property
+				(name "Sheetfile")
+				(value "driver.kicad_sch")
+			)
+			(property
+				(name "dnp")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/driver/")
+				(tstamps "/d0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "19a80673-57e7-532d-9660-9595a68c13a8")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R11")
+			(value "0R DNP")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "driver")
+			)
+			(property
+				(name "Sheetfile")
+				(value "driver.kicad_sch")
+			)
+			(property
+				(name "dnp")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/driver/")
+				(tstamps "/d0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "731737c8-83f4-5b11-8fb2-d21bbeb926d7")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R12")
+			(value "1k DNP")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "driver")
+			)
+			(property
+				(name "Sheetfile")
+				(value "driver.kicad_sch")
+			)
+			(property
+				(name "dnp")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/driver/")
+				(tstamps "/d0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "13754607-d089-535d-a05a-b111f60fb2d6")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R13")
+			(value "1k DNP")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "driver")
+			)
+			(property
+				(name "Sheetfile")
+				(value "driver.kicad_sch")
+			)
+			(property
+				(name "dnp")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/driver/")
+				(tstamps "/d0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "9f526719-5ce0-5236-bb20-8679e49ab89c")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
 			(ref "U1")
 			(value "BTN8982TA")
 			(footprint "Package_TO_SOT_SMD:TO-263-7_TabPin4")
@@ -1498,6 +1843,246 @@
 				)
 			)
 		)
+		(comp
+			(ref "U5")
+			(value "Pico 2 (DNP)")
+			(footprint "vanchor-helm:RaspberryPi_Pico_TH_SWD")
+			(fields
+				(field
+					(name "Footprint") "vanchor-helm:RaspberryPi_Pico_TH_SWD")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "MCU_Module")
+				(part "RaspberryPi_Pico_Debug")
+				(description "Versatile and inexpensive microcontroller module (with debug pins) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash; also supports Raspberry Pi Pico 2")
+			)
+			(property
+				(name "Sheetname")
+				(value "driver")
+			)
+			(property
+				(name "Sheetfile")
+				(value "driver.kicad_sch")
+			)
+			(property
+				(name "dnp")
+			)
+			(property
+				(name "ki_keywords")
+				(value "RP2350A M33 RISC-V Hazard3 usb swd")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "RaspberryPi?Pico?SMD*")
+			)
+			(sheetpath
+				(names "/driver/")
+				(tstamps "/d0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "2fae4618-ba62-569d-b1e8-26765d9bd95b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "D1")
+						)
+						(pin
+							(num "D3")
+						)
+						(pin
+							(num "30")
+						)
+						(pin
+							(num "37")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "15")
+						)
+						(pin
+							(num "16")
+						)
+						(pin
+							(num "17")
+						)
+						(pin
+							(num "19")
+						)
+						(pin
+							(num "20")
+						)
+						(pin
+							(num "39")
+						)
+						(pin
+							(num "40")
+						)
+						(pin
+							(num "D2")
+						)
+						(pin
+							(num "38")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "28")
+						)
+						(pin
+							(num "23")
+						)
+						(pin
+							(num "18")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "36")
+						)
+						(pin
+							(num "21")
+						)
+						(pin
+							(num "22")
+						)
+						(pin
+							(num "24")
+						)
+						(pin
+							(num "25")
+						)
+						(pin
+							(num "26")
+						)
+						(pin
+							(num "27")
+						)
+						(pin
+							(num "29")
+						)
+						(pin
+							(num "35")
+						)
+						(pin
+							(num "31")
+						)
+						(pin
+							(num "32")
+						)
+						(pin
+							(num "34")
+						)
+						(pin
+							(num "33")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U6")
+			(value "R-78E5.0-0.5 (DNP)")
+			(footprint "Converter_DCDC:Converter_DCDC_TRACO_TSR-1_THT")
+			(fields
+				(field
+					(name "Footprint") "Converter_DCDC:Converter_DCDC_TRACO_TSR-1_THT")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Converter_DCDC")
+				(part "TSR_1-2450")
+				(description "1A step-down regulator module, fixed 5V output voltage, 5-36V input voltage, -40°C to +85°C temperature range, TO-220 compatible LM78xx replacement")
+			)
+			(property
+				(name "Sheetname")
+				(value "driver")
+			)
+			(property
+				(name "Sheetfile")
+				(value "driver.kicad_sch")
+			)
+			(property
+				(name "dnp")
+			)
+			(property
+				(name "ki_keywords")
+				(value "dc-dc traco buck")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Converter*DCDC*TRACO*TSR?1*")
+			)
+			(sheetpath
+				(names "/driver/")
+				(tstamps "/d0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "78049d34-23b5-5e9a-9120-c3a56b488984")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
 	)
 	(groups)
 	(variants)
@@ -1527,6 +2112,89 @@
 				(pin
 					(num "1")
 					(name "Pin_1")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Connector_Generic")
+			(part "Conn_01x03")
+			(description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			(footprints
+				(fp "Connector*:*_1x??_*")
+			)
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "Conn_01x03")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "Pin_1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "Pin_2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "Pin_3")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Connector_Generic")
+			(part "Conn_01x04")
+			(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			(footprints
+				(fp "Connector*:*_1x??_*")
+			)
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "Conn_01x04")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "Pin_1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "Pin_2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "Pin_3")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "Pin_4")
 					(type "passive")
 				)
 			)
@@ -1592,6 +2260,44 @@
 					(num "8")
 					(name "Pin_8")
 					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Converter_DCDC")
+			(part "TSR_1-2450")
+			(description "1A step-down regulator module, fixed 5V output voltage, 5-36V input voltage, -40°C to +85°C temperature range, TO-220 compatible LM78xx replacement")
+			(docs "http://www.tracopower.com/products/tsr1.pdf")
+			(footprints
+				(fp "Converter*DCDC*TRACO*TSR?1*")
+			)
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "TSR_1-2450")
+				(field
+					(name "Footprint") "Converter_DCDC:Converter_DCDC_TRACO_TSR-1_THT")
+				(field
+					(name "Datasheet") "http://www.tracopower.com/products/tsr1.pdf")
+				(field
+					(name "Description") "1A step-down regulator module, fixed 5V output voltage, 5-36V input voltage, -40°C to +85°C temperature range, TO-220 compatible LM78xx replacement")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "Vin")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "Vout")
+					(type "power_out")
 				)
 			)
 		)
@@ -1773,6 +2479,244 @@
 			)
 		)
 		(libpart
+			(lib "MCU_Module")
+			(part "RaspberryPi_Pico_Debug")
+			(description "Versatile and inexpensive microcontroller module (with debug pins) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash; also supports Raspberry Pi Pico 2")
+			(docs "https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf")
+			(footprints
+				(fp "RaspberryPi?Pico?SMD*")
+			)
+			(fields
+				(field
+					(name "Reference") "A")
+				(field
+					(name "Value") "RaspberryPi_Pico")
+				(field
+					(name "Footprint") "Module:RaspberryPi_Pico_SMD_HandSolder")
+				(field
+					(name "Datasheet") "https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf")
+				(field
+					(name "Description") "Versatile and inexpensive microcontroller module (with debug pins) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash; also supports Raspberry Pi Pico 2")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "GPIO0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "2")
+					(name "GPIO1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "3")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "GPIO2")
+					(type "bidirectional")
+				)
+				(pin
+					(num "5")
+					(name "GPIO3")
+					(type "bidirectional")
+				)
+				(pin
+					(num "6")
+					(name "GPIO4")
+					(type "bidirectional")
+				)
+				(pin
+					(num "7")
+					(name "GPIO5")
+					(type "bidirectional")
+				)
+				(pin
+					(num "8")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "9")
+					(name "GPIO6")
+					(type "bidirectional")
+				)
+				(pin
+					(num "10")
+					(name "GPIO7")
+					(type "bidirectional")
+				)
+				(pin
+					(num "11")
+					(name "GPIO8")
+					(type "bidirectional")
+				)
+				(pin
+					(num "12")
+					(name "GPIO9")
+					(type "bidirectional")
+				)
+				(pin
+					(num "13")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "14")
+					(name "GPIO10")
+					(type "bidirectional")
+				)
+				(pin
+					(num "15")
+					(name "GPIO11")
+					(type "bidirectional")
+				)
+				(pin
+					(num "16")
+					(name "GPIO12")
+					(type "bidirectional")
+				)
+				(pin
+					(num "17")
+					(name "GPIO13")
+					(type "bidirectional")
+				)
+				(pin
+					(num "18")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "19")
+					(name "GPIO14")
+					(type "bidirectional")
+				)
+				(pin
+					(num "20")
+					(name "GPIO15")
+					(type "bidirectional")
+				)
+				(pin
+					(num "21")
+					(name "GPIO16")
+					(type "bidirectional")
+				)
+				(pin
+					(num "22")
+					(name "GPIO17")
+					(type "bidirectional")
+				)
+				(pin
+					(num "23")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "24")
+					(name "GPIO18")
+					(type "bidirectional")
+				)
+				(pin
+					(num "25")
+					(name "GPIO19")
+					(type "bidirectional")
+				)
+				(pin
+					(num "26")
+					(name "GPIO20")
+					(type "bidirectional")
+				)
+				(pin
+					(num "27")
+					(name "GPIO21")
+					(type "bidirectional")
+				)
+				(pin
+					(num "28")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "29")
+					(name "GPIO22")
+					(type "bidirectional")
+				)
+				(pin
+					(num "30")
+					(name "RUN")
+					(type "passive")
+				)
+				(pin
+					(num "31")
+					(name "GPIO26_ADC0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "32")
+					(name "GPIO27_ADC1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "33")
+					(name "AGND")
+					(type "passive")
+				)
+				(pin
+					(num "34")
+					(name "GPIO28_ADC2")
+					(type "bidirectional")
+				)
+				(pin
+					(num "35")
+					(name "ADC_VREF")
+					(type "power_in")
+				)
+				(pin
+					(num "36")
+					(name "3V3")
+					(type "power_out")
+				)
+				(pin
+					(num "37")
+					(name "3V3_EN")
+					(type "passive")
+				)
+				(pin
+					(num "38")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "39")
+					(name "VSYS")
+					(type "power_in")
+				)
+				(pin
+					(num "40")
+					(name "VBUS")
+					(type "power_out")
+				)
+				(pin
+					(num "D1")
+					(name "SWCLK")
+					(type "input")
+				)
+				(pin
+					(num "D2")
+					(name "GND")
+					(type "passive")
+				)
+				(pin
+					(num "D3")
+					(name "SWDIO")
+					(type "bidirectional")
+				)
+			)
+		)
+		(libpart
 			(lib "vanchor-helm")
 			(part "BTN8982TA")
 			(description "Half-bridge NovalithIC 40V/~40A, PWM+INH, current sense, TO-263-7")
@@ -1834,8 +2778,16 @@
 			(uri "${KICAD9_SYMBOL_DIR}/Connector_Generic.kicad_sym")
 		)
 		(library
+			(logical "Converter_DCDC")
+			(uri "${KICAD9_SYMBOL_DIR}/Converter_DCDC.kicad_sym")
+		)
+		(library
 			(logical "Device")
 			(uri "${KICAD9_SYMBOL_DIR}/Device.kicad_sym")
+		)
+		(library
+			(logical "MCU_Module")
+			(uri "${KICAD9_SYMBOL_DIR}/MCU_Module.kicad_sym")
 		)
 		(library
 			(logical "vanchor-helm")
@@ -1845,6 +2797,23 @@
 	(nets
 		(net
 			(code "1")
+			(name "+3V3")
+			(class "Default")
+			(node
+				(ref "J6")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "36")
+				(pinfunction "3V3_36")
+				(pintype "power_out")
+			)
+		)
+		(net
+			(code "2")
 			(name "+5V")
 			(class "Default")
 			(node
@@ -1858,9 +2827,21 @@
 				(pin "1")
 				(pintype "passive")
 			)
+			(node
+				(ref "U5")
+				(pin "39")
+				(pinfunction "VSYS_39")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U6")
+				(pin "3")
+				(pinfunction "Vout_3")
+				(pintype "power_out")
+			)
 		)
 		(net
-			(code "2")
+			(code "3")
 			(name "/driver/LED_A")
 			(class "Default")
 			(node
@@ -1876,7 +2857,7 @@
 			)
 		)
 		(net
-			(code "3")
+			(code "4")
 			(name "/driver/SR1")
 			(class "Default")
 			(node
@@ -1892,7 +2873,7 @@
 			)
 		)
 		(net
-			(code "4")
+			(code "5")
 			(name "/driver/SR2")
 			(class "Default")
 			(node
@@ -1908,7 +2889,7 @@
 			)
 		)
 		(net
-			(code "5")
+			(code "6")
 			(name "/driver/SR3")
 			(class "Default")
 			(node
@@ -1924,7 +2905,7 @@
 			)
 		)
 		(net
-			(code "6")
+			(code "7")
 			(name "/driver/SR4")
 			(class "Default")
 			(node
@@ -1940,7 +2921,41 @@
 			)
 		)
 		(net
-			(code "7")
+			(code "8")
+			(name "CAN_RX")
+			(class "Default")
+			(node
+				(ref "J6")
+				(pin "4")
+				(pinfunction "Pin_4_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "25")
+				(pinfunction "GPIO19_25")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "9")
+			(name "CAN_TX")
+			(class "Default")
+			(node
+				(ref "J6")
+				(pin "3")
+				(pinfunction "Pin_3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "24")
+				(pinfunction "GPIO18_24")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "10")
 			(name "GND")
 			(class "Default")
 			(node
@@ -1993,7 +3008,24 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J6")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "J7")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
+			(node
 				(ref "R1")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R11")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -2056,9 +3088,69 @@
 				(pinfunction "GND_1")
 				(pintype "power_in")
 			)
+			(node
+				(ref "U5")
+				(pin "13")
+				(pinfunction "GND_13")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "18")
+				(pinfunction "GND_18")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "23")
+				(pinfunction "GND_23")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "28")
+				(pinfunction "GND_28")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "3")
+				(pinfunction "GND_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "33")
+				(pinfunction "AGND_33")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "38")
+				(pinfunction "GND_38")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "8")
+				(pinfunction "GND_8")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "D2")
+				(pinfunction "GND_D2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U6")
+				(pin "2")
+				(pinfunction "GND_2")
+				(pintype "power_in")
+			)
 		)
 		(net
-			(code "8")
+			(code "11")
 			(name "LPWM")
 			(class "Default")
 			(node
@@ -2079,9 +3171,31 @@
 				(pinfunction "IN_2")
 				(pintype "input")
 			)
+			(node
+				(ref "U5")
+				(pin "17")
+				(pinfunction "GPIO13_17")
+				(pintype "bidirectional")
+			)
 		)
 		(net
-			(code "9")
+			(code "12")
+			(name "L_ADC")
+			(class "Default")
+			(node
+				(ref "R13")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "31")
+				(pinfunction "GPIO26_ADC0_31")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "13")
 			(name "L_EN")
 			(class "Default")
 			(node
@@ -2107,15 +3221,26 @@
 				(pinfunction "INH_3")
 				(pintype "input")
 			)
+			(node
+				(ref "U5")
+				(pin "20")
+				(pinfunction "GPIO15_20")
+				(pintype "bidirectional")
+			)
 		)
 		(net
-			(code "10")
+			(code "14")
 			(name "L_IS")
 			(class "Default")
 			(node
 				(ref "J1")
 				(pin "6")
 				(pinfunction "Pin_6_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "R13")
+				(pin "1")
 				(pintype "passive")
 			)
 			(node
@@ -2137,7 +3262,7 @@
 			)
 		)
 		(net
-			(code "11")
+			(code "15")
 			(name "MOT_A")
 			(class "Default")
 			(node
@@ -2160,7 +3285,7 @@
 			)
 		)
 		(net
-			(code "12")
+			(code "16")
 			(name "MOT_B")
 			(class "Default")
 			(node
@@ -2183,7 +3308,39 @@
 			)
 		)
 		(net
-			(code "13")
+			(code "17")
+			(name "N2K_SHLD")
+			(class "Default")
+			(node
+				(ref "J7")
+				(pin "3")
+				(pinfunction "Pin_3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R11")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "18")
+			(name "N2K_VP")
+			(class "Default")
+			(node
+				(ref "J7")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R10")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "19")
 			(name "RPWM")
 			(class "Default")
 			(node
@@ -2204,9 +3361,31 @@
 				(pinfunction "IN_2")
 				(pintype "input")
 			)
+			(node
+				(ref "U5")
+				(pin "16")
+				(pinfunction "GPIO12_16")
+				(pintype "bidirectional")
+			)
 		)
 		(net
-			(code "14")
+			(code "20")
+			(name "R_ADC")
+			(class "Default")
+			(node
+				(ref "R12")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "32")
+				(pinfunction "GPIO27_ADC1_32")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "21")
 			(name "R_EN")
 			(class "Default")
 			(node
@@ -2232,15 +3411,26 @@
 				(pinfunction "INH_3")
 				(pintype "input")
 			)
+			(node
+				(ref "U5")
+				(pin "19")
+				(pinfunction "GPIO14_19")
+				(pintype "bidirectional")
+			)
 		)
 		(net
-			(code "15")
+			(code "22")
 			(name "R_IS")
 			(class "Default")
 			(node
 				(ref "J1")
 				(pin "5")
 				(pinfunction "Pin_5_5")
+				(pintype "passive")
+			)
+			(node
+				(ref "R12")
+				(pin "1")
 				(pintype "passive")
 			)
 			(node
@@ -2262,7 +3452,7 @@
 			)
 		)
 		(net
-			(code "16")
+			(code "23")
 			(name "VBAT")
 			(class "Default")
 			(node
@@ -2303,6 +3493,11 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "R10")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
 				(ref "U1")
 				(pin "7")
 				(pinfunction "VS_7")
@@ -2325,6 +3520,276 @@
 				(pin "7")
 				(pinfunction "VS_7")
 				(pintype "power_in")
+			)
+			(node
+				(ref "U6")
+				(pin "1")
+				(pinfunction "Vin_1")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "24")
+			(name "unconnected-(U5-3V3_EN-Pad37)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "37")
+				(pinfunction "3V3_EN_37")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "25")
+			(name "unconnected-(U5-ADC_VREF-Pad35)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "35")
+				(pinfunction "ADC_VREF_35")
+				(pintype "power_in+no_connect")
+			)
+		)
+		(net
+			(code "26")
+			(name "unconnected-(U5-GPIO0-Pad1)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "1")
+				(pinfunction "GPIO0_1")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "27")
+			(name "unconnected-(U5-GPIO1-Pad2)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "2")
+				(pinfunction "GPIO1_2")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "28")
+			(name "unconnected-(U5-GPIO2-Pad4)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "4")
+				(pinfunction "GPIO2_4")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "29")
+			(name "unconnected-(U5-GPIO3-Pad5)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "5")
+				(pinfunction "GPIO3_5")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "30")
+			(name "unconnected-(U5-GPIO4-Pad6)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "6")
+				(pinfunction "GPIO4_6")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "31")
+			(name "unconnected-(U5-GPIO5-Pad7)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "7")
+				(pinfunction "GPIO5_7")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "32")
+			(name "unconnected-(U5-GPIO6-Pad9)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "9")
+				(pinfunction "GPIO6_9")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "33")
+			(name "unconnected-(U5-GPIO7-Pad10)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "10")
+				(pinfunction "GPIO7_10")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "34")
+			(name "unconnected-(U5-GPIO8-Pad11)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "11")
+				(pinfunction "GPIO8_11")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "35")
+			(name "unconnected-(U5-GPIO9-Pad12)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "12")
+				(pinfunction "GPIO9_12")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "36")
+			(name "unconnected-(U5-GPIO10-Pad14)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "14")
+				(pinfunction "GPIO10_14")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "37")
+			(name "unconnected-(U5-GPIO11-Pad15)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "15")
+				(pinfunction "GPIO11_15")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "38")
+			(name "unconnected-(U5-GPIO16-Pad21)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "21")
+				(pinfunction "GPIO16_21")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "39")
+			(name "unconnected-(U5-GPIO17-Pad22)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "22")
+				(pinfunction "GPIO17_22")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "40")
+			(name "unconnected-(U5-GPIO20-Pad26)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "26")
+				(pinfunction "GPIO20_26")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "41")
+			(name "unconnected-(U5-GPIO21-Pad27)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "27")
+				(pinfunction "GPIO21_27")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "42")
+			(name "unconnected-(U5-GPIO22-Pad29)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "29")
+				(pinfunction "GPIO22_29")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "43")
+			(name "unconnected-(U5-GPIO28_ADC2-Pad34)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "34")
+				(pinfunction "GPIO28_ADC2_34")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "44")
+			(name "unconnected-(U5-RUN-Pad30)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "30")
+				(pinfunction "RUN_30")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "45")
+			(name "unconnected-(U5-SWCLK-PadD1)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "D1")
+				(pinfunction "SWCLK_D1")
+				(pintype "input+no_connect")
+			)
+		)
+		(net
+			(code "46")
+			(name "unconnected-(U5-SWDIO-PadD3)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "D3")
+				(pinfunction "SWDIO_D3")
+				(pintype "bidirectional+no_connect")
+			)
+		)
+		(net
+			(code "47")
+			(name "unconnected-(U5-VBUS-Pad40)")
+			(class "Default")
+			(node
+				(ref "U5")
+				(pin "40")
+				(pinfunction "VBUS_40")
+				(pintype "power_out+no_connect")
 			)
 		)
 	)
