@@ -50,10 +50,10 @@ PI26 = {
     "26": "OPI_PC10",
 }
 
-# Ground economy: J1.14 and J2.9 are deliberately NC — each connector keeps
+# Ground economy: J1.14, J1.20 and J2.9 are deliberately NC — each connector keeps
 # four other GND pins (6/9/20/25 resp. 6/14/20/25); the escape routing under
 # the header field claims those two pads' corridors.
-J1_PINS = dict(PI26, **{"14": None})
+J1_PINS = dict(PI26, **{"14": None, "20": None})
 J2_PINS = dict(PI26, **{"9": None})
 
 COMPONENTS = [

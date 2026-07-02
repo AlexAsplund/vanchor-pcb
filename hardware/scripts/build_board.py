@@ -48,8 +48,8 @@ ANCHORED = {
 
 PLACE = {
     # ---- under the Zero 3 module (all <=3mm tall; module sits ~9mm up) ----
-    "R20": (8.0, 10.0, 0), "R21": (8.0, 15.0, 0),
-    "D10": (28.0, 12.5, 0), "D11": (28.0, 17.0, 0),
+    "R20": (98.0, 75.0, 0), "R21": (98.0, 79.0, 0),
+    "D10": (108.0, 75.0, 0), "D11": (108.0, 79.0, 0),
     "R5": (38.0, 10.0, 0), "R6": (38.0, 15.0, 0),
     "R8": (34.0, 25.0, 0), "R9": (34.0, 30.0, 0), "R10": (34.0, 35.0, 0),
     "R11": (10.0, 28.0, 90), "R12": (14.0, 28.0, 90),
@@ -64,8 +64,8 @@ PLACE = {
     "R39": (64.0, 53.0, 0), "R40": (82.0, 53.0, 0),
     "R18": (108.0, 40.0, 0), "R19": (108.0, 45.0, 0),
     "D8": (108.0, 50.0, 0), "C12": (117.0, 45.0, 90),
-    # ---- bottom-right: buck strap area (66..110 x 58..82) + JST row ----
-    "J14": (114.0, 74.0, 90),
+    # ---- bottom-right: XL4015 buck daughterboard (pins + spacers) + JST row ----
+    "U5": (92.0, 67.0, 0),
     "J3": (64.0, 88.0, 0), "J4": (78.0, 88.0, 0),
     "J8": (92.0, 88.0, 0), "J11": (106.0, 88.0, 0),
     # ---- bottom-left: power entry, protection, thrust IF, terminals ----
@@ -88,7 +88,19 @@ MOUNTING = [
     ("MountingHole_3.2mm_M3", 4.0, 4.0), ("MountingHole_3.2mm_M3", 121.0, 4.0),
     ("MountingHole_3.2mm_M3", 4.0, 91.0), ("MountingHole_3.2mm_M3", 121.0, 91.0),
     ("MountingHole_3.2mm_M3", 12.0, 5.0), ("MountingHole_3.2mm_M3", 47.0, 5.0),   # Zero3 standoffs (verify vs module)
-    ("MountingHole_3.2mm_M3", 70.0, 70.0), ("MountingHole_3.2mm_M3", 104.0, 70.0),  # buck module strap
+]
+
+# connector-purpose silkscreen legends (x, y, text, size, rot)
+SILK_TEXTS = [
+    (37.7, 81.0, "BATT 12V", 1.0, 0), (35.16, 85.8, "+", 1.4, 0), (40.24, 85.8, "-", 1.4, 0),
+    (50.0, 56.8, "F1 10A", 1.0, 0),
+    (19.0, 87.7, "THRUST DRV", 1.0, 0),
+    (19.0, 93.8, "RPWM LPWM REN LEN RIS LIS 5V GND", 0.8, 0),
+    (50.7, 81.0, "SERVO", 1.0, 0),
+    (29.0, 59.6, "OPI ZERO 3 RIBBON", 1.2, 0), (11.5, 58.8, "1", 1.0, 0),
+    (64.0, 82.5, "UART5", 1.0, 0), (78.0, 82.5, "UART2", 1.0, 0),
+    (92.0, 82.5, "I2C3", 1.0, 0), (106.0, 82.5, "AS5600", 1.0, 0),
+    (122.9, 14.0, "AUX 5V", 1.0, 90), (122.9, 27.0, "FAN", 1.0, 90),
 ]
 
 
@@ -226,6 +238,17 @@ def main():
         fp.SetPosition(mm(x, y))
         board.Add(fp)
 
+    for sx, sy, stext, ssize, srot in SILK_TEXTS:
+        st = pcbnew.PCB_TEXT(board)
+        st.SetText(stext)
+        st.SetPosition(mm(sx, sy))
+        st.SetLayer(pcbnew.F_SilkS)
+        st.SetTextSize(pcbnew.VECTOR2I_MM(ssize, ssize))
+        st.SetTextThickness(pcbnew.FromMM(0.15 if ssize >= 1.0 else 0.13))
+        if srot:
+            st.SetTextAngleDegrees(srot)
+        board.Add(st)
+
     pts = [(0, 0), (W, 0), (W, H), (0, H)]
     for i in range(4):
         seg = pcbnew.PCB_SHAPE(board, pcbnew.SHAPE_T_SEGMENT)
@@ -279,6 +302,35 @@ def main():
                           (x1, py + half_w), (x0, py + half_w)])
         return polys
 
+    def add_track(net, layer, x0, y0, x1, y1, w):
+        if abs(x1 - x0) < 0.01 and abs(y1 - y0) < 0.01:
+            return
+        t = pcbnew.PCB_TRACK(board)
+        t.SetStart(mm(x0, y0))
+        t.SetEnd(mm(x1, y1))
+        t.SetWidth(pcbnew.FromMM(w))
+        t.SetLayer(layer)
+        t.SetNet(nets[net])
+        board.Add(t)
+
+    def chain(net, layer, pts, w):
+        for (a, b), (c, d) in zip(pts, pts[1:]):
+            add_track(net, layer, a, b, c, d, w)
+
+    # nets freerouting drops on this layout (lottery-verified): pre-lay them
+    p7x, p7y = pad_xy("J13", "7")          # +5V west anchor
+    u5x, u5y = pad_xy("U5", "3")           # +5V source (buck OUT+)
+    chain("+5V", pcbnew.B_Cu,
+          [(p7x, p7y), (p7x, 83.7), (120.8, 83.7), (120.8, u5y), (u5x + 2.0, u5y)], 1.3)
+    # TO-263-7 pad-4 halves: strap them (fill alone leaves them split)
+    add_track("SERVO_A", pcbnew.F_Cu, 59, 42, 64, 42, 1.2)
+    add_track("SERVO_B", pcbnew.F_Cu, 77, 42, 82, 42, 1.2)
+    j18x, j18y = pad_xy("J1", "8")         # UART5_TX from the ribbon header
+    j3x, j3y = pad_xy("J3", "2")
+    chain("UART5_TX", pcbnew.F_Cu,
+          [(j18x, j18y), (22.89, j18y + 1.27), (22.89, 88.3), (24.08, 89.49),
+           (24.08, 93.6), (j3x, 93.6), (j3x, j3y)], 0.3)
+
     # top-edge via/track keepout: freerouting otherwise hugs the edge
     for klayer in (pcbnew.F_Cu, pcbnew.B_Cu):
         ka = pcbnew.ZONE(board)
@@ -290,6 +342,18 @@ def main():
         ko = ka.Outline()
         ko.NewOutline()
         for px, py in [(58, 0), (124, 0), (124, 1.3), (58, 1.3)]:
+            pass
+        board.Add(ka)
+    for klayer in (pcbnew.F_Cu, pcbnew.B_Cu):
+        ka = pcbnew.ZONE(board)
+        ka.SetIsRuleArea(True)
+        ka.SetDoNotAllowTracks(True)
+        ka.SetDoNotAllowVias(True)
+        ka.SetDoNotAllowZoneFills(False)
+        ka.SetLayer(klayer)
+        ko = ka.Outline()
+        ko.NewOutline()
+        for px, py in [(0, 2), (1.3, 2), (1.3, 93), (0, 93)]:
             ko.Append(mm(px, py))
         board.Add(ka)
 

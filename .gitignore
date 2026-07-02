@@ -8,3 +8,4 @@ fp-info-cache
 *.kicad_prl
 # Outputs are committed deliberately under hardware/fab/
 hardware/.history/
+__pycache__/

@@ -18,7 +18,7 @@ MPN = {
     "J17": "CUI TB007-508-02",
     # pi carrier
     "J1": "61302621121 (Wurth 2x13 2.54mm male header)",
-    "F2": "MF-R250",
+    "F2": "MF-R250", "U5": "XL4015 5A module (AliExpress)",
     "J3": "JST B4B-XH-A(LF)(SN)", "J4": "JST B4B-XH-A(LF)(SN)",
     "J5": "JST B4B-XH-A(LF)(SN)", "J6": "JST B4B-XH-A(LF)(SN)",
     "J7": "JST B4B-XH-A(LF)(SN)", "J8": "JST B4B-XH-A(LF)(SN)",

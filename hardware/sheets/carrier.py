@@ -11,7 +11,7 @@ import pi
 SHEET_UUID = "c0000000-0000-4000-8000-000000000002"
 
 TEXTS = [
-    (30, 30, "POWER: 12V battery -> F1 -> reverse-FET -> VIN; generic 5V buck module on J14 (set 5.1V first)"),
+    (30, 30, "POWER: 12V battery -> F1 -> reverse-FET -> VIN; XL4015 buck daughterboard U5 (set 5.1V first)"),
     (30, 38, "CARRIER: J1 -> 26-way IDC ribbon -> Orange Pi Zero 3 (powered through the ribbon, no USB-C)"),
     (30, 160, "ORANGE PI ZERO 3 HEADER + UART/I2C BREAKOUTS"),
 ]
@@ -23,7 +23,7 @@ LAYOUT = {
     "C1": (330, 70, 90), "C2": (375, 70, 90),
     "R1": (150, 108, 90), "R2": (215, 108, 90), "LED1": (275, 108, 0),
     "C3": (330, 108, 90),
-    "J14": (60, 138, 0),
+    "U5": (60, 138, 0),
     "#FLG01": (300, 138, 0), "#FLG02": (330, 138, 0), "#FLG03": (360, 138, 0),
     # Zero 3 header + breakout
     "J1": (70, 205, 0), "J2": (150, 205, 0),

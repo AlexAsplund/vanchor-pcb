@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/hardware/vanchor-helm.kicad_sch")
-		(date "2026-07-02T14:10:46")
+		(date "2026-07-02T15:44:34")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
@@ -512,11 +512,11 @@
 		)
 		(comp
 			(ref "F2")
-			(value "MF-R200 2A")
+			(value "MF-R250 2.5A")
 			(footprint "Fuse:Fuse_Bourns_MF-RG300")
 			(fields
 				(field
-					(name "MPN") "Bourns MF-R200")
+					(name "MPN") "MF-R250")
 				(field
 					(name "Footprint") "Fuse:Fuse_Bourns_MF-RG300")
 				(field
@@ -533,7 +533,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "Bourns MF-R200")
+				(value "MF-R250")
 			)
 			(property
 				(name "Sheetname")
@@ -1144,66 +1144,6 @@
 			)
 		)
 		(comp
-			(ref "J14")
-			(value "BUCK 5V")
-			(footprint "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
-			(fields
-				(field
-					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector_Generic")
-				(part "Conn_01x04")
-				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
-			)
-			(property
-				(name "Sheetname")
-				(value "carrier")
-			)
-			(property
-				(name "Sheetfile")
-				(value "carrier.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "connector")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Connector*:*_1x??_*")
-			)
-			(sheetpath
-				(names "/carrier/")
-				(tstamps "/c0000000-0000-4000-8000-000000000002/")
-			)
-			(tstamps "65362c4a-a960-56d2-bbf5-a6619b4ec63b")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "J16")
 			(value "BATT 12V")
 			(footprint "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal")
@@ -1591,6 +1531,72 @@
 						)
 						(pin
 							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U5")
+			(value "XL4015 5A")
+			(footprint "vanchor-helm:XL4015_Module")
+			(fields
+				(field
+					(name "MPN") "XL4015 5A module (AliExpress)")
+				(field
+					(name "Footprint") "vanchor-helm:XL4015_Module")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x04")
+				(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "MPN")
+				(value "XL4015 5A module (AliExpress)")
+			)
+			(property
+				(name "Sheetname")
+				(value "carrier")
+			)
+			(property
+				(name "Sheetfile")
+				(value "carrier.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "331387aa-bffa-5f87-b110-16719e925aa2")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
 						)
 					)
 				)
@@ -4825,12 +4831,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "J14")
-				(pin "3")
-				(pinfunction "Pin_3_3")
-				(pintype "passive")
-			)
-			(node
 				(ref "J2")
 				(pin "2")
 				(pinfunction "Pin_2_2")
@@ -4853,6 +4853,12 @@
 				(pin "39")
 				(pinfunction "VSYS_39")
 				(pintype "power_in")
+			)
+			(node
+				(ref "U5")
+				(pin "3")
+				(pinfunction "Pin_3_3")
+				(pintype "passive")
 			)
 		)
 		(net
@@ -5289,12 +5295,6 @@
 			)
 			(node
 				(ref "J1")
-				(pin "20")
-				(pinfunction "Pin_20_20")
-				(pintype "passive")
-			)
-			(node
-				(ref "J1")
 				(pin "25")
 				(pinfunction "Pin_25_25")
 				(pintype "passive")
@@ -5333,18 +5333,6 @@
 				(ref "J13")
 				(pin "8")
 				(pinfunction "Pin_8_8")
-				(pintype "passive")
-			)
-			(node
-				(ref "J14")
-				(pin "2")
-				(pinfunction "Pin_2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "J14")
-				(pin "4")
-				(pinfunction "Pin_4_4")
 				(pintype "passive")
 			)
 			(node
@@ -5505,6 +5493,18 @@
 				(ref "U1")
 				(pin "D2")
 				(pinfunction "GND_D2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "4")
+				(pinfunction "Pin_4_4")
 				(pintype "passive")
 			)
 			(node
@@ -6315,12 +6315,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "J14")
-				(pin "1")
-				(pinfunction "Pin_1_1")
-				(pintype "passive")
-			)
-			(node
 				(ref "Q1")
 				(pin "3")
 				(pinfunction "S_3")
@@ -6334,6 +6328,12 @@
 			(node
 				(ref "R2")
 				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "1")
+				(pinfunction "Pin_1_1")
 				(pintype "passive")
 			)
 			(node
@@ -6362,6 +6362,17 @@
 		)
 		(net
 			(code "60")
+			(name "unconnected-(J1-Pin_20-Pad20)")
+			(class "Default")
+			(node
+				(ref "J1")
+				(pin "20")
+				(pinfunction "Pin_20_20")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "61")
 			(name "unconnected-(J2-Pin_9-Pad9)")
 			(class "Default")
 			(node
@@ -6372,7 +6383,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "62")
 			(name "unconnected-(U1-3V3_EN-Pad37)")
 			(class "Default")
 			(node
@@ -6383,7 +6394,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "63")
 			(name "unconnected-(U1-ADC_VREF-Pad35)")
 			(class "Default")
 			(node
@@ -6394,7 +6405,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "64")
 			(name "unconnected-(U1-GPIO16-Pad21)")
 			(class "Default")
 			(node
@@ -6405,7 +6416,7 @@
 			)
 		)
 		(net
-			(code "64")
+			(code "65")
 			(name "unconnected-(U1-GPIO20-Pad26)")
 			(class "Default")
 			(node
@@ -6416,7 +6427,7 @@
 			)
 		)
 		(net
-			(code "65")
+			(code "66")
 			(name "unconnected-(U1-GPIO21-Pad27)")
 			(class "Default")
 			(node
@@ -6427,7 +6438,7 @@
 			)
 		)
 		(net
-			(code "66")
+			(code "67")
 			(name "unconnected-(U1-GPIO22-Pad29)")
 			(class "Default")
 			(node
@@ -6438,7 +6449,7 @@
 			)
 		)
 		(net
-			(code "67")
+			(code "68")
 			(name "unconnected-(U1-VBUS-Pad40)")
 			(class "Default")
 			(node

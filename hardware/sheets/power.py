@@ -12,8 +12,8 @@ from common import (TB2, FUSE_BLADE, TO220, R_AX, DO41, SMC, CP_L, CP_S,
 SHEET_UUID = "c0000000-0000-4000-8000-000000000002"
 
 TEXTS = [
-    (30, 40, "POWER: 12V battery in, protection, generic 5V buck on J14"),
-    (30, 46, "J14: VIN GND 5V GND - wire to an XL4015/LM2596-class module, set 5.1V BEFORE fitting"),
+    (30, 40, "POWER: 12V battery in, protection, XL4015 5V buck on-board (U5)"),
+    (30, 46, "U5: XL4015 module soldered on via pins + spacers; set 5.1V BEFORE fitting"),
     (30, 52, "Servo bridge runs on protected VIN directly (12V-only board)"),
 ]
 
@@ -38,8 +38,8 @@ COMPONENTS = [
     dict(lib="Device:C_Polarized", ref="C2", value="470u/25V", fp=CP_L,
          at=(260, 70, 0), pins={"1": "VIN", "2": "GND"}),
 
-    # generic 5V buck module lands here (wires or header pins)
-    dict(lib="Connector_Generic:Conn_01x04", ref="J14", value="BUCK 5V", fp=HDR1x4,
+    # XL4015 buck module soldered on as a daughterboard (pins + spacers)
+    dict(lib="Connector_Generic:Conn_01x04", ref="U5", value="XL4015 5A", fp="vanchor-helm:XL4015_Module",
          at=(70, 120, 0), pins={"1": "VIN", "2": "GND", "3": "+5V", "4": "GND"}),
     dict(lib="Device:C_Polarized", ref="C3", value="100u",
          fp="Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
