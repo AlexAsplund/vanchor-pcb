@@ -338,6 +338,14 @@
       {
         "netclass": "Power",
         "pattern": "GND"
+      },
+      {
+        "netclass": "HighCurrent",
+        "pattern": "SERVO_A"
+      },
+      {
+        "netclass": "HighCurrent",
+        "pattern": "SERVO_B"
       }
     ]
   },
