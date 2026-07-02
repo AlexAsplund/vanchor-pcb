@@ -1,7 +1,7 @@
 #!/bin/sh
 # Export fabrication outputs into hardware/fab/ (run on the host).
 set -e
-HW=/config/vanchor-pcb/hardware
+HW=/config/vanchor-pcb/boards/helm
 FAB=$HW/fab
 
 docker exec vanchor-kicad sh -c "mkdir -p $FAB/gerbers $FAB/renders"

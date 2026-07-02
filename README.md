@@ -29,10 +29,10 @@ The v2 on-board-bridge design remains available at git tag/commit `bf91c4a`.
 
 | Path | Content |
 |---|---|
-| `hardware/` | KiCad 10 project (schematic, board, custom symbols/footprints) |
-| `hardware/sheets/*.py` | Net-spec sources — the schematic is **generated** from these |
-| `hardware/scripts/` | Generators + gates (`build_sch.sh`, `build_board.py`, ERC/DRC helpers) |
-| `hardware/fab/` | Gerbers, drill, BOM — upload these to PCBWay/JLCPCB |
+| `boards/helm/` | KiCad 10 project (schematic, board, custom symbols/footprints) |
+| `boards/helm/sheets/*.py` | Net-spec sources — the schematic is **generated** from these |
+| `boards/helm/scripts/` | Generators + gates (`build_sch.sh`, `build_board.py`, ERC/DRC helpers) |
+| `boards/helm/fab/` | Gerbers, drill, BOM — upload these to PCBWay/JLCPCB |
 | `docs/cost-optimization-log.md` | The 10 cost passes and their effect |
 | `docs/superpowers/` | Design spec + implementation plan |
 | `.claude/skills/` | kicad-happy review skills (vendored) |
@@ -41,12 +41,12 @@ The v2 on-board-bridge design remains available at git tag/commit `bf91c4a`.
 
 ```sh
 docker compose up -d                 # KiCad 10 container (GUI at https://localhost:3001)
-./hardware/scripts/build_sch.sh      # specs -> .kicad_sch + ERC
+./boards/helm/scripts/build_sch.sh      # specs -> .kicad_sch + ERC
 docker exec vanchor-kicad kicad-cli sch export netlist --format kicadsexpr \
-    -o /config/vanchor-pcb/hardware/vanchor-helm.net /config/vanchor-pcb/hardware/vanchor-helm.kicad_sch
-docker exec -e BASE_GND=0 vanchor-kicad python3 /config/vanchor-pcb/hardware/scripts/build_board.py
+    -o /config/vanchor-pcb/boards/helm/vanchor-helm.net /config/vanchor-pcb/boards/helm/vanchor-helm.kicad_sch
+docker exec -e BASE_GND=0 vanchor-kicad python3 /config/vanchor-pcb/boards/helm/scripts/build_board.py
 # route with freerouting-1.9 (see git history for the exact docker command),
-# then: docker exec vanchor-kicad python3 /config/vanchor-pcb/hardware/scripts/import_routes.py
+# then: docker exec vanchor-kicad python3 /config/vanchor-pcb/boards/helm/scripts/import_routes.py
 ```
 
 ## Connector map

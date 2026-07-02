@@ -20,9 +20,9 @@ Carrier PCB for the vanchor-ng trolling-motor autopilot. Current revision
 
 | Item | Status |
 |---|---|
-| Schematic | ERC 0 errors; generated from `hardware/sheets/*.py` |
-| Board | routed, DRC 0/0; silk-only warnings (see `hardware/ERC-notes.md`) |
-| Fab outputs | `hardware/fab/` incl. `vanchor-helm-gerbers.zip` (upload as-is) |
+| Schematic | ERC 0 errors; generated from `boards/helm/sheets/*.py` |
+| Board | routed, DRC 0/0; silk-only warnings (see `boards/helm/ERC-notes.md`) |
+| Fab outputs | `boards/helm/fab/` incl. `vanchor-helm-gerbers.zip` (upload as-is) |
 | PCB order specs | 125×95, 2-layer, 1.6 mm, **1 oz**, HASL, 5/5 mil, 0.4 mm min hole, **tented vias** |
 | Parts order | `bom/mouser-order.csv` (v6) — all-Mouser, matched by user except noted subs |
 | Not in any cart | Orange Pi Zero 3 + XL4015 buck ×2 (AliExpress), PCBs (PCBWay) |
@@ -32,7 +32,7 @@ v3 external thrust driver ($41/board, `bc85d2a`), v3.1 12 V-only + cheap
 buck (`357fd39`), v4 Orange Pi Zero 3 (`61010d3`), v4.1 ribbon header
 (`de319ba`). Cost log: `docs/cost-optimization-log.md`.
 
-## Known deviations (all documented in `hardware/ERC-notes.md`)
+## Known deviations (all documented in `boards/helm/ERC-notes.md`)
 
 - J1.14 and J2.9 (one GND pin each) are **NC by design** — corridors owned
   by header escape routing; 4 ground pins remain per connector.
@@ -65,8 +65,8 @@ Everything is generated — never hand-edit `.kicad_sch`/`.kicad_pcb`.
 
 ```sh
 docker compose up -d                          # KiCad 10 (GUI: https://localhost:3001)
-# 1. edit hardware/sheets/*.py (nets) and/or build_board.py (placement)
-./hardware/scripts/build_sch.sh               # schematic + ERC
+# 1. edit boards/helm/sheets/*.py (nets) and/or build_board.py (placement)
+./boards/helm/scripts/build_sch.sh               # schematic + ERC
 docker exec vanchor-kicad kicad-cli sch export netlist --format kicadsexpr \
   -o .../vanchor-helm.net .../vanchor-helm.kicad_sch
 docker exec vanchor-kicad python3 .../scripts/check_nets.py .../vanchor-helm.net

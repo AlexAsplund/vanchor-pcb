@@ -2,7 +2,7 @@
 """Print pin number -> (name, electrical type) for symbols, for spec authoring."""
 import sys
 import re
-sys.path.insert(0, "/config/vanchor-pcb/hardware/scripts")
+sys.path.insert(0, "/config/vanchor-pcb/boards/helm/scripts")
 from embed_symbols import load_lib, flatten, find_block  # noqa: E402
 
 

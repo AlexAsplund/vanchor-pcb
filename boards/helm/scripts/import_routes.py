@@ -2,8 +2,8 @@
 """Import the freerouting .ses session, add GND stitching vias, refill, save."""
 import pcbnew
 
-BOARD = "/config/vanchor-pcb/hardware/vanchor-helm.kicad_pcb"
-SES = "/config/vanchor-pcb/hardware/vanchor-helm.ses"
+BOARD = "/config/vanchor-pcb/boards/helm/vanchor-helm.kicad_pcb"
+SES = "/config/vanchor-pcb/boards/helm/vanchor-helm.ses"
 OX, OY = 20.0, 20.0
 
 # The board file must be the exact BASE_GND=0 variant the DSN was exported

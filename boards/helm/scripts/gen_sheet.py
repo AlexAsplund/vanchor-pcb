@@ -20,7 +20,7 @@ import sys
 import uuid
 import importlib.util
 
-sys.path.insert(0, "/config/vanchor-pcb/hardware/scripts")
+sys.path.insert(0, "/config/vanchor-pcb/boards/helm/scripts")
 from embed_symbols import load_lib, flatten, find_block  # noqa: E402
 
 

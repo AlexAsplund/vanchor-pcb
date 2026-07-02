@@ -2,7 +2,7 @@
 # Regenerate all schematic sheets from specs, embed symbols, run ERC.
 # Run on the host: ./hardware/scripts/build_sch.sh
 set -e
-HW=/config/vanchor-pcb/hardware
+HW=/config/vanchor-pcb/boards/helm
 ROOT_UUID=a0000000-0000-4000-8000-000000000001
 
 for s in carrier control; do

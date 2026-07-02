@@ -29,7 +29,7 @@ from collections import defaultdict
 
 import pcbnew
 
-HW = "/config/vanchor-pcb/hardware"
+HW = "/config/vanchor-pcb/boards/helm"
 NETLIST = f"{HW}/vanchor-helm.net"
 BOARD = f"{HW}/vanchor-helm.kicad_pcb"
 STD_FP = "/usr/share/kicad/footprints"
