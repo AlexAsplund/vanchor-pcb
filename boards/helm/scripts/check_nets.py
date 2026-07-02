@@ -26,6 +26,7 @@ EXPECTED = {
     "GND": 20,
     "+5V": 8,          # U5.VOUT, J1x2, Pico VSYS, U2, U4, C3/C6/C9, F2, J9, J15
     "+3V3": 6,         # Pico 3V3, R9, R10, D6/D8-D11 K, J11, J12
+    "N2K_VP": 2, "N2K_SHLD": 2,
     "3V3_PI": 8,       # J1 x2, J2 x2, J3/J4/J8, R5, R6, flag
     "PI_SDA": 5,       # J1, J2, J8, R5, U1
     "PI_SCL": 5,

@@ -18,6 +18,22 @@ TEXTS = [
 ]
 
 COMPONENTS = [
+    # NMEA2000 provision: CAN itself rides the Pico (can2040 on GP18/GP19,
+    # transceiver module on J12 pins 1/8/6/7). J5 lands the drop cable's
+    # power/shield conductors; CAN_H/L go to the module's screw terminals.
+    # R41 (0R, DNP): fit to power the N2K backbone from VIN — add an inline
+    # 2-3A fuse in the drop cable if you do. R42 (0R, DNP): shield-to-GND
+    # at this node only if the network isn't grounded elsewhere.
+    dict(lib="Connector_Generic:Conn_01x03", ref="J5", value="NMEA2000 PWR",
+         fp="Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical",
+         at=(40, 185, 0), pins={"1": "N2K_VP", "2": "GND", "3": "N2K_SHLD"}),
+    dict(lib="Device:R", ref="R41", value="0R DNP", dnp=True,
+         fp="Resistor_SMD:R_0805_2012Metric",
+         at=(70, 185, 0), pins={"1": "N2K_VP", "2": "VIN"}),
+    dict(lib="Device:R", ref="R42", value="0R DNP", dnp=True,
+         fp="Resistor_SMD:R_0805_2012Metric",
+         at=(90, 185, 0), pins={"1": "N2K_SHLD", "2": "GND"}),
+
     # Logic feed: its own small terminal, wired externally to the BATT+ lug
     # (or a separate house battery). Keeps the 67A pour region free of a
     # logic trace and keeps board draw out of the ACS758 reading.

@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/boards/helm/vanchor-helm.kicad_sch")
-		(date "2026-07-02T17:25:35")
+		(date "2026-07-02T17:46:22")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
@@ -964,6 +964,69 @@
 			)
 		)
 		(comp
+			(ref "J5")
+			(value "NMEA2000 PWR")
+			(footprint "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical")
+			(fields
+				(field
+					(name "MPN") "JST B4B-XH-A(LF)(SN)")
+				(field
+					(name "Footprint") "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x03")
+				(description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "MPN")
+				(value "JST B4B-XH-A(LF)(SN)")
+			)
+			(property
+				(name "Sheetname")
+				(value "carrier")
+			)
+			(property
+				(name "Sheetfile")
+				(value "carrier.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "73f3a8f3-bfc3-5605-959c-5037d4262549")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
 			(ref "J8")
 			(value "I2C3 spare")
 			(footprint "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical")
@@ -1522,6 +1585,120 @@
 				(tstamps "/c0000000-0000-4000-8000-000000000002/")
 			)
 			(tstamps "346243aa-e365-50e3-8b9e-107326085303")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R41")
+			(value "0R DNP")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "carrier")
+			)
+			(property
+				(name "Sheetfile")
+				(value "carrier.kicad_sch")
+			)
+			(property
+				(name "dnp")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "408b3356-2bb2-5da0-a021-d946f26334ed")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R42")
+			(value "0R DNP")
+			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(fields
+				(field
+					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "R")
+				(description "Resistor")
+			)
+			(property
+				(name "Sheetname")
+				(value "carrier")
+			)
+			(property
+				(name "Sheetfile")
+				(value "carrier.kicad_sch")
+			)
+			(property
+				(name "dnp")
+			)
+			(property
+				(name "ki_keywords")
+				(value "R res resistor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "R_*")
+			)
+			(sheetpath
+				(names "/carrier/")
+				(tstamps "/c0000000-0000-4000-8000-000000000002/")
+			)
+			(tstamps "4a6445b9-ffd8-5ba5-8cf7-f3cdfb93c597")
 			(units
 				(unit
 					(name "A")
@@ -3795,6 +3972,45 @@
 		)
 		(libpart
 			(lib "Connector_Generic")
+			(part "Conn_01x03")
+			(description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			(footprints
+				(fp "Connector*:*_1x??_*")
+			)
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "Conn_01x03")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description") "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "Pin_1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "Pin_2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "Pin_3")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Connector_Generic")
 			(part "Conn_01x04")
 			(description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)")
 			(footprints
@@ -5378,6 +5594,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J5")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
+			(node
 				(ref "J8")
 				(pin "4")
 				(pinfunction "Pin_4_4")
@@ -5438,6 +5660,11 @@
 			)
 			(node
 				(ref "R40")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R42")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -5572,6 +5799,38 @@
 		)
 		(net
 			(code "24")
+			(name "N2K_SHLD")
+			(class "Default")
+			(node
+				(ref "J5")
+				(pin "3")
+				(pinfunction "Pin_3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R42")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "25")
+			(name "N2K_VP")
+			(class "Default")
+			(node
+				(ref "J5")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R41")
+				(pin "1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "26")
 			(name "OPI_CS")
 			(class "Default")
 			(node
@@ -5588,7 +5847,7 @@
 			)
 		)
 		(net
-			(code "25")
+			(code "27")
 			(name "OPI_MISO")
 			(class "Default")
 			(node
@@ -5605,7 +5864,7 @@
 			)
 		)
 		(net
-			(code "26")
+			(code "28")
 			(name "OPI_MOSI")
 			(class "Default")
 			(node
@@ -5622,7 +5881,7 @@
 			)
 		)
 		(net
-			(code "27")
+			(code "29")
 			(name "OPI_PC7")
 			(class "Default")
 			(node
@@ -5639,7 +5898,7 @@
 			)
 		)
 		(net
-			(code "28")
+			(code "30")
 			(name "OPI_PC8")
 			(class "Default")
 			(node
@@ -5656,7 +5915,7 @@
 			)
 		)
 		(net
-			(code "29")
+			(code "31")
 			(name "OPI_PC9")
 			(class "Default")
 			(node
@@ -5673,7 +5932,7 @@
 			)
 		)
 		(net
-			(code "30")
+			(code "32")
 			(name "OPI_PC10")
 			(class "Default")
 			(node
@@ -5690,7 +5949,7 @@
 			)
 		)
 		(net
-			(code "31")
+			(code "33")
 			(name "OPI_SCLK")
 			(class "Default")
 			(node
@@ -5707,7 +5966,7 @@
 			)
 		)
 		(net
-			(code "32")
+			(code "34")
 			(name "PICO_GP0")
 			(class "Default")
 			(node
@@ -5724,7 +5983,7 @@
 			)
 		)
 		(net
-			(code "33")
+			(code "35")
 			(name "PICO_GP1")
 			(class "Default")
 			(node
@@ -5741,7 +6000,7 @@
 			)
 		)
 		(net
-			(code "34")
+			(code "36")
 			(name "PICO_GP2")
 			(class "Default")
 			(node
@@ -5758,7 +6017,7 @@
 			)
 		)
 		(net
-			(code "35")
+			(code "37")
 			(name "PICO_GP3")
 			(class "Default")
 			(node
@@ -5775,7 +6034,7 @@
 			)
 		)
 		(net
-			(code "36")
+			(code "38")
 			(name "PICO_GP18")
 			(class "Default")
 			(node
@@ -5792,7 +6051,7 @@
 			)
 		)
 		(net
-			(code "37")
+			(code "39")
 			(name "PICO_GP19")
 			(class "Default")
 			(node
@@ -5809,7 +6068,7 @@
 			)
 		)
 		(net
-			(code "38")
+			(code "40")
 			(name "PI_GPIO24")
 			(class "Default")
 			(node
@@ -5832,7 +6091,7 @@
 			)
 		)
 		(net
-			(code "39")
+			(code "41")
 			(name "PI_GPIO25")
 			(class "Default")
 			(node
@@ -5855,7 +6114,7 @@
 			)
 		)
 		(net
-			(code "40")
+			(code "42")
 			(name "PI_PICO_RUN")
 			(class "Default")
 			(node
@@ -5877,7 +6136,7 @@
 			)
 		)
 		(net
-			(code "41")
+			(code "43")
 			(name "PI_SCL")
 			(class "Default")
 			(node
@@ -5911,7 +6170,7 @@
 			)
 		)
 		(net
-			(code "42")
+			(code "44")
 			(name "PI_SDA")
 			(class "Default")
 			(node
@@ -5945,7 +6204,7 @@
 			)
 		)
 		(net
-			(code "43")
+			(code "45")
 			(name "RPWM")
 			(class "Default")
 			(node
@@ -5962,7 +6221,7 @@
 			)
 		)
 		(net
-			(code "44")
+			(code "46")
 			(name "R_EN")
 			(class "Default")
 			(node
@@ -5979,7 +6238,7 @@
 			)
 		)
 		(net
-			(code "45")
+			(code "47")
 			(name "SERVO_A")
 			(class "Default")
 			(node
@@ -5996,7 +6255,7 @@
 			)
 		)
 		(net
-			(code "46")
+			(code "48")
 			(name "SERVO_B")
 			(class "Default")
 			(node
@@ -6013,7 +6272,7 @@
 			)
 		)
 		(net
-			(code "47")
+			(code "49")
 			(name "SERVO_IS")
 			(class "Default")
 			(node
@@ -6040,7 +6299,7 @@
 			)
 		)
 		(net
-			(code "48")
+			(code "50")
 			(name "THR_IS")
 			(class "Default")
 			(node
@@ -6077,7 +6336,7 @@
 			)
 		)
 		(net
-			(code "49")
+			(code "51")
 			(name "THR_LPWM")
 			(class "Default")
 			(node
@@ -6094,7 +6353,7 @@
 			)
 		)
 		(net
-			(code "50")
+			(code "52")
 			(name "THR_L_EN")
 			(class "Default")
 			(node
@@ -6116,7 +6375,7 @@
 			)
 		)
 		(net
-			(code "51")
+			(code "53")
 			(name "THR_RPWM")
 			(class "Default")
 			(node
@@ -6133,7 +6392,7 @@
 			)
 		)
 		(net
-			(code "52")
+			(code "54")
 			(name "THR_R_EN")
 			(class "Default")
 			(node
@@ -6155,7 +6414,7 @@
 			)
 		)
 		(net
-			(code "53")
+			(code "55")
 			(name "UART2_RX")
 			(class "Default")
 			(node
@@ -6178,7 +6437,7 @@
 			)
 		)
 		(net
-			(code "54")
+			(code "56")
 			(name "UART2_TX")
 			(class "Default")
 			(node
@@ -6201,7 +6460,7 @@
 			)
 		)
 		(net
-			(code "55")
+			(code "57")
 			(name "UART5_RX")
 			(class "Default")
 			(node
@@ -6224,7 +6483,7 @@
 			)
 		)
 		(net
-			(code "56")
+			(code "58")
 			(name "UART5_TX")
 			(class "Default")
 			(node
@@ -6247,7 +6506,7 @@
 			)
 		)
 		(net
-			(code "57")
+			(code "59")
 			(name "VBAT_SENSE")
 			(class "Default")
 			(node
@@ -6279,7 +6538,7 @@
 			)
 		)
 		(net
-			(code "58")
+			(code "60")
 			(name "VIN")
 			(class "Default")
 			(node
@@ -6331,6 +6590,11 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "R41")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
 				(ref "U5")
 				(pin "1")
 				(pinfunction "Pin_1_1")
@@ -6350,7 +6614,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "61")
 			(name "unconnected-(J1-Pin_14-Pad14)")
 			(class "Default")
 			(node
@@ -6361,7 +6625,7 @@
 			)
 		)
 		(net
-			(code "60")
+			(code "62")
 			(name "unconnected-(J1-Pin_20-Pad20)")
 			(class "Default")
 			(node
@@ -6372,7 +6636,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "63")
 			(name "unconnected-(J2-Pin_9-Pad9)")
 			(class "Default")
 			(node
@@ -6383,7 +6647,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "64")
 			(name "unconnected-(U1-3V3_EN-Pad37)")
 			(class "Default")
 			(node
@@ -6394,7 +6658,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "65")
 			(name "unconnected-(U1-ADC_VREF-Pad35)")
 			(class "Default")
 			(node
@@ -6405,7 +6669,7 @@
 			)
 		)
 		(net
-			(code "64")
+			(code "66")
 			(name "unconnected-(U1-GPIO16-Pad21)")
 			(class "Default")
 			(node
@@ -6416,7 +6680,7 @@
 			)
 		)
 		(net
-			(code "65")
+			(code "67")
 			(name "unconnected-(U1-GPIO20-Pad26)")
 			(class "Default")
 			(node
@@ -6427,7 +6691,7 @@
 			)
 		)
 		(net
-			(code "66")
+			(code "68")
 			(name "unconnected-(U1-GPIO21-Pad27)")
 			(class "Default")
 			(node
@@ -6438,7 +6702,7 @@
 			)
 		)
 		(net
-			(code "67")
+			(code "69")
 			(name "unconnected-(U1-GPIO22-Pad29)")
 			(class "Default")
 			(node
@@ -6449,7 +6713,7 @@
 			)
 		)
 		(net
-			(code "68")
+			(code "70")
 			(name "unconnected-(U1-VBUS-Pad40)")
 			(class "Default")
 			(node

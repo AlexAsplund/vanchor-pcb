@@ -147,6 +147,177 @@
     		)
     		(embedded_fonts no)
     	)
+    (symbol "Connector_Generic:Conn_01x03"
+    		(pin_names
+    			(offset 1.016)
+    			(hide yes)
+    		)
+    		(exclude_from_sim no)
+    		(in_bom yes)
+    		(on_board yes)
+    		(property "Reference" "J"
+    			(at 0 5.08 0)
+    			(effects
+    				(font
+    					(size 1.27 1.27)
+    				)
+    			)
+    		)
+    		(property "Value" "Conn_01x03"
+    			(at 0 -5.08 0)
+    			(effects
+    				(font
+    					(size 1.27 1.27)
+    				)
+    			)
+    		)
+    		(property "Footprint" ""
+    			(at 0 0 0)
+    			(effects
+    				(font
+    					(size 1.27 1.27)
+    				)
+    				(hide yes)
+    			)
+    		)
+    		(property "Datasheet" "~"
+    			(at 0 0 0)
+    			(effects
+    				(font
+    					(size 1.27 1.27)
+    				)
+    				(hide yes)
+    			)
+    		)
+    		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+    			(at 0 0 0)
+    			(effects
+    				(font
+    					(size 1.27 1.27)
+    				)
+    				(hide yes)
+    			)
+    		)
+    		(property "ki_keywords" "connector"
+    			(at 0 0 0)
+    			(effects
+    				(font
+    					(size 1.27 1.27)
+    				)
+    				(hide yes)
+    			)
+    		)
+    		(property "ki_fp_filters" "Connector*:*_1x??_*"
+    			(at 0 0 0)
+    			(effects
+    				(font
+    					(size 1.27 1.27)
+    				)
+    				(hide yes)
+    			)
+    		)
+    		(symbol "Conn_01x03_1_1"
+    			(rectangle
+    				(start -1.27 3.81)
+    				(end 1.27 -3.81)
+    				(stroke
+    					(width 0.254)
+    					(type default)
+    				)
+    				(fill
+    					(type background)
+    				)
+    			)
+    			(rectangle
+    				(start -1.27 2.667)
+    				(end 0 2.413)
+    				(stroke
+    					(width 0.1524)
+    					(type default)
+    				)
+    				(fill
+    					(type none)
+    				)
+    			)
+    			(rectangle
+    				(start -1.27 0.127)
+    				(end 0 -0.127)
+    				(stroke
+    					(width 0.1524)
+    					(type default)
+    				)
+    				(fill
+    					(type none)
+    				)
+    			)
+    			(rectangle
+    				(start -1.27 -2.413)
+    				(end 0 -2.667)
+    				(stroke
+    					(width 0.1524)
+    					(type default)
+    				)
+    				(fill
+    					(type none)
+    				)
+    			)
+    			(pin passive line
+    				(at -5.08 2.54 0)
+    				(length 3.81)
+    				(name "Pin_1"
+    					(effects
+    						(font
+    							(size 1.27 1.27)
+    						)
+    					)
+    				)
+    				(number "1"
+    					(effects
+    						(font
+    							(size 1.27 1.27)
+    						)
+    					)
+    				)
+    			)
+    			(pin passive line
+    				(at -5.08 0 0)
+    				(length 3.81)
+    				(name "Pin_2"
+    					(effects
+    						(font
+    							(size 1.27 1.27)
+    						)
+    					)
+    				)
+    				(number "2"
+    					(effects
+    						(font
+    							(size 1.27 1.27)
+    						)
+    					)
+    				)
+    			)
+    			(pin passive line
+    				(at -5.08 -2.54 0)
+    				(length 3.81)
+    				(name "Pin_3"
+    					(effects
+    						(font
+    							(size 1.27 1.27)
+    						)
+    					)
+    				)
+    				(number "3"
+    					(effects
+    						(font
+    							(size 1.27 1.27)
+    						)
+    					)
+    				)
+    			)
+    		)
+    		(embedded_fonts no)
+    	)
     (symbol "Connector_Generic:Conn_01x04"
     		(pin_names
     			(offset 1.016)
@@ -2650,6 +2821,54 @@
     (effects (font (size 2 2) (bold yes)) (justify left bottom))
     (uuid "2cd59857-e2ef-5c24-92e0-3b5a246cd707")
   )
+  (symbol (lib_id "Connector_Generic:Conn_01x03") (at 330.2 138.43 90) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "73f3a8f3-bfc3-5605-959c-5037d4262549")
+    (property "Reference" "J5" (at 330.2 130.81 0)
+      (effects (font (size 1.27 1.27))))
+    (property "Value" "NMEA2000 PWR" (at 330.2 146.05 0)
+      (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical" (at 330.2 138.43 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 330.2 138.43 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "MPN" "JST B4B-XH-A(LF)(SN)" (at 330.2 138.43 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "e7f1a954-941e-5f6d-9d68-052e0181a243"))
+    (pin "2" (uuid "dc489cde-3902-5b40-90b0-d6489363e6c5"))
+    (pin "3" (uuid "094eb438-a635-5906-b00b-e095037197dc"))
+    (instances (project "vanchor-helm" (path "/a0000000-0000-4000-8000-000000000001/c0000000-0000-4000-8000-000000000002" (reference "J5") (unit 1))))
+  )
+  (symbol (lib_id "Device:R") (at 355.6 129.54 90) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp yes)
+    (uuid "408b3356-2bb2-5da0-a021-d946f26334ed")
+    (property "Reference" "R41" (at 355.6 121.92 0)
+      (effects (font (size 1.27 1.27))))
+    (property "Value" "0R DNP" (at 355.6 137.16 0)
+      (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (at 355.6 129.54 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 355.6 129.54 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "803f4801-a7e3-5ec3-8210-75b30b4d18be"))
+    (pin "2" (uuid "4b627e43-ed5e-5df5-af58-d0eec16c6a6a"))
+    (instances (project "vanchor-helm" (path "/a0000000-0000-4000-8000-000000000001/c0000000-0000-4000-8000-000000000002" (reference "R41") (unit 1))))
+  )
+  (symbol (lib_id "Device:R") (at 355.6 149.86 90) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp yes)
+    (uuid "4a6445b9-ffd8-5ba5-8cf7-f3cdfb93c597")
+    (property "Reference" "R42" (at 355.6 142.24 0)
+      (effects (font (size 1.27 1.27))))
+    (property "Value" "0R DNP" (at 355.6 157.48 0)
+      (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (at 355.6 149.86 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 355.6 149.86 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "b8078860-a713-5b95-81d5-f01ae081b242"))
+    (pin "2" (uuid "c63212ce-09ed-59df-a506-2de3ef805954"))
+    (instances (project "vanchor-helm" (path "/a0000000-0000-4000-8000-000000000001/c0000000-0000-4000-8000-000000000002" (reference "R42") (unit 1))))
+  )
   (symbol (lib_id "Connector_Generic:Conn_01x02") (at 44.45 69.85 0) (unit 1)
     (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
     (uuid "2c7a164f-29a1-58fd-9116-37b5b9f7a48a")
@@ -3120,6 +3339,48 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "c1ecb234-672a-5fe6-9516-8ca928bb097f"))
     (instances (project "vanchor-helm" (path "/a0000000-0000-4000-8000-000000000001/c0000000-0000-4000-8000-000000000002" (reference "#FLG04") (unit 1))))
+  )
+  (global_label "N2K_VP" (shape passive) (at 327.66 143.51 270.0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "51c5325b-7686-502c-9a2e-a98a84d46be1")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 327.66 143.51 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (global_label "GND" (shape passive) (at 330.2 143.51 270.0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "7a7aa0d6-65f7-5130-bb42-94e41f00ced5")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 330.2 143.51 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (global_label "N2K_SHLD" (shape passive) (at 332.74 143.51 270.0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "c66ae7cf-044f-52ec-8916-0675c0585c4d")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 332.74 143.51 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (global_label "N2K_VP" (shape passive) (at 351.79 129.54 180.0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "4e993560-2df5-539d-af5c-39f9da2e3e59")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 351.79 129.54 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (global_label "VIN" (shape passive) (at 359.41 129.54 0.0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "c25b1fc5-3cab-5ca0-8ab7-b3e61fcc09ac")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 359.41 129.54 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (global_label "N2K_SHLD" (shape passive) (at 351.79 149.86 180.0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "148c8aa8-76e0-52c4-a558-9f785c4ead2d")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 351.79 149.86 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (global_label "GND" (shape passive) (at 359.41 149.86 0.0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "ea05be24-eeb0-50ce-b140-909632a20a78")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 359.41 149.86 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
   )
   (label "BATT_IN" (at 39.37 69.85 180.0) (fields_autoplaced yes)
     (effects (font (size 1.27 1.27)) (justify right))

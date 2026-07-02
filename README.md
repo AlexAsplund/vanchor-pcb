@@ -25,6 +25,17 @@ cost-optimization passes (see `docs/cost-optimization-log.md`) brought a
 12 V build from ~$111 to **~$41 per assembled board** (~$35 parts + ~$6 PCB).
 The v2 on-board-bridge design remains available at git tag/commit `bf91c4a`.
 
+## NMEA2000 / CAN provision (helm board)
+
+CAN lives on the Pico 2 (can2040 PIO CAN on GP18/GP19, 250 kbit/s for
+NMEA2000). Plug a 3.3 V CAN transceiver module (Waveshare SN65HVD230) onto
+J12 with four jumper wires: pin 1 = 3V3, pin 8 = GND, pin 6 = GP18 -> CTX,
+pin 7 = GP19 -> CRX. The N2K drop cable's CAN_H/L land on the module's
+screw terminal; its power/shield conductors land on J5 (V+ / GND / SHIELD).
+R41 (0R, DNP): fit to power the backbone from the battery input - add an
+inline 2-3 A fuse in the drop cable if you do. R42 (0R, DNP): bond shield
+to GND only if the network isn't grounded elsewhere.
+
 ## Boards
 
 - `boards/helm/` — the helm/carrier board (Orange Pi Zero 3 *or* Raspberry Pi + Pico 2, servo
