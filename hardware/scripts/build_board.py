@@ -42,7 +42,7 @@ W, H = 125.0, 95.0
 # holes (118.5/176.5, 28.5/77.5), pin1 = left hole + 4.87mm along the edge.
 ANCHORED = {
     # Zero 3 plugs into J1 from above; module body spans x~4..56, y~1..56
-    "J1": ((14.0, 53.5), {"2": (0, 2.54), "3": (2.54, 0)}, False),
+    "J1": ((14.0, 56.04), {"2": (0, -2.54), "3": (2.54, 0)}, False),
     "U1": ((109.0, 12.0), {"2": (-2.54, 0), "40": (0, 17.78)}, False),  # Pico horiz, pad1 right
 }
 

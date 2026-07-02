@@ -11,7 +11,7 @@ module on J14.
 ```
 BATTERY 12V ──► J16 ─[F1 10A]─[reverse-FET]─ VIN ──┬─ J14: 5V buck module ── Pi + screen + fan
                                                    └────────────── servo bridge (direct)
-Orange Pi Zero 3 (plugs into J1 socket, module ON TOP, powered via header)
+Orange Pi Zero 3 (26-way IDC ribbon to J1, powered through the ribbon)
  ├─ I²C3 ── Pico 2 @0x42 ──┬─ GP12-15: RPWM/LPWM/R_EN/L_EN ──► J13 ──► EXTERNAL
  │                         │   (+ R_IS/L_IS current sense back)   THRUST DRIVER
  │                         ├─ RPWM/LPWM ──► 2x BTN8982TA ──► 12V worm-gear servo
@@ -57,7 +57,7 @@ docker exec -e BASE_GND=0 vanchor-kicad python3 /config/vanchor-pcb/hardware/scr
 | J13 | THRUST DRV | external driver, IBT-2 pin order: **1 RPWM · 2 LPWM · 3 R_EN · 4 L_EN · 5 R_IS · 6 L_IS · 7 VCC(5V) · 8 GND** |
 | J22 | SERVO MOTOR | 12 V worm gearmotor of the steering servo |
 | J14 | BUCK 5V | generic XL4015/LM2596-class module: VIN GND 5V GND (set 5.1 V first!) |
-| J1 | OPI Z3 SOCKET | Orange Pi Zero 3 plugs in here, component side up (pin 1 marked) |
+| J1 | OPI Z3 26-PIN | male header → 26-way 1:1 IDC ribbon (original-RPi style) to the Zero 3 |
 | J11 | AS5600 | 4-wire cable into servo housing: 3V3 GND SDA SCL (≤1 m, twisted) |
 | J3 | UART5 | GPS/compass/NMEA (3V3 TTL, PH2/PH3; enable `uart5` DT overlay) |
 | J4 | UART2 | second serial device (PC5/PC6; enable `uart2` overlay; swap TX/RX at the JST if silent) |
@@ -72,14 +72,17 @@ driver**, not to this board.
 
 ## Mechanical
 
-- The Zero 3 plugs into the J1 socket **component side up** and sits ~9 mm
-  above the carrier; low-profile parts live underneath it. Its USB/HDMI/ETH
-  edge faces the board edge. Two M3 holes near the module's far edge take
-  support standoffs — **verify their alignment against your actual module
-  before ordering** (drill data in the gerbers).
-- The module is powered through the header 5 V pins — do **not** also plug
-  USB-C power. The 3.3 V for the JST headers comes from the module's
+- The Zero 3 (pre-soldered pins-up variant) connects via a **standard
+  26-way 1:1 IDC ribbon** (~$1.50, original-Raspberry-Pi style) from its
+  header to J1 — match pin 1 (marked) on both ends. The module mounts
+  wherever suits the enclosure; the two spare M3 holes near J1 can carry a
+  small mounting plate.
+- The module is powered through the ribbon 5 V pins — do **not** also plug
+  USB-C power. Keep the ribbon short (≤15 cm) — it carries I²C and the
+  module's supply. The 3.3 V for the JST headers comes from the module's
   regulator (keep attached loads under ~200 mA total).
+- J1 pin 14 and J2 pin 9 are deliberately NC (each connector keeps four
+  other ground pins; the header escape routing owns those corridors).
 - J2/J12 are DNP debug breakouts whose outlines slightly overlap — populate
   at most one, or use a right-angle header on J12.
 - 4× M3 corner mounting holes. No heatsink needed on this board.

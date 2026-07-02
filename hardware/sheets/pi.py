@@ -1,21 +1,22 @@
 """Orange Pi Zero 3 carrier sheet (v4): 26-pin socket, UART JSTs, spare I2C,
 fan, fused aux 5V.
 
-J1 = 2x13 socket the Zero 3 plugs into (module mounts ABOVE the carrier,
-component side up, powered THROUGH the header 5V pins from the on-board
-buck — no USB-C needed). J2 = 1:1 breakout of all 26 pins (DNP).
+J1 = 2x13 MALE header; the Zero 3 (pre-soldered pins-up variant) connects
+via a standard 26-way 1:1 IDC ribbon (original-RPi style). Module is
+powered THROUGH the ribbon 5V pins from the on-board buck — no USB-C.
+J2 = 1:1 breakout of all 26 pins (DNP).
 
 The Zero 3's 26-pin header exposes two usable UARTs (UART5 on PH2/PH3,
 UART2 on PC5/PC6) plus TWI3 (I2C) — the Pico link rides TWI3. The H618
 debug UART lives on the module's own separate 3-pin header. SWD reflash of
 the Pico uses two PC GPIOs (pins 16/18); PICO RUN on pin 12.
 """
-from common import PSOCK2x13, HDR2x13, XH2, XH4, HDR1x2, R_AX, LED5MM, POLYFUSE, grid
+from common import HDR2x13, XH2, XH4, HDR1x2, R_AX, LED5MM, POLYFUSE, grid
 
 SHEET_UUID = "c0000000-0000-4000-8000-000000000003"
 
 TEXTS = [
-    (30, 40, "ORANGE PI ZERO 3 CARRIER: 26-pin socket (module on top), UART breakouts"),
+    (30, 40, "ORANGE PI ZERO 3 CARRIER: J1 male header -> 26-way IDC ribbon to the module"),
     (30, 46, "Module is powered through header 5V pins - do NOT also plug USB-C power"),
     (30, 52, "UART TX/RX directions per OPi manual - if a device stays silent, swap TX/RX at the JST"),
 ]
@@ -49,11 +50,17 @@ PI26 = {
     "26": "OPI_PC10",
 }
 
+# Ground economy: J1.14 and J2.9 are deliberately NC — each connector keeps
+# four other GND pins (6/9/20/25 resp. 6/14/20/25); the escape routing under
+# the header field claims those two pads' corridors.
+J1_PINS = dict(PI26, **{"14": None})
+J2_PINS = dict(PI26, **{"9": None})
+
 COMPONENTS = [
     dict(lib="Connector_Generic:Conn_02x13_Odd_Even", ref="J1", value="OPI_Z3_26PIN",
-         fp=PSOCK2x13, at=(70, 95, 0), pins=dict(PI26)),
+         fp=HDR2x13, at=(70, 95, 0), pins=J1_PINS),
     dict(lib="Connector_Generic:Conn_02x13_Odd_Even", ref="J2", value="OPI_BREAKOUT", dnp=True,
-         fp=HDR2x13, at=(150, 95, 0), pins=dict(PI26)),
+         fp=HDR2x13, at=(150, 95, 0), pins=J2_PINS),
 
     dict(lib="Connector_Generic:Conn_01x04", ref="J3", value="UART5 ttyAS5", fp=XH4,
          at=(230, 70, 0), pins={"1": "3V3_PI", "2": "UART5_TX", "3": "UART5_RX", "4": "GND"}),

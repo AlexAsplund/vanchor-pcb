@@ -23,8 +23,12 @@ Documented deviations:
 - `courtyards_overlap` severity set to warning: the J2/J12 DNP debug-header
   courtyards graze by 0.5 mm (the slot is 0.04 mm too small). Populate at
   most one, or fit J12 with a right-angle header. Hole-to-hole is clear.
-- One DRC exclusion: J2 pin 9 (GND, DNP breakout) is boxed in by routing on
-  all four corridors on both layers; pins 6/14/20/25 ground the header.
+- J1 pin 14 and J2 pin 9 are NC by design (schematic-level): the header
+  escape field owns their corridors on both layers; each connector retains
+  four ground pins.
+- Clearance 0.14 mm (fab minimum 0.127): freerouting targets 0.15 exactly
+  and rounds a few µm under; 0.14 absorbs that without touching the fab
+  margin.
 
 Remaining warnings (cosmetic only, waived):
 

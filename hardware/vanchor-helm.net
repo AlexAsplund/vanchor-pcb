@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/hardware/vanchor-helm.kicad_sch")
-		(date "2026-07-02T08:44:54")
+		(date "2026-07-02T11:39:39")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
@@ -1056,12 +1056,12 @@
 		(comp
 			(ref "J1")
 			(value "OPI_Z3_26PIN")
-			(footprint "Connector_PinSocket_2.54mm:PinSocket_2x13_P2.54mm_Vertical")
+			(footprint "Connector_PinHeader_2.54mm:PinHeader_2x13_P2.54mm_Vertical")
 			(fields
 				(field
 					(name "MPN") "Adafruit 1979 (2x20 stacking, extra-tall ~19.5mm) or ESQ-120-39-G-D")
 				(field
-					(name "Footprint") "Connector_PinSocket_2.54mm:PinSocket_2x13_P2.54mm_Vertical")
+					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_2x13_P2.54mm_Vertical")
 				(field
 					(name "Datasheet")
 				)
