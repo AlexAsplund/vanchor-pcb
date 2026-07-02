@@ -1,0 +1,36 @@
+Mfr Part Number,Quantity,Description
+EEU-FR1E471B,2,C1 C2 470uF 25V radial
+EEU-FR1E101,1,C3 100uF radial
+EEU-FR1E221,1,C22 220uF 25V radial
+K104K15X7RF5TL2,5,C5 C12 C21 C23 100nF disc P5 (+1 spare)
+BZX85C12-TAP,2,D4 12V 1.3W zener (+1 spare)
+SMCJ18A,2,D5 TVS 18V SMC (+1 spare)
+BAT54S215,6,D6 D8 D10 D11 D14 dual schottky SOT-23 (+1 spare)
+3568,1,F1 mini blade fuse holder (Keystone)
+0297010.WXNV,2,F1 10A mini blade fuse (+1 spare)
+MF-R200,1,F2 polyfuse 2A
+61302621121,1,J1 2x13 male header 2.54
+B4B-XH-A(LF)(SN),4,J3 J4 J8 J11 JST-XH 4-pin vertical
+B2B-XH-A(LF)(SN),1,J10 JST-XH 2-pin vertical
+XHP-4,4,mating housings for the 4-pin JSTs
+XHP-2,1,mating housing for J10
+SXH-001T-P0.6,25,JST-XH crimp contacts for cables
+TB007-508-02,2,J16 J22 terminal blocks 5.08
+61300211121,1,J9 1x2 header
+61300811121,1,J13 1x8 header
+61300411121,1,J14 1x4 header
+WP7113GD,1,LED1 green 5mm
+WP7113YD,1,LED5 yellow 5mm
+IRF9540NPBF,1,Q1 reverse-polarity P-FET
+CFR-25JB-52-47K,5,R1 R11 R39 R40 47k (+1)
+CFR-25JB-52-2K2,2,R2 2.2k (+1; R5/R6 are DNP)
+CFR-25JB-52-1K,6,R8 R13 R15 R16 R19 1k (+1)
+CFR-25JB-52-4K7,3,R9 R10 4.7k (+1)
+CFR-25JB-52-10K,3,R12 R18 10k (+1)
+CFR-25JB-52-100R,3,R20 R21 100R (+1)
+CFR-25JB-52-100K,3,R30 R32 100k (+1)
+CFR-25JB-52-20K,2,R38 20k (+1)
+SC1632,1,U1 Raspberry Pi Pico 2
+BTN8982TA,2,U7 U8 servo half-bridges
+TSR 3-2450E,1,5V/3A buck for J14 (SIP-3: fits J14 pins 1-3 directly)
+H3CCS-2606G,1,26-way IDC ribbon socket-socket (Zero 3 link)

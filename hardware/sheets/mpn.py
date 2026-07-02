@@ -17,7 +17,7 @@ MPN = {
     "C4": "EEU-FR1E101",
     "J17": "CUI TB007-508-02",
     # pi carrier
-    "J1": "Adafruit 1979 (2x20 stacking, extra-tall ~19.5mm) or ESQ-120-39-G-D",
+    "J1": "61302621121 (Wurth 2x13 2.54mm male header)",
     "F2": "Bourns MF-R200",
     "J3": "JST B4B-XH-A(LF)(SN)", "J4": "JST B4B-XH-A(LF)(SN)",
     "J5": "JST B4B-XH-A(LF)(SN)", "J6": "JST B4B-XH-A(LF)(SN)",
