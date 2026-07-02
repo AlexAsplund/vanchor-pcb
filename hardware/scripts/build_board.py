@@ -323,8 +323,8 @@ def main():
     chain("+5V", pcbnew.B_Cu,
           [(p7x, p7y), (p7x, 83.7), (120.8, 83.7), (120.8, u5y), (u5x + 2.0, u5y)], 1.3)
     # TO-263-7 pad-4 halves: strap them (fill alone leaves them split)
-    add_track("SERVO_A", pcbnew.F_Cu, 59, 42, 64, 42, 1.2)
-    add_track("SERVO_B", pcbnew.F_Cu, 77, 42, 82, 42, 1.2)
+    add_track("SERVO_A", pcbnew.F_Cu, 59, 42, 64, 42, 1.1)
+    add_track("SERVO_B", pcbnew.F_Cu, 77, 42, 82, 42, 1.1)
     j18x, j18y = pad_xy("J1", "8")         # UART5_TX from the ribbon header
     j3x, j3y = pad_xy("J3", "2")
     chain("UART5_TX", pcbnew.F_Cu,

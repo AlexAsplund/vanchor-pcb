@@ -56,7 +56,7 @@ docker exec -e BASE_GND=0 vanchor-kicad python3 /config/vanchor-pcb/hardware/scr
 | J16 | BATT 12V | battery + / − (board logic + servo supply; ≥1.5 mm²) |
 | J13 | THRUST DRV | external driver, IBT-2 pin order: **1 RPWM · 2 LPWM · 3 R_EN · 4 L_EN · 5 R_IS · 6 L_IS · 7 VCC(5V) · 8 GND** |
 | J22 | SERVO MOTOR | 12 V worm gearmotor of the steering servo |
-| J14 | BUCK 5V | generic XL4015/LM2596-class module: VIN GND 5V GND (set 5.1 V first!) |
+| U5 | XL4015 BUCK | the module solders ON: pins into its 4 corner terminals, spacers, into the slotted pads (set 5.1 V first!) |
 | J1 | OPI Z3 26-PIN | male header → 26-way 1:1 IDC ribbon (original-RPi style) to the Zero 3 |
 | J11 | AS5600 | 4-wire cable into servo housing: 3V3 GND SDA SCL (≤1 m, twisted) |
 | J3 | UART5 | GPS/compass/NMEA (3V3 TTL, PH2/PH3; enable `uart5` DT overlay) |
@@ -102,9 +102,12 @@ driver**, not to this board.
   (ADC0), battery voltage (ADC2).
 - Reverse polarity: IRF9540N high-side FET; SMCJ18A TVS (12 V clamp);
   2× 470 µF/25 V bulk.
-- The buck module is off-BOM: any 12-in/5-out module ≥4 A works (XL4015
-  recommended, ~$2.50). Bench-test it at 4 A and set 5.1 V before fitting;
-  strap it to the two M3 holes beside J14.
+- The buck module (U5) mounts as a daughterboard: solder 4 pins into the
+  XL4015's corner terminals, slide 5-8 mm spacers on, solder into the
+  slotted pads (slots absorb vendor hole-grid variance; nominal 49×18 mm —
+  verify against your module). Set 5.1 V and load-test at 4 A BEFORE
+  soldering it in. R20/R21/D10/D11 sit under the module's edge — fit them
+  first.
 - Firmware contract: I²C slave 0x42, reg 0x00 CMD {pwm u8, dir u8, steer i8},
   reg 0x10 STATUS {angle f32, ok u8, wrap i8, state u8, vbat_mV u16,
   isense u16}; 800 ms watchdog → thrust 0, steering holds (worm self-locks).

@@ -18,7 +18,6 @@
 "J11","AS5600","Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical","JST B4B-XH-A(LF)(SN)","1",""
 "J12","PICO UTIL","Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical","","1","DNP"
 "J13","THRUST DRV","Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical","","1",""
-"J14","BUCK 5V","Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical","","1",""
 "J16","BATT 12V","TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal","","1",""
 "J22","SERVO MOTOR","TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal","CUI TB007-508-02","1",""
 "LED1","green","LED_THT:LED_D5.0mm","","1",""
@@ -33,4 +32,5 @@
 "R30,R32","100k","Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal","","2",""
 "R38","20k","Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal","","1",""
 "U1","Pico 2","vanchor-helm:RaspberryPi_Pico_TH_SWD","Raspberry Pi Pico 2 (SC1632)","1",""
+"U5","XL4015 5A","vanchor-helm:XL4015_Module","XL4015 5A module (AliExpress)","1",""
 "U7,U8","BTN8982TA","Package_TO_SOT_SMD:TO-263-7_TabPin4","BTN8982TA","2",""
