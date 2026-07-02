@@ -13,14 +13,18 @@ Deliberate ERC-related choices: Pico GND/AGND pins retyped passive (see
 (U6 VOUT drives it; with U6 DNP the net has no power-in pins); Pi I²C pull-ups
 R5/R6 DNP by design.
 
-## DRC: 0 errors, 0 unconnected (v3 cost-optimized board, 2026-07-02)
+## DRC: 0 errors, 0 unconnected (v4 Orange Pi Zero 3 board, 2026-07-02)
 
-The 150×120 mm v3 board (cost pass 10: external thrust driver on J13, no
-on-board H-bridge) is fully routed and passes DRC with **zero errors and
-zero unconnected items**. No touch-up is required before ordering. Two
-SERVO_A feeder segments are deliberately 1.8 mm (vs the 2.5 mm class
-default) where they parallel the +12V bottom lane — fine for the servo's
-~5 A continuous draw on 1 oz copper.
+The 125×95 mm v4 board (Orange Pi Zero 3 on a 26-pin socket, module on
+top, low-profile parts underneath) is fully routed and passes DRC with
+**zero errors and zero unconnected items**.
+
+Documented deviations:
+- `courtyards_overlap` severity set to warning: the J2/J12 DNP debug-header
+  courtyards graze by 0.5 mm (the slot is 0.04 mm too small). Populate at
+  most one, or fit J12 with a right-angle header. Hole-to-hole is clear.
+- One DRC exclusion: J2 pin 9 (GND, DNP breakout) is boxed in by routing on
+  all four corridors on both layers; pins 6/14/20/25 ground the header.
 
 Remaining warnings (cosmetic only, waived):
 

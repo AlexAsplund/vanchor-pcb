@@ -56,3 +56,13 @@ Board committed to 12V (car battery, 14.4V charging):
 | Components | ~$35 | **~$15 + $2.50 buck module ≈ $18** |
 | Line items | 44 | 40 |
 | Input range | 12-48V | 12V only (14.4V charging) |
+
+## v4 addendum — Orange Pi Zero 3 + board shrink (user decision, 2026-07-02)
+
+- Raspberry Pi 4/5 (40-pin, under-board) → **Orange Pi Zero 3** on a 2×13
+  socket, module on top, powered through the header (no USB-C). SBC cost:
+  Pi 4 ($45-60) → Zero 3 ($18-25).
+- Board **150×120 → 125×95 mm** (−34 %): low parts live under the module,
+  JSTs consolidated (Zero 3 exposes 2 UARTs, not 5 → J5/J6/J7 dropped).
+- PCB ≈ $15-18 / 5 pcs. Parts unchanged ≈ $18 → **≈ $22/board assembled**,
+  ≈ $45 with the Zero 3 itself.

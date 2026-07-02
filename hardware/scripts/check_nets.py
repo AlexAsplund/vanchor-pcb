@@ -26,12 +26,10 @@ EXPECTED = {
     "GND": 20,
     "+5V": 8,          # U5.VOUT, J1x2, Pico VSYS, U2, U4, C3/C6/C9, F2, J9, J15
     "+3V3": 6,         # Pico 3V3, R9, R10, D6/D8-D11 K, J11, J12
-    "3V3_PI": 9,       # J1 x2, J2 x2, J3..J8, R5, R6, flag
+    "3V3_PI": 8,       # J1 x2, J2 x2, J3/J4/J8, R5, R6, flag
     "PI_SDA": 5,       # J1, J2, J8, R5, U1
     "PI_SCL": 5,
-    "UART0_TX": 3, "UART0_RX": 3, "UART2_TX": 3, "UART2_RX": 3,
-    "UART3_TX": 3, "UART3_RX": 3, "UART4_TX": 3, "UART4_RX": 3,
-    "UART5_TX": 3, "UART5_RX": 3,
+    "UART2_TX": 3, "UART2_RX": 3, "UART5_TX": 3, "UART5_RX": 3,
     "PI_PICO_RUN": 3,  # J1, J2, R8
     "ENC_SDA": 3, "ENC_SCL": 3,      # U1, pull-up, series R
     "RPWM": 2, "LPWM": 2, "R_EN": 2, "L_EN": 2,  # U1 + BTN8982

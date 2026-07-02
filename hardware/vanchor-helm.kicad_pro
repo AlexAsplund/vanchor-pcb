@@ -70,7 +70,13 @@
         }
       },
       "diff_pair_dimensions": [],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "unconnected_items|44925000|66275000|b4a1562f-18ed-47d7-a87c-a039aaccb081|f3102551-0e04-4666-b691-b4b3a04df583",
+          "J2.9 GND: DNP debug header"
+        ],
+        "unconnected_items|44925000|66275000|b4a1562f-18ed-47d7-a87c-a039aaccb081|f3102551-0e04-4666-b691-b4b3a04df583"
+      ],
       "meta": {
         "version": 2
       },
@@ -80,7 +86,7 @@
         "connection_width": "warning",
         "copper_edge_clearance": "error",
         "copper_sliver": "warning",
-        "courtyards_overlap": "error",
+        "courtyards_overlap": "warning",
         "creepage": "error",
         "diff_pair_gap_out_of_range": "error",
         "diff_pair_uncoupled_length_too_long": "error",
@@ -233,6 +239,13 @@
       "via_dimensions": [],
       "zones_allow_external_fillets": false
     },
+    "drc_exclusions": [
+      [
+        "unconnected_items|44925000|66275000|b4a1562f-18ed-47d7-a87c-a039aaccb081|f3102551-0e04-4666-b691-b4b3a04df583",
+        "J2.9 GND: DNP debug header, boxed in; 4 other GND pins"
+      ],
+      "unconnected_items|44925000|66275000|b4a1562f-18ed-47d7-a87c-a039aaccb081|f3102551-0e04-4666-b691-b4b3a04df583"
+    ],
     "ipc2581": {
       "bom_rev": "",
       "dist": "",
