@@ -134,3 +134,31 @@ deviation notes instead of silent waivers; docker-pinned toolchain.
 consumed more effort than the rest of the board combined — the fix was
 architectural: give the router room); in-place footprint swaps; trusting
 any coordinate that wasn't measured from the file.
+
+## Addendum (2026-07-02, learned on v4.2 + thrust driver)
+
+- **Parse DRC severity, not category counts.** `solder_mask_bridge` and
+  `copper_edge_clearance` are error-class by default; grep the report for
+  `; error` per block. A "0 unconnected" summary with benign-looking
+  category counts can still hide real errors.
+- **pcbnew silent segfaults** extend beyond footprint removal: zone
+  removal and zone-outline `SetVertex` also kill the interpreter without
+  saving. Same cure: staged scripts — one destructive class per process,
+  `SaveBoard` immediately, verify persistence with a fresh read-only load.
+- **`ZONE.GetLayerName()` lies** (returns F.Cu for B-side zones). Filter
+  zones by `IsOnLayer()`/priority/bbox instead.
+- **Freerouting chokes on large slotted pads** (the XL4015 daughterboard):
+  runs that converged in ~7 min ran >12 min without producing a SES.
+  Root-cause fixes beat rerolls: pre-lay the nets it drops, relocate
+  parts that create 100 mm nets, and re-run at `-mp 25-30`.
+- **Orphan pour islands**: after deleting redundant routed GND tracks,
+  point-in-bbox scan each pour piece for GND items with a TH/via link —
+  pieces with only SMD items need a rescue stub + via from the pad itself.
+- **Nesting hand-drawn buses**: for N parallel links from a pin row to
+  staggered targets, same-order pairs need the *shallower* lane on the
+  net whose exit is *east* of the other's target-drop; verify every
+  lane-crosses-drop pair on paper before drawing (drops span from their
+  lane to the pad — any lane passing a drop's x within that span crosses).
+- **Fill connects same-net tracks to zones — but only where fill exists.**
+  A track "in" a zone whose channel doesn't fill (clearance-starved) ends
+  dangling; prefer landing bridges on pads/vias, not on fill.

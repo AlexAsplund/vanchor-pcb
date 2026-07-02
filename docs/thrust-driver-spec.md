@@ -48,3 +48,20 @@ that helm J13 expects — now designed in-house so the pair just works.
 - No reverse-battery protection at these currents (a series element would
   dissipate more than the bridge); wire carefully, fuse externally.
 - No thermal shutdown circuitry beyond the BTN chips' built-in protection.
+
+## As-built deltas (v1.1, 2026-07-02)
+
+The finished board (`boards/thrust-driver/`) deviates from this spec in:
+
+- **Board is 95×92 mm** (not ~80×60): the extra area carries the NMEA2000
+  smart-node provision — DNP Pico 2 (U5) wired in parallel with J1's
+  control nets, SIP-3 5 V regulator (U6), CAN transceiver header (J6),
+  N2K power/shield connector (J7) and ADC series resistors (R12/R13).
+  Dumb mode (this spec) is unchanged: populate nothing, drive via J1.
+- **kILIS correction**: BTN8982TA sense ratio is ~**22 700** typ (the
+  8500 figure below is the BTS7960's) → 30 A ≈ 1.3 V across the 1 k
+  loads, not 3.5 V. Rescale firmware telemetry accordingly.
+- 4 mounting holes (2 mid-board under/near the bridge, 2 in the node
+  strip), not lug-corner mounting.
+- SR resistors fitted as 51 k; mask-aperture DRC check set to *ignore*
+  (the solder lanes are the point). Full details: the board README.

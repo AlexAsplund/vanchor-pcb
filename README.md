@@ -1,24 +1,29 @@
-# Vanchor Helm Board (v4)
+# Vanchor PCBs (helm v4.2 + thrust driver v1.1)
 
 Carrier PCB for the [vanchor-ng](../vanchor-ng) trolling-motor autopilot:
 an **Orange Pi Zero 3** (autopilot computer) + **Raspberry Pi Pico 2**
 (real-time motor controller, I²C slave) on one **125×95 mm 2-layer board
-(standard 1 oz)**. Thrust power stays on an **external IBT-2/BTS7960-class
-driver** (J13); the steering-servo bridge is on board. **12 V-only** (car
-battery, 14.4 V charging) — the 5 V rail comes from a generic cheap buck
-module on J14.
+(standard 1 oz)**. Thrust power lives on the companion **thrust-driver
+board** cabled to J13 (any IBT-2/BTS7960-class driver also works); the
+steering-servo bridge is on board. **12 V-only** (car battery, 14.4 V
+charging) — the 5 V rail comes from an XL4015 buck module soldered on as a
+daughterboard (U5). Full system diagrams: **`docs/architecture.md`**.
 
+```mermaid
+graph LR
+    BATT[("12V battery")] -->|"J16, F1 10A, rev-FET"| VIN["VIN"]
+    BATT ==>|"fat cable + ANL fuse"| TD["thrust driver board<br/>(J13 8-wire cable)"]
+    VIN --> U5["U5 XL4015 buck 5V"] --> SBC["Orange Pi Zero 3 / RPi<br/>(J1 ribbon) + screen + fan"]
+    VIN --> SRV["2x BTN8982TA servo bridge"] -->|"J22"| SM["12V worm servo"]
+    SBC <-->|"I2C3"| PICO["Pico 2 @0x42"]
+    PICO -->|"GP12-15 PWM"| TD --> M(("trolling motor"))
+    PICO --> SRV
+    SM -->|"AS5600, J11"| PICO
+    SBC -.->|"WiFi"| TAB["tablet"]
+    HWT["HWT901B AHRS"] -->|"J3 UART5"| SBC
+    PICO <-->|"can2040 + J12 xcvr + J5"| N2K[("NMEA2000")]
 ```
-BATTERY 12V ──► J16 ─[F1 10A]─[reverse-FET]─ VIN ──┬─ J14: 5V buck module ── Pi + screen + fan
-                                                   └────────────── servo bridge (direct)
-Orange Pi Zero 3 (26-way IDC ribbon to J1, powered through the ribbon)
- ├─ I²C3 ── Pico 2 @0x42 ──┬─ GP12-15: RPWM/LPWM/R_EN/L_EN ──► J13 ──► EXTERNAL
- │                         │   (+ R_IS/L_IS current sense back)   THRUST DRIVER
- │                         ├─ RPWM/LPWM ──► 2x BTN8982TA ──► 12V worm-gear servo
- │                         └─ I²C ──► AS5600 encoder (cable, in servo housing)
- ├─ UART5 + UART2 ──► JST headers (GPS, compass, NMEA)
- └─ HDMI/USB screen on the module itself (aux 5V from J10)
-```
+
 
 Cost history: v1/v2 carried an on-board 800 W H-bridge; ten documented
 cost-optimization passes (see `docs/cost-optimization-log.md`) brought a
@@ -53,6 +58,8 @@ to GND only if the network isn't grounded elsewhere.
 | `boards/helm/sheets/*.py` | Net-spec sources — the schematic is **generated** from these |
 | `boards/helm/scripts/` | Generators + gates (`build_sch.sh`, `build_board.py`, ERC/DRC helpers) |
 | `boards/helm/fab/` | Gerbers, drill, BOM — upload these to PCBWay/JLCPCB |
+| `boards/thrust-driver/` | Companion H-bridge board (own README, sheets, scripts, fab) |
+| `docs/architecture.md` | **System diagrams**: WiFi/tablet, NMEA0183+2000, HWT901B, control loop |
 | `docs/cost-optimization-log.md` | The 10 cost passes and their effect |
 | `docs/superpowers/` | Design spec + implementation plan |
 | `.claude/skills/` | kicad-happy review skills (vendored) |
@@ -79,16 +86,17 @@ docker exec -e BASE_GND=0 vanchor-kicad python3 /config/vanchor-pcb/boards/helm/
 | U5 | XL4015 BUCK | the module solders ON: pins into its 4 corner terminals, spacers, into the slotted pads (set 5.1 V first!) |
 | J1 | OPI Z3 26-PIN | male header → 26-way 1:1 IDC ribbon (original-RPi style) to the Zero 3 |
 | J11 | AS5600 | 4-wire cable into servo housing: 3V3 GND SDA SCL (≤1 m, twisted) |
-| J3 | UART5 | GPS/compass/NMEA (3V3 TTL, PH2/PH3; enable `uart5` DT overlay) |
+| J3 | UART5 | **HWT901B AHRS** / GPS / NMEA0183-TTL (3V3 TTL, PH2/PH3; `uart5` overlay; wiring in `docs/architecture.md`) |
 | J4 | UART2 | second serial device (PC5/PC6; enable `uart2` overlay; swap TX/RX at the JST if silent) |
 | J8 | I2C3 spare | I²C sensors (bus shared with Pico link — keep short) |
 | J10 | AUX 5V | fused 5 V for a screen or accessory |
 | J9 | FAN | 5 V fan |
-| J2 | GPIO breakout | all 40 Pi pins 1:1 (DNP by default — fit if needed) |
-| J12 | PICO UTIL | spare Pico I/O (DNP by default) |
+| J5 | NMEA2000 PWR | N2K drop-cable V+ / GND / SHIELD (CAN_H/L go to the transceiver module) |
+| J2 | SBC2 | second SBC port: same 26-pin bus as J1, classic RPi positions — fit ONE SBC only (DNP) |
+| J12 | PICO UTIL | spare Pico I/O; carries the CAN transceiver hookup (pins 1/8/6/7, see NMEA2000 section) |
 
-Battery→motor power wiring (fat cables, ANL fuse) goes to the **external
-driver**, not to this board.
+Battery→motor power wiring (fat cables, ANL fuse) goes to the **thrust
+driver board**, not to this board.
 
 ## Mechanical
 
@@ -101,8 +109,9 @@ driver**, not to this board.
   USB-C power. Keep the ribbon short (≤15 cm) — it carries I²C and the
   module's supply. The 3.3 V for the JST headers comes from the module's
   regulator (keep attached loads under ~200 mA total).
-- J1 pin 14 and J2 pin 9 are deliberately NC (each connector keeps four
-  other ground pins; the header escape routing owns those corridors).
+- J1 pins 14 & 20 and J2 pin 9 are deliberately NC (each connector keeps
+  at least three other ground pins; the header escape routing owns those
+  corridors).
 - J2/J12 are DNP debug breakouts whose outlines slightly overlap — populate
   at most one, or use a right-angle header on J12.
 - 4× M3 corner mounting holes. No heatsink needed on this board.
