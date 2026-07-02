@@ -21,21 +21,21 @@ COMPONENTS = [
          fp="Package_TO_SOT_SMD:TO-263-7_TabPin4",
          at=(70, 100, 0), pins={
             "1": "GND", "2": "RPWM", "3": "R_EN",
-            "4": "SERVO_A", "5": ".SR_A", "6": ".SERVO_IS_RAW", "7": "+12V"}),
+            "4": "SERVO_A", "5": ".SR_A", "6": ".SERVO_IS_RAW", "7": "VIN"}),
     dict(lib="vanchor-helm:BTN8982TA", ref="U8", value="BTN8982TA",
          fp="Package_TO_SOT_SMD:TO-263-7_TabPin4",
          at=(130, 100, 0), pins={
             "1": "GND", "2": "LPWM", "3": "L_EN",
-            "4": "SERVO_B", "5": ".SR_B", "6": ".SERVO_IS_RAW", "7": "+12V"}),
+            "4": "SERVO_B", "5": ".SR_B", "6": ".SERVO_IS_RAW", "7": "VIN"}),
     dict(lib="Device:R", ref="R39", value="47k", fp=R_AX,     # slew-rate set
          at=grid(0), pins={"1": ".SR_A", "2": "GND"}),
     dict(lib="Device:R", ref="R40", value="47k", fp=R_AX,
          at=grid(1), pins={"1": ".SR_B", "2": "GND"}),
     dict(lib="Device:C_Polarized", ref="C22", value="220u/25V",
          fp="Capacitor_THT:CP_Radial_D8.0mm_P3.50mm",
-         at=grid(2), pins={"1": "+12V", "2": "GND"}),
+         at=grid(2), pins={"1": "VIN", "2": "GND"}),
     dict(lib="Device:C", ref="C23", value="100n", fp=C_D,
-         at=grid(3), pins={"1": "+12V", "2": "GND"}),
+         at=grid(3), pins={"1": "VIN", "2": "GND"}),
     dict(lib="Connector_Generic:Conn_01x02", ref="J22", value="SERVO MOTOR", fp=TB2,
          at=(200, 100, 0), pins={"1": "SERVO_A", "2": "SERVO_B"}),
 

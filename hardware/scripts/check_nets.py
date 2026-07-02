@@ -22,10 +22,9 @@ def parse_nets(path):
 
 # net -> minimum expected pin count (global nets; local nets appear as /sheet/NAME)
 EXPECTED = {
-    "VIN": 6,          # Q1.S, D4, D5, C1, C2, U5, U6, J17, R11, R2, flag
+    "VIN": 8,          # Q1.S, D4, D5, C1, C2, J14, R2, R11, servo VS, flag
     "GND": 20,
     "+5V": 8,          # U5.VOUT, J1x2, Pico VSYS, U2, U4, C3/C6/C9, F2, J9, J15
-    "+12V": 4,         # U6.VOUT, J17, C4, R4, D7, J14
     "+3V3": 6,         # Pico 3V3, R9, R10, D6/D8-D11 K, J11, J12
     "3V3_PI": 9,       # J1 x2, J2 x2, J3..J8, R5, R6, flag
     "PI_SDA": 5,       # J1, J2, J8, R5, U1

@@ -36,3 +36,23 @@ Firmware deltas (vanchor-ng): thrust moves from the HIP4082 pin set back to
 the classic RPWM/LPWM/R_EN/L_EN interface on **GP12/GP13/GP14/GP15**
 (THR_RPWM/THR_LPWM/THR_R_EN/THR_L_EN); THR_IS stays on GP27 (now the
 external driver's IS mix); GP16 and GP26 are freed.
+
+## v3.1 addendum — 12V-only commit (user decision, 2026-07-02)
+
+With the thrust bridge external, the 48V input requirement died with it.
+Board committed to 12V (car battery, 14.4V charging):
+
+- **U5 (Pololu D36V50F5, $19.95) removed** → J14 header (VIN GND 5V GND) for
+  a generic XL4015/LM2596-class buck module (~$2.50), strapped to the board
+  via two M3 holes beside it. Set to 5.1V before fitting.
+- **U6 + J17 removed entirely** — the servo bridge (BTN8982, 5.5-40V) runs
+  straight off protected VIN.
+- D5 TVS: SMCJ58A → **SMCJ18A** (proper 12V clamping); C1/C2 → 25V-rated;
+  R2 LED resistor 15k/0.5W → 2.2k; VBAT divider rescaled 47k/10k
+  (reuses existing values, kills the 6.8k and 100k-divider line items).
+
+| | v3 | v3.1 |
+|---|---|---|
+| Components | ~$35 | **~$15 + $2.50 buck module ≈ $18** |
+| Line items | 44 | 40 |
+| Input range | 12-48V | 12V only (14.4V charging) |

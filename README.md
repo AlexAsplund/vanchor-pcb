@@ -1,16 +1,15 @@
-# Vanchor Helm Board (v3)
+# Vanchor Helm Board (v3.1)
 
 Carrier PCB for the [vanchor-ng](../vanchor-ng) trolling-motor autopilot:
 a **Raspberry Pi 4/5** (autopilot computer) + **Raspberry Pi Pico 2** (real-time
 motor controller, I²C slave) on one **150×120 mm 2-layer board (standard 1 oz)**.
 Thrust power stays on an **external IBT-2/BTS7960-class driver** (J13); the
-steering-servo bridge is on board.
+steering-servo bridge is on board. **12 V-only** (car battery, 14.4 V
+charging) — the 5 V rail comes from a generic cheap buck module on J14.
 
 ```
-BATTERY 12-48V ──► J16 ─[F1 10A]─[reverse-FET]──┬─ 5V/5A buck ── Pi + touchscreen + fan
-                                                └─ 12V rail ── servo bridge
-                                        (12V boats: bridge J17, omit U6;
-                                         24-48V boats: populate U6 12V buck)
+BATTERY 12V ──► J16 ─[F1 10A]─[reverse-FET]─ VIN ──┬─ J14: 5V buck module ── Pi + screen + fan
+                                                   └────────────── servo bridge (direct)
 Pi (mounts UNDER the board, HAT-style)
  ├─ I²C ── Pico 2 @0x42 ──┬─ GP12-15: RPWM/LPWM/R_EN/L_EN ──► J13 ──► EXTERNAL
  │                        │   (+ R_IS/L_IS current sense back)   THRUST DRIVER
@@ -53,10 +52,10 @@ docker exec -e BASE_GND=0 vanchor-kicad python3 /config/vanchor-pcb/hardware/scr
 
 | Ref | Label | Wire to |
 |---|---|---|
-| J16 | LOGIC 12-48V | battery + / − (board logic + servo supply; ≥1.5 mm²) |
+| J16 | BATT 12V | battery + / − (board logic + servo supply; ≥1.5 mm²) |
 | J13 | THRUST DRV | external driver, IBT-2 pin order: **1 RPWM · 2 LPWM · 3 R_EN · 4 L_EN · 5 R_IS · 6 L_IS · 7 VCC(5V) · 8 GND** |
 | J22 | SERVO MOTOR | 12 V worm gearmotor of the steering servo |
-| J17 | 12V LINK | **12 V boats only**: wire link VIN→12V rail (omit U6) |
+| J14 | BUCK 5V | generic XL4015/LM2596-class module: VIN GND 5V GND (set 5.1 V first!) |
 | J11 | AS5600 | 4-wire cable into servo housing: 3V3 GND SDA SCL (≤1 m, twisted) |
 | J3–J7 | UART0/2/3/4/5 | GPS, compass, NMEA gear (3V3 TTL; ttyAMA0/2/3/4/5) |
 | J8 | I2C1 spare | I²C sensors (bus shared with Pico link — keep short) |
@@ -84,14 +83,16 @@ driver**, not to this board.
   3.3 V (fine for BTS7960-class VIH ≈ 2.5 V). 100k pull-downs on both EN pins
   keep the driver disabled when the Pico is absent/in reset. R_IS/L_IS are
   mixed (2× 1k), loaded (20k), filtered and BAT54S-clamped into Pico ADC1.
-- **Servo bridge**: 2× BTN8982TA (built-in protection). VM = 12 V rail: on
-  24-48 V boats stall current is limited by U6 (4.5 A); on 12 V boats J17
-  feeds it battery-direct.
+- **Servo bridge**: 2× BTN8982TA (built-in protection), fed battery-direct
+  from protected VIN. Board plumbing is sized for ~5 A continuous /
+  ~10 A peak servo current (F1, terminal blocks, track widths).
 - Telemetry: thrust current via the driver's IS pins (ADC1), servo current
   (ADC0), battery voltage (ADC2).
-- Reverse polarity: IRF9540N high-side FET; SMCJ58A TVS; 2× 470 µF bulk.
-- Buck modules are 50 V absolute max: fine for 12/24/36 V. **48 V systems:**
-  check charging voltage < 50 V or fit a pre-regulator.
+- Reverse polarity: IRF9540N high-side FET; SMCJ18A TVS (12 V clamp);
+  2× 470 µF/25 V bulk.
+- The buck module is off-BOM: any 12-in/5-out module ≥4 A works (XL4015
+  recommended, ~$2.50). Bench-test it at 4 A and set 5.1 V before fitting;
+  strap it to the two M3 holes beside J14.
 - Firmware contract: I²C slave 0x42, reg 0x00 CMD {pwm u8, dir u8, steer i8},
   reg 0x10 STATUS {angle f32, ok u8, wrap i8, state u8, vbat_mV u16,
   isense u16}; 800 ms watchdog → thrust 0, steering holds (worm self-locks).
@@ -103,8 +104,8 @@ driver**, not to this board.
 ## Bring-up checklist
 
 1. Visual + continuity: VIN↔GND, 5V↔GND, 12V↔GND not shorted.
-2. No Pi/Pico fitted. Feed 12 V into J16 (J17 bridged): VIN LED lights;
-   verify 5.0-5.2 V on J1 pins 2/4 and 12 V on the rail.
+2. No Pi/Pico fitted. Feed 12 V into J16: VIN LED lights; verify the buck
+   module outputs 5.0-5.2 V on J1 pins 2/4.
 3. Fit the Pico only (no Pi): flash test firmware over USB, check I²C
    pull-ups (3V3 on SDA/SCL), exercise LED_STAT.
 4. Fit the Pi. `i2cdetect -y 1` → device at 0x42.

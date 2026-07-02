@@ -46,9 +46,9 @@ COMPONENTS = [
          at=grid(2), pins={"1": "+3V3", "2": "ENC_SCL"}),
 
     # Battery voltage telemetry: 48V max -> 3.06V at ADC
-    dict(lib="Device:R", ref="R11", value="100k", fp=R_AX,
+    dict(lib="Device:R", ref="R11", value="47k", fp=R_AX,
          at=grid(3), pins={"1": "VIN", "2": "VBAT_SENSE"}),
-    dict(lib="Device:R", ref="R12", value="6.8k", fp=R_AX,
+    dict(lib="Device:R", ref="R12", value="10k", fp=R_AX,
          at=grid(4), pins={"1": "VBAT_SENSE", "2": "GND"}),
     dict(lib="Device:C", ref="C5", value="100n", fp=C_D,
          at=grid(5), pins={"1": "VBAT_SENSE", "2": "GND"}),

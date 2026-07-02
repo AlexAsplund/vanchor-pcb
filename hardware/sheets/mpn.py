@@ -9,12 +9,10 @@ MPN = {
     # power
     "Q1": "IRF9540NPBF",                # Infineon P-FET 100V/23A TO-220
     "D4": "BZX85C12-TAP",               # Vishay 12V 1.3W zener
-    "D5": "SMCJ58A",                    # Littelfuse/Bourns TVS, SMC
+    "D5": "SMCJ18A",                    # Littelfuse/Bourns TVS, SMC (12V system)
     "F1": "3568",                       # Keystone mini-blade fuse holder
-    "U5": "Pololu 4091 (D36V50F5)",
-    "U6": "Pololu 4095 (D36V50F12)",
-    "C1": "EEU-FR1J471B",               # Panasonic 470uF 63V low-ESR radial 12.5mm
-    "C2": "EEU-FR1J471B",
+    "C1": "EEU-FR1E471B",               # Panasonic 470uF 63V low-ESR radial 12.5mm
+    "C2": "EEU-FR1E471B",
     "C3": "EEU-FR1E101",                # 100uF 25V (used on 5V rail)
     "C4": "EEU-FR1E101",
     "J17": "CUI TB007-508-02",
