@@ -89,6 +89,61 @@ the IS pin sources mA-class current and the node's only protection is the
 R12/R13 series resistance - fit them as 10k (not 1k) when populating the
 node, or add BAT54S clamps to 3V3 like the helm board has.
 
+## PWM frequency (firmware guidance)
+
+The BTN8982TA allows up to 25 kHz, but this board fits **51 k slew-rate
+resistors** (low-EMI edges, ~1.5 us each), so switching loss — not the
+chip rating — sets the practical limit. Loss per edge scales with both
+current and frequency; conduction loss at 30 A is only ~6 W, so high-kHz
+PWM at high current quickly dominates the thermal budget:
+
+```mermaid
+xychart-beta
+    title "Switching loss vs PWM frequency (13V, 51k SR edges ~3us total)"
+    x-axis "PWM frequency (kHz)" [2, 4, 8, 12, 16, 20, 25]
+    y-axis "watts" 0 --> 16
+    line "at 30 A" [1.2, 2.3, 4.7, 7.0, 9.4, 11.7, 14.6]
+    line "at 10 A" [0.4, 0.8, 1.6, 2.3, 3.1, 3.9, 4.9]
+```
+
+*[static SVG](../../docs/diagrams/pwm-loss.svg)*
+
+**Recommended scheme: current-adaptive PWM.** Run high frequency where it
+is silent *and* cheap (low current), ramp down as current rises so the
+bridge stays efficient exactly when the prop is loud enough to mask the
+hum:
+
+```mermaid
+xychart-beta
+    title "Recommended PWM vs motor current"
+    x-axis "motor current (A)" [0, 5, 10, 15, 20, 25, 30, 40, 50]
+    y-axis "PWM frequency (kHz)" 0 --> 18
+    line [16, 16, 12, 8, 6, 5, 4, 3, 2]
+```
+
+*[static SVG](../../docs/diagrams/pwm-schedule.svg)*
+
+Implementation notes (RP2350, applies to the helm Pico driving this board
+over J13 and to the on-board smart-node Pico alike):
+
+- **Switch on measured current (IS), not throttle** — switching loss
+  scales with amps. Use ~2 A hysteresis, or blend continuously per the
+  curve above (nicer: the whine fades instead of stepping).
+- **Glitch-free frequency changes**: change the PWM slice's wrap (TOP)
+  value and rescale the compare level by the same ratio in the same
+  update; both latch at the wrap boundary, so duty is preserved and the
+  motor never feels a step.
+- **Resolution is never the constraint**: 150 MHz / 16 kHz is still >13
+  bits of duty resolution.
+- **IS sampling**: if sampling mid-on-time, recompute the sample point
+  when the wrap changes — or use the RC-averaged reading scaled by duty
+  (frequency-agnostic; the helm's 20k + 100n chain does this).
+- If the bridge runs warm at partial throttle, lower the 16 kHz band's
+  ceiling (~10 A -> ~6 A) before touching hardware. If you truly need
+  15-25 kHz at full current, swap R3/R4 (R7/R8) from 51 k to ~5.1 k —
+  ~10x less switching loss, more EMI ringing; they are through-hole for
+  exactly this experiment.
+
 ## Assembly order
 
 1. SMD: BTN8982s (U1/U2, plus U3/U4 for high power), D2.
