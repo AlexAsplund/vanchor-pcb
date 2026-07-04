@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/boards/helm/vanchor-helm.kicad_sch")
-		(date "2026-07-04T14:37:43")
+		(date "2026-07-04T15:16:23")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
@@ -513,12 +513,12 @@
 		(comp
 			(ref "F2")
 			(value "MF-R250 2.5A")
-			(footprint "Fuse:Fuse_Bourns_MF-RG300")
+			(footprint "vanchor-helm:MF-R250_Straight")
 			(fields
 				(field
 					(name "MPN") "MF-R250")
 				(field
-					(name "Footprint") "Fuse:Fuse_Bourns_MF-RG300")
+					(name "Footprint") "vanchor-helm:MF-R250_Straight")
 				(field
 					(name "Datasheet")
 				)

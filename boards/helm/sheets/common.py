@@ -26,7 +26,7 @@ PSOCK2x20 = "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical"
 PSOCK2x13 = "Connector_PinSocket_2.54mm:PinSocket_2x13_P2.54mm_Vertical"
 SJ3 = "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm"
 FUSE_BLADE = "Fuse:Fuseholder_Blade_Mini_Keystone_3568"
-POLYFUSE = "Fuse:Fuse_Bourns_MF-RG300"
+POLYFUSE = "vanchor-helm:MF-R250_Straight"
 PICO_FP = "vanchor-helm:RaspberryPi_Pico_TH_SWD"
 POLOLU_FP = "vanchor-helm:Pololu_D36V50Fx"
 
