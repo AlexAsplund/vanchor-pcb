@@ -82,8 +82,9 @@ COMPONENTS = [
     dict(lib="Device:R", ref="R6", value="2.2k", fp=R_AX, dnp=True,
          at=(290, 120, 0), pins={"1": "3V3_PI", "2": "PI_SCL"}),
 
-    dict(lib="Connector_Generic:Conn_01x02", ref="J9", value="FAN 5V", fp=HDR1x2,
-         at=(320, 120, 0), pins={"1": "+5V", "2": "GND"}),
+    dict(lib="Connector_Generic:Conn_01x03", ref="J9", value="FAN + HALL",
+         fp="Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+         at=(320, 120, 0), pins={"1": "+5V", "2": "GND", "3": "HALL_ZERO"}),
     dict(lib="Device:Polyfuse", ref="F2", value="MF-R250 2.5A", fp=POLYFUSE,
          at=(350, 120, 0), pins={"1": "+5V", "2": "DISP_5V"}),
     dict(lib="Connector_Generic:Conn_01x02", ref="J10", value="AUX 5V (screen)", fp=XH2,

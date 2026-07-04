@@ -60,6 +60,20 @@ COMPONENTS = [
     dict(lib="Device:LED", ref="LED5", value="yellow", fp=LED5MM,
          at=grid(8), pins={"2": ".LED5_A", "1": "GND"}),
 
+    # steering zero/index hall switch (A3144 class, open collector) shares
+    # J9 (FAN header grows 1x2 -> 1x3: 5V GND SIG). 10k pullup to 3V3 (the
+    # line can never exceed 3V3), 100n filter, 1k series into GP0 (also on J12.2
+    # as a breakout/test point; UART0 fallback moves to GP16/GP1).
+    dict(lib="Device:R", ref="R22", value="10k",
+         fp="Resistor_SMD:R_0805_2012Metric",
+         at=(230, 150, 0), pins={"1": "HALL_ZERO", "2": "+3V3"}),
+    dict(lib="Device:R", ref="R23", value="1k",
+         fp="Resistor_SMD:R_0805_2012Metric",
+         at=(260, 150, 0), pins={"1": "HALL_ZERO", "2": "PICO_GP0"}),
+    dict(lib="Device:C", ref="C24", value="100n",
+         fp="Capacitor_SMD:C_0805_2012Metric",
+         at=(290, 150, 0), pins={"1": "HALL_ZERO", "2": "GND"}),
+
     dict(lib="Connector_Generic:Conn_01x08", ref="J12", value="PICO UTIL", fp=HDR1x8, dnp=True,
          at=(200, 110, 0), pins={
             "1": "+3V3", "2": "PICO_GP0", "3": "PICO_GP1", "4": "PICO_GP2",

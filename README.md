@@ -92,7 +92,7 @@ docker exec -e BASE_GND=0 vanchor-kicad python3 /config/vanchor-pcb/boards/helm/
 | J4 | UART2 | second serial device (PC5/PC6; enable `uart2` overlay; swap TX/RX at the JST if silent) |
 | J8 | I2C3 spare | I²C sensors (bus shared with Pico link — keep short) |
 | J10 | AUX 5V | fused 5 V for a screen or accessory |
-| J9 | FAN | 5 V fan |
+| J9 | FAN + HALL | pin 1-2: 5 V fan; pin 3: **steering-zero hall switch** (A3144-class open-collector, magnet at servo center; 10 k pullup to 3V3 + RC on board, reads on Pico GP0) |
 | J5 | NMEA2000 PWR | N2K drop-cable V+ / GND / SHIELD (CAN_H/L go to the transceiver module) |
 | J2 | SBC2 | second SBC port: same 26-pin bus as J1, classic RPi positions — fit ONE SBC only (DNP) |
 | J12 | PICO UTIL | spare Pico I/O; carries the CAN transceiver hookup (pins 1/8/6/7, see NMEA2000 section) |

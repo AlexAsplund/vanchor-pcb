@@ -1,4 +1,4 @@
-### Footprint positions - created on 2026-07-02T16:06:21 ###
+### Footprint positions - created on 2026-07-04T14:44:42 ###
 ### Printed by KiCad version 10.0.3
 ## Unit = mm, Angle = deg.
 ## Side : All
@@ -11,6 +11,7 @@ C12       100n             C_Disc_D5.0mm_W2.5mm_P5.00mm                         
 C21       100n             C_Disc_D5.0mm_W2.5mm_P5.00mm                              39.5000   -93.0000    0.0000  top
 C22       220u/25V         CP_Radial_D8.0mm_P3.50mm                                 114.2512   -60.0000    0.0000  top
 C23       100n             C_Disc_D5.0mm_W2.5mm_P5.00mm                             116.0000   -71.5000   90.0000  top
+C24       100n             C_0805_2012Metric                                        134.0000   -44.6000    0.0000  top
 D4        BZX85C12         D_DO-41_SOD81_P10.16mm_Horizontal                         54.0000  -101.5800   90.0000  top
 D5        SMCJ18A          D_SMC                                                     40.5000   -33.0000    0.0000  top
 D6        BAT54S           SOT-23                                                    44.5000   -48.0000    0.0000  top
@@ -21,11 +22,12 @@ D14       BAT54S           SOT-23                                               
 F1        10A_blade        Fuseholder_Blade_Mini_Keystone_3568                       65.0400   -80.3000    0.0000  top
 F2        MF-R250_2.5A     Fuse_Bourns_MF-RG300                                     134.4500   -52.4000    0.0000  top
 J1        OPI_Z3_26PIN     PinHeader_2x13_P2.54mm_Vertical                           34.0000   -76.0400   90.0000  top
-J2        OPI_BREAKOUT     PinHeader_2x13_P2.54mm_Vertical                           34.7650   -65.8750   90.0000  top
+J2        SBC2_OPI_RPI26   PinHeader_2x13_P2.54mm_Vertical                           34.7650   -65.8750   90.0000  top
 J3        UART5_ttyAS5     JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical                     80.2500  -107.4750    0.0000  top
 J4        UART2_ttyAS2     JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical                     94.2500  -107.4750    0.0000  top
+J5        NMEA2000_PWR     JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical                     24.5000   -34.4750    0.0000  top
 J8        I2C3_spare       JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical                    108.2500  -107.4750    0.0000  top
-J9        FAN_5V           PinHeader_1x02_P2.54mm_Vertical                          135.7250   -47.0000   90.0000  top
+J9        FAN_+_HALL       PinHeader_1x03_P2.54mm_Vertical                          135.7200   -47.0000   90.0000  top
 J10       AUX_5V_(screen)  JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical                    136.4750   -35.2500   90.0000  top
 J11       AS5600           JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical                    122.2500  -107.4750    0.0000  top
 J12       PICO_UTIL        PinHeader_1x08_P2.54mm_Vertical                           41.1100   -69.9000   90.0000  top
@@ -51,11 +53,15 @@ R18       10k              R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal    
 R19       1k               R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal        122.9200   -65.0000    0.0000  top
 R20       100R             R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal        112.9200   -95.0000    0.0000  top
 R21       100R             R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal        112.9200   -99.0000    0.0000  top
+R22       10k              R_0805_2012Metric                                        134.0000   -42.3000    0.0000  top
+R23       1k               R_0805_2012Metric                                        134.0000   -40.0000    0.0000  top
 R30       100k             R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal         24.9200  -105.5000    0.0000  top
 R32       100k             R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal         38.9200  -105.5000    0.0000  top
 R38       20k              R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal         61.9200   -48.0000    0.0000  top
 R39       47k              R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal         78.9200   -73.0000    0.0000  top
 R40       47k              R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal         96.9200   -73.0000    0.0000  top
+R41       0R_DNP           R_0805_2012Metric                                         34.5000   -39.5000    0.0000  top
+R42       0R_DNP           R_0805_2012Metric                                         23.2000   -41.0000  180.0000  top
 U1        Pico_2           RaspberryPi_Pico_TH_SWD                                  129.0000   -32.0000  -90.0000  top
 U5        XL4015_5A        XL4015_Module                                            112.0000   -87.0000    0.0000  top
 U7        BTN8982TA        TO-263-7_TabPin4                                          85.8750   -62.0000    0.0000  top

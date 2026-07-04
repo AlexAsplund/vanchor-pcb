@@ -78,7 +78,7 @@ header, **v4.2 XL4015 daughterboard + N2K provision**; driver v1
    BTN line `BTN8982TAAUMA1`; 1 k = KOA `CF1/4CT52R102J`.
 2. **Firmware (vanchor-ng)**: thrust pins GP12=RPWM GP13=LPWM GP14=R_EN
    GP15=L_EN; THR_IS GP27, SERVO_IS GP26, VBAT GP28; I²C slave 0x42.
-   **kILIS for BTN8982TA ≈ 22 700** (not the BTS7960's 8500) — rescale
+   hall zero-index input on GP0 (J9.3, 10 k pullup + RC on board; UART0 fallback pair becomes GP16/GP1). **kILIS for BTN8982TA ≈ 22 700** (not the BTS7960's 8500) — rescale
    current telemetry. SBC overlays: `i2c3`, `uart5` (HWT901B), `uart2`.
    Pico SWD via ribbon pins 16/18 (PC15/PC14, openocd `linuxgpiod`),
    RUN on pin 12 (PC11). N2K stack: ttlappalainen/NMEA2000 + can2040 on

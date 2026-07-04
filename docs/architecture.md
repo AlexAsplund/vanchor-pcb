@@ -215,6 +215,12 @@ sequenceDiagram
 
 *[static SVG](diagrams/control-loop.svg)*
 
+Steering zero reference: an open-collector hall switch (A3144 class) on
+J9 pin 3 (with 5 V and GND on pins 1/2) sees a magnet at the servo's
+center position — the Pico (GP0) uses it at boot/calibration to zero the
+AS5600 angle absolutely, so the autopilot never needs a manual center
+calibration after reassembly.
+
 Failsafe chain: if the I²C command stream stops for 800 ms the Pico zeroes
 thrust and holds steering (the worm gear self-locks); if the Pico resets,
 100 k pulldowns on every EN pin keep both bridges disabled.
