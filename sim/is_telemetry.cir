@@ -1,0 +1,32 @@
+* Thrust IS telemetry: BTN8982 IS -> driver 1k loads -> helm mix/clamp -> Pico ADC1
+* kILIS = 22700 (BTN8982TA typ): IIS = Iload/22700
+IIS 0 nA DC 0
+R5A nA 0 1k
+R5B nB 0 1k
+R15 nA nMix 1k
+R16 nB nMix 1k
+R38 nMix 0 20k
+C21 nMix 0 100n
+V33 n33 0 3.3
+D1 0 nMix BAT54
+D2 nMix n33 BAT54
+.model BAT54 D(Is=1e-7 Rs=0.6 N=1.05 Cjo=10p)
+.control
+dc IIS 0 2.65m 0.05m
+wrdata is_dc.csv v(nMix) v(nA)
+* readouts at 10A / 30A / 50A load (IIS = 0.44m / 1.32m / 2.2m)
+alter IIS dc = 0.44m
+op
+print v(nMix) v(nA)
+alter IIS dc = 1.32m
+op
+print v(nMix) v(nA)
+alter IIS dc = 2.2m
+op
+print v(nMix) v(nA)
+* IS fault mode: pin sources ~4.4mA
+alter IIS dc = 4.4m
+op
+print v(nMix) v(nA) i(V33)
+.endc
+.end

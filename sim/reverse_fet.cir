@@ -1,0 +1,24 @@
+* Reverse-polarity stage: IRF9540N high-side P-FET, 47k gate pulldown, 12V zener Vgs clamp
+* battery sweeps +14.4 .. -14.4 ; load = 6 ohm (~2A when powered)
+VBATT nBatt 0 DC 14.4
+Vfuse nBatt nRaw2 DC 0
+* FET: drain=nRaw2 (battery side), source=nVin (load side), gate=nG
+M1 nRaw2 nG nVin nVin IRF9540
+Dbody nRaw2 nVin DBODY
+R1 nG 0 47k
+DZ nG nVin BZX12
+RLOAD nVin 0 6
+.model IRF9540 PMOS(LEVEL=1 VTO=-3.7 KP=9 LAMBDA=0.01)
+.model DBODY D(Is=1e-12 Rs=0.01 N=1.1 BV=100)
+.model BZX12 D(Is=1e-11 Rs=2 N=1.2 BV=12 IBV=5m)
+.control
+op
+print v(nVin) v(nG) v(nRaw2)
+let vdrop = v(nRaw2) - v(nVin)
+print vdrop
+* reverse battery
+alter VBATT dc = -14.4
+op
+print v(nVin) v(nVin)
+.endc
+.end

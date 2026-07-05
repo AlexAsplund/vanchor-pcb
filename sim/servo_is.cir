@@ -1,0 +1,26 @@
+* Servo IS chain: shared 1k load, 10k series + 100n (fc), BAT54S clamp -> ADC0
+IIS 0 nRaw DC 0 AC 1m
+R19 nRaw 0 1k
+R18 nRaw nS 10k
+C12 nS 0 100n
+V33 n33 0 3.3
+D1 0 nS BAT54
+D2 nS n33 BAT54
+.model BAT54 D(Is=1e-7 Rs=0.6 N=1.05 Cjo=10p)
+.control
+* 5A servo -> IIS = 0.22mA ; stall 10A -> 0.44mA ; fault 4.4mA
+alter IIS dc = 0.22m
+op
+print v(nS) v(nRaw)
+alter IIS dc = 0.44m
+op
+print v(nS) v(nRaw)
+alter IIS dc = 4.4m
+op
+print v(nS) v(nRaw) i(V33)
+* AC: telemetry bandwidth
+alter IIS dc = 0.22m
+ac dec 20 1 100k
+wrdata servo_ac.csv vdb(nS)
+.endc
+.end

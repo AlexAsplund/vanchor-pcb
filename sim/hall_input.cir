@@ -1,0 +1,18 @@
+* Hall zero input: 10k pullup to 3V3, 100n filter, 1k series to Pico GP0
+V33 n33 0 3.3
+R22 n33 nH 10k
+C24 nH 0 100n
+Ccable nH 0 470p
+R23 nH nP 1k
+Cpico nP 0 10p
+* A3144 open-collector: pulls low for 5ms as magnet passes
+S1 nH 0 nCtl 0 SW
+Vctl nCtl 0 PULSE(0 1 2m 1u 1u 5m 20m)
+.model SW SW(Ron=25 Roff=10meg Vt=0.5)
+.control
+tran 5u 14m
+wrdata hall_tran.csv v(nH) v(nP)
+meas tran tfall TRIG v(nP) VAL=2.6 FALL=1 TARG v(nP) VAL=0.8 FALL=1
+meas tran trise TRIG v(nP) VAL=0.8 RISE=1 TARG v(nP) VAL=2.6 RISE=1
+.endc
+.end

@@ -1,0 +1,18 @@
+* VBAT telemetry divider 47k/10k + 100n + BAT54S clamp, incl 40V transient
+VB nB 0 PWL(0 12.6 1m 12.6 1.01m 40 3m 40 3.01m 12.6 5m 12.6)
+R11 nB nS 47k
+R12 nS 0 10k
+C5 nS 0 100n
+V33 n33 0 3.3
+D1 0 nS BAT54
+D2 nS n33 BAT54
+.model BAT54 D(Is=1e-7 Rs=0.6 N=1.05 Cjo=10p)
+.control
+op
+print v(nS)
+tran 2u 5m
+wrdata vbat_tran.csv v(nB) v(nS)
+meas tran vpk MAX v(nS)
+meas tran iclamp_max MAX i(V33)
+.endc
+.end
