@@ -28,10 +28,10 @@ COMPONENTS = [
          fp="Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical",
          at=(40, 185, 0), pins={"1": "N2K_VP", "2": "GND", "3": "N2K_SHLD"}),
     dict(lib="Device:R", ref="R41", value="0R DNP", dnp=True,
-         fp="Resistor_SMD:R_0805_2012Metric",
+         fp="Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
          at=(70, 185, 0), pins={"1": "N2K_VP", "2": "VIN"}),
     dict(lib="Device:R", ref="R42", value="0R DNP", dnp=True,
-         fp="Resistor_SMD:R_0805_2012Metric",
+         fp="Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
          at=(90, 185, 0), pins={"1": "N2K_SHLD", "2": "GND"}),
 
     # Logic feed: its own small terminal, wired externally to the BATT+ lug

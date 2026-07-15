@@ -34,6 +34,7 @@ SC1632,1,U1 Pico 2 (if OOS: Electrokit 41022-ish stocks it)
 BTN8982TAAUMA1,2,U7 U8 servo bridges (full Infineon ordering code for BTN8982TA)
 71600-026LF,2,26p IDC ribbon sockets (make the Zero 3 cable)
 3365/26-100SF,1,26-way ribbon cable 3M (1 unit = enough)
+# R41/R42 (NMEA2000 0R DNP options): THT vertical axials - fit a wire link or any 1/4W 0R if used
 # 5V buck NOT in this cart: add an XL4015 5A module (~25kr) to the AliExpress order
 # alongside the Zero 3. All-Mouser fallback if preferred: CUI P7805-2000-S (2A SIP-3,
 # ~$8) - enough for Zero3+fan but then power the screen separately.

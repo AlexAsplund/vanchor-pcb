@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/boards/helm/vanchor-helm.kicad_sch")
-		(date "2026-07-15T21:50:57")
+		(date "2026-07-15T23:58:10")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
@@ -1605,10 +1605,10 @@
 		(comp
 			(ref "R41")
 			(value "0R DNP")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
 			(fields
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
 				(field
 					(name "Datasheet")
 				)
@@ -1662,10 +1662,10 @@
 		(comp
 			(ref "R42")
 			(value "0R DNP")
-			(footprint "Resistor_SMD:R_0805_2012Metric")
+			(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
 			(fields
 				(field
-					(name "Footprint") "Resistor_SMD:R_0805_2012Metric")
+					(name "Footprint") "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical")
 				(field
 					(name "Datasheet")
 				)
