@@ -119,9 +119,19 @@ def main(spec_path, out_path, project, root_uuid):
         u = stable_uuid("sym", sheet_uuid, ref)
         mirror_sexp = f" (mirror {mirror})" if mirror else ""
         dnp = "yes" if c.get("dnp") else "no"
+        # ref above / value below the symbol's actual vertical extent
+        # (fixed +/-7.62 clips tall connectors: pins land on the text)
+        if pmap:
+            if rot in (90, 270):
+                ext = max(abs(px) for px, _, _ in pmap.values())
+            else:
+                ext = max(abs(py) for _, py, _ in pmap.values())
+        else:
+            ext = 0
+        text_off = max(7.62, ext + 3.81)
         props = [
-            ("Reference", ref, x, y - 7.62, False),
-            ("Value", c.get("value", ""), x, y + 7.62, False),
+            ("Reference", ref, x, y - text_off, False),
+            ("Value", c.get("value", ""), x, y + text_off, False),
             ("Footprint", c.get("fp", ""), x, y, True),
             ("Datasheet", "", x, y, True),
         ]
