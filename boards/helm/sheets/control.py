@@ -54,6 +54,9 @@ WIRES = [
     (("U7", "5"), ("R39", "1")),      # slew-rate resistors
     (("U8", "5"), ("R40", "1")),
     (("R13", "2"), ("LED5", "2")),    # status LED chain
+    # pico CAN pair -> J12 (over the top, down the left margin)
+    (("U1", "24"), ("J12", "6"), [("x", 203.2), ("y", 69.85), ("x", 13.97), ("y", 103.81)]),
+    (("U1", "25"), ("J12", "7"), [("x", 205.74), ("y", 67.31), ("x", 11.43), ("y", 106.35)]),
     # pico -> J12 spare-GPIO breakout (GP0-3)
     (("U1", "1"), ("J12", "2"), [("x", 99.06), ("y", 93.65)]),
     (("U1", "2"), ("J12", "3"), [("x", 96.52), ("y", 96.19)]),
@@ -70,7 +73,7 @@ WIRES = [
     # pico -> status LED resistor (over the top, down left of the pico)
     (("U1", "22"), ("R13", "1"), [("x", 194.31), ("y", 72.39), ("x", 101.19)]),
     # pico ADC -> VBAT divider rail (over the arrivals, down the right margin)
-    (("U1", "34"), ("R11", "2"), [("x", 199.39), ("y", 88.9), ("x", 400.05), ("y", 204)]),
+    (("U1", "34"), ("R11", "2"), [("x", 208.28), ("y", 88.9), ("x", 400.05), ("y", 204)]),
     # encoder series resistors -> AS5600 connector
     (("R20", "2"), ("J11", "3"), [("x", 368.3), ("y", 96.27)]),
     (("R21", "2"), ("J11", "4"), [("x", 370.84), ("y", 98.81)]),
