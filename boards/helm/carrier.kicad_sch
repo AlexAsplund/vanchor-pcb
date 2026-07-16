@@ -3342,7 +3342,7 @@
     (instances (project "vanchor-helm" (path "/a0000000-0000-4000-8000-000000000001/c0000000-0000-4000-8000-000000000002" (reference "#FLG04") (unit 1))))
   )
   (wire (pts (xy 39.37 69.85) (xy 91.44 69.85))
-    (stroke (width 0) (type default)) (uuid "0441d6d0-acd2-50a3-ab70-497d9b8d0e08"))
+    (stroke (width 0) (type default)) (uuid "7194afac-5255-56c2-849c-54cff3d8af8d"))
   (wire (pts (xy 99.06 69.85) (xy 152.4 69.85))
     (stroke (width 0) (type default)) (uuid "85270c8d-e03e-52f6-84b3-f9188cfa2377"))
   (wire (pts (xy 152.4 69.85) (xy 152.4 64.77))

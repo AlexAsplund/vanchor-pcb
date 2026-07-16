@@ -136,3 +136,12 @@ COMPONENTS = [
     dict(lib="power:PWR_FLAG", ref="#FLG03", value="PWR_FLAG",
          at=(374, 42, 0), pins={"1": "+5V"}),
 ]
+
+WIRES = [
+    # DNP Pico smart-node hookup: CAN pair to the transceiver header,
+    # IS sense through the 1k series resistors to the ADCs
+    (("U5", "24"), ("J6", "3"), [("x", 106.68), ("y", 275.59), ("x", 283.21), ("y", 223.27)]),
+    (("U5", "25"), ("J6", "4"), [("x", 104.14), ("y", 278.13), ("x", 287.02), ("y", 225.81)]),
+    (("U5", "31"), ("R13", "2"), [("x", 111.76), ("y", 262.89), ("x", 266)]),
+    (("U5", "32"), ("R12", "2"), [("x", 109.22), ("y", 270.51), ("x", 226)]),
+]

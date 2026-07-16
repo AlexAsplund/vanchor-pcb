@@ -180,16 +180,26 @@ def main(spec_path, out_path, project, root_uuid):
             f'  (wire (pts (xy {fmt(x1)} {fmt(y1)}) (xy {fmt(x2)} {fmt(y2)}))\n'
             f'    (stroke (width 0) (type default)) (uuid "{stable_uuid("wire", sheet_uuid, *key)}"))')
 
-    for wi, (a, b) in enumerate(wires):
+    for wi, entry in enumerate(wires):
+        a, b = entry[0], entry[1]
+        wps = entry[2] if len(entry) > 2 else []
         if a not in pin_pos or b not in pin_pos:
             raise SystemExit(f"WIRES: unknown endpoint {a} or {b}")
-        x1, y1 = pin_pos[a]
+        cx, cy = pin_pos[a]
         x2, y2 = pin_pos[b]
-        if abs(x1 - x2) < 0.01 or abs(y1 - y2) < 0.01:
-            emit_seg(x1, y1, x2, y2, ("w", wi))
+        si = 0
+        for axis, val in wps:  # turtle waypoints: ("x", v) / ("y", v)
+            nx, ny = (val, cy) if axis == "x" else (cx, val)
+            if abs(nx - cx) > 0.01 or abs(ny - cy) > 0.01:
+                emit_seg(cx, cy, nx, ny, ("w", wi, si))
+                si += 1
+            cx, cy = nx, ny
+        if abs(cx - x2) < 0.01 or abs(cy - y2) < 0.01:
+            if abs(cx - x2) > 0.01 or abs(cy - y2) > 0.01:
+                emit_seg(cx, cy, x2, y2, ("w", wi, si))
         else:
-            emit_seg(x1, y1, x2, y1, ("w", wi, 0))
-            emit_seg(x2, y1, x2, y2, ("w", wi, 1))
+            emit_seg(cx, cy, x2, cy, ("w", wi, si))
+            emit_seg(x2, cy, x2, y2, ("w", wi, si + 1))
         wired.add(b)  # keep the label on endpoint a: the cluster stays named
 
     for ri, (rnet, ry, ends) in enumerate(rails):

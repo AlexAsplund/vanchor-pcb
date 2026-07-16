@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/boards/helm/vanchor-helm.kicad_sch")
-		(date "2026-07-16T02:45:25")
+		(date "2026-07-16T03:07:45")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")
