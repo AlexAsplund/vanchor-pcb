@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/config/vanchor-pcb/boards/thrust-driver/vanchor-thrust.kicad_sch")
-		(date "2026-07-15T21:23:29")
+		(date "2026-07-16T02:46:49")
 		(tool "Eeschema 10.0.3")
 		(sheet
 			(number "1")

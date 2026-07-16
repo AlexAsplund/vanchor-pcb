@@ -106,6 +106,7 @@ def main(spec_path, out_path, project, root_uuid):
     pin_maps = {lib_id: parse_pins(b) for lib_id, b in lib_blocks.items()}
 
     sym_nodes, label_nodes, nc_nodes = [], [], []
+    pin_records, pin_pos = [], {}
     for c in comps:
         lib_id, ref = c["lib"], c["ref"]
         x, y, rot = c["at"]
@@ -162,9 +163,61 @@ def main(spec_path, out_path, project, root_uuid):
         for num, net in c["pins"].items():
             px, py, pang = pmap[num]
             ax, ay, aang = pin_abs(x, y, rot, mirror, px, py, pang)
+            pin_pos[(ref, num)] = (ax, ay)
             if net is None:
                 nc_nodes.append(f'  (no_connect (at {fmt(ax)} {fmt(ay)}) (uuid "{stable_uuid("nc", sheet_uuid, ref, num)}"))')
-            elif net.startswith("."):  # sheet-local net
+                continue
+            pin_records.append((ref, num, net, ax, ay, aang))
+
+    # ---- wires & rails (declared in the spec as WIRES / RAILS) ----
+    wires = getattr(mod, "WIRES", [])
+    rails = getattr(mod, "RAILS", [])
+    wire_nodes, junction_nodes = [], []
+    wired = set()
+
+    def emit_seg(x1, y1, x2, y2, key):
+        wire_nodes.append(
+            f'  (wire (pts (xy {fmt(x1)} {fmt(y1)}) (xy {fmt(x2)} {fmt(y2)}))\n'
+            f'    (stroke (width 0) (type default)) (uuid "{stable_uuid("wire", sheet_uuid, *key)}"))')
+
+    for wi, (a, b) in enumerate(wires):
+        if a not in pin_pos or b not in pin_pos:
+            raise SystemExit(f"WIRES: unknown endpoint {a} or {b}")
+        x1, y1 = pin_pos[a]
+        x2, y2 = pin_pos[b]
+        if abs(x1 - x2) < 0.01 or abs(y1 - y2) < 0.01:
+            emit_seg(x1, y1, x2, y2, ("w", wi))
+        else:
+            emit_seg(x1, y1, x2, y1, ("w", wi, 0))
+            emit_seg(x2, y1, x2, y2, ("w", wi, 1))
+        wired.add(b)  # keep the label on endpoint a: the cluster stays named
+
+    for ri, (rnet, ry, ends) in enumerate(rails):
+        ry = snap(ry)
+        xs = []
+        for e in ends:
+            if e not in pin_pos:
+                raise SystemExit(f"RAILS: unknown endpoint {e}")
+            ex, ey = pin_pos[e]
+            emit_seg(ex, ey, ex, ry, ("rs", ri, e[0], e[1]))
+            junction_nodes.append(
+                f'  (junction (at {fmt(ex)} {fmt(ry)}) (diameter 0) (color 0 0 0 0)\n'
+                f'    (uuid "{stable_uuid("junc", sheet_uuid, ri, e[0], e[1])}"))')
+            xs.append(ex)
+            if e != ends[0]:
+                wired.add(e)  # first endpoint keeps its label -> named cluster
+        emit_seg(min(xs), ry, max(xs), ry, ("rr", ri))
+
+    # labels: skip wired pins, but keep at least one label per net
+    label_counts = {}
+    for ref, num, net, ax, ay, aang in pin_records:
+        if (ref, num) not in wired:
+            label_counts[net] = label_counts.get(net, 0) + 1
+    for ref, num, net, ax, ay, aang in pin_records:
+        if (ref, num) in wired:
+            continue
+        if True:  # emit label
+            if net.startswith("."):  # sheet-local net
                 name = net[1:]
                 lang = (aang + 180) % 360
                 label_uuid = stable_uuid("lbl", sheet_uuid, ref, num, net)
@@ -197,6 +250,8 @@ def main(spec_path, out_path, project, root_uuid):
   (lib_symbols)
 {chr(10).join(text_nodes)}
 {chr(10).join(sym_nodes)}
+{chr(10).join(wire_nodes)}
+{chr(10).join(junction_nodes)}
 {chr(10).join(label_nodes)}
 {chr(10).join(nc_nodes)}
 )

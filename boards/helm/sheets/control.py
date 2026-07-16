@@ -48,3 +48,13 @@ for _c in mcu.COMPONENTS + thrust.COMPONENTS + servo.COMPONENTS:
     _c2 = dict(_c)
     _c2["at"] = LAYOUT[_c["ref"]]
     COMPONENTS.append(_c2)
+
+WIRES = [
+    (("U7", "5"), ("R39", "1")),      # slew-rate resistors
+    (("U8", "5"), ("R40", "1")),
+    (("R13", "2"), ("LED5", "2")),    # status LED chain
+]
+RAILS = [
+    ("VBAT_SENSE", 204, [("R11", "2"), ("R12", "1"), ("C5", "1")]),
+    ("HALL_ZERO", 190, [("R22", "1"), ("R23", "1"), ("C24", "1")]),
+]

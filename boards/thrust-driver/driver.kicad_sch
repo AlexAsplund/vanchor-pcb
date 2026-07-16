@@ -3549,6 +3549,8 @@
     (pin "1" (uuid "d444fcf8-fa52-5146-a8df-f6f205a268cc"))
     (instances (project "vanchor-thrust" (path "/d0000000-0000-4000-8000-000000000001/d0000000-0000-4000-8000-000000000002" (reference "#FLG03") (unit 1))))
   )
+
+
   (global_label "RPWM" (shape passive) (at 39.37 87.63 180.0) (fields_autoplaced yes)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid "405034a3-b2a3-58cd-bb45-66539fbe394e")

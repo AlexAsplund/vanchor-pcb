@@ -39,3 +39,15 @@ for _c in power.COMPONENTS + pi.COMPONENTS:
     _c2 = dict(_c)
     _c2["at"] = LAYOUT[_c["ref"]]
     COMPONENTS.append(_c2)
+
+# Drawn connections (generator draws wires; labels are kept once per net)
+WIRES = [
+    (("J16", "1"), ("F1", "1")),      # battery -> fuse
+    (("F1", "2"), ("Q1", "2")),       # fuse -> reverse-FET drain
+    (("J5", "1"), ("R41", "1")),      # N2K V+ -> tap link
+    (("J5", "3"), ("R42", "1")),      # N2K shield -> bond link
+    (("F2", "2"), ("J10", "1")),      # polyfuse -> aux 5V out
+]
+RAILS = [
+    ("VIN", 88, [("Q1", "3"), ("D5", "1"), ("C1", "1"), ("C2", "1")]),
+]
