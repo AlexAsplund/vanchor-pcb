@@ -55,6 +55,103 @@ combined `SerialMotorController` drives both axes through this one port.)
   tick (used for the PWM schedule and stall trip). Scale constants in
   `include/board.h` carry CALIBRATE notes — verify against a clamp meter.
 
+## Runtime configuration (CONF)
+
+Every tuning value in `include/board.h` below the "steering tuning" line is
+a **default**, not a constant: the live values sit in a config struct you
+can change over the same serial port, and optionally persist to the last
+4 kB sector of the Pico's flash. Commands follow the normal line rules
+(CRC-8 `*HH` suffix required unless built with `VANCHOR_REQUIRE_CRC=0`);
+they do **not** feed the 800 ms motor watchdog and do not participate in
+the heartbeat, so config chatter can never keep an otherwise-dead link
+looking alive.
+
+| Command | Effect |
+|---|---|
+| `CONF <key> <value>*HH` | set in **RAM only** — reverts on reboot |
+| `CONFW <key> <value>*HH` | set in RAM **and** persist *that one key* to flash |
+| `CONFSAVE*HH` | persist the **whole active config** to flash |
+| `CONFDUMP*HH` | list every key: `C <key> <ram_value> <stored_value>` |
+
+Replies are `C ...` lines (CRC'd), which the Pi's lenient feedback parsers
+ignore by design:
+
+```
+> CONF steer.kp 8.5*85
+< C ok steer.kp 8.5*..          RAM updated
+> CONFW enc.invert 1*05
+< C wrote enc.invert 1*..       RAM + flash (or "C clean" if flash already had it)
+> CONFSAVE*9C
+< C saved*..                    whole config written (or "C clean" — no diff)
+< C err key <k> / C err range <k> / C err ratelimit / C err flash
+```
+
+Semantics worth knowing:
+
+- **`CONFW` writes through only its own key.** The stored image is
+  read-modify-written for that single key, so other *temporary* `CONF`
+  experiments in RAM stay temporary. `CONFSAVE` is the opposite: it
+  snapshots everything currently active.
+- **Diff guard**: before any write the firmware serializes the would-be
+  image and byte-compares it with the sector. Identical → no erase, no
+  program, reply `C clean`. Saving an unchanged config costs zero wear.
+- **Rate limit**: writes are refused (`C err ratelimit`) within 2 s of the
+  previous write — a stuck script cannot chew through the flash.
+- **Validation**: each key has a hard range (`src/config.h`); out-of-range
+  or non-numeric values are rejected wholesale (`C err range`), never
+  clamped, so a typo can't half-apply. The same validation runs when
+  loading from flash, so a corrupted value can never boot into the loop.
+- **Integrity**: the stored image is magic + version + count + CRC32. Any
+  mismatch at boot → factory defaults (fail-safe, visible in `CONFDUMP`).
+  The layout is append-only: new keys go at the end, so an image saved by
+  older firmware still loads with defaults for the missing tail. A
+  `CONF_VERSION` bump discards stored config entirely.
+
+Keys (see `src/config.h` for ranges): `steer.kp/ki/kd/ilim/db/minpwm/
+maxpwm/range/fullscale/stall_err/stall_move/stall_ms/stall_a/recenter`,
+`enc.invert/gear/hall_deg`, `thr.slew/rev_ms/hyst_a`,
+`cal.thr_vpa/srv_vpa/vbat`.
+
+Generating the CRC for hand-typed commands: any of the OK vectors in
+`vendor/protocol_vectors.txt` shows the format; quickest is
+`python3 -c "import sys;l=sys.argv[1];c=0
+for ch in l.encode():
+ c^=ch
+ for _ in range(8):c=((c<<1)^7)&0xFF if c&0x80 else (c<<1)&0xFF
+print(f'{l}*{c:02X}')" 'CONF steer.kp 8.5'` — or build the bench binary with
+`VANCHOR_REQUIRE_CRC=0` and skip suffixes entirely.
+
+### ⚠ Why writing to flash is rationed
+
+The RP2350 executes code from external **NOR flash** (W25Q-class). That
+matters twice:
+
+1. **Wear.** NOR flash erases in 4 kB sectors and each sector is only
+   rated for ~100 000 erase cycles. There is **no wear levelling** in this
+   scheme — every save erases the *same* sector. 100 k sounds like a lot:
+   saving once a minute, around the clock, kills the sector in ~10 weeks;
+   a bug that calls `CONFSAVE` at the 10 Hz command rate destroys it in
+   **under 3 hours**. Hand-tuning sessions are harmless (even 50 saves a
+   day is 5+ years), but *never* automate periodic saves. The diff guard
+   and the 2 s rate limit are backstops, not an invitation — a value that
+   genuinely changes every save (e.g. persisting a live measurement) would
+   sail straight through the diff guard. Past the rating, sectors fail as
+   silent bit-rot; the CRC turns that into "boots with defaults", which is
+   safe but means your calibration silently vanishes.
+2. **The write stalls the firmware.** During the sector erase + program
+   (tens of milliseconds) the flash chip cannot serve code, so the
+   firmware runs the write from RAM with **interrupts off**: the control
+   loop freezes, hall edges are missed, USB traffic queues. The PWM
+   hardware keeps running at the last duty, and both watchdogs comfortably
+   cover the pause, but the steering PID is open-loop for that window —
+   so save at the dock, not mid-manoeuvre. A power cut exactly during the
+   erase window corrupts the sector; the CRC catches it at next boot and
+   you fall back to defaults (another reason `CONFDUMP`'s stored column
+   exists: verify after saving).
+
+Practical rule: tune with `CONF` (free, unlimited), persist once with
+`CONFSAVE` when the boat feels right, confirm with `CONFDUMP`.
+
 ## Building
 
 Requires the [pico-sdk](https://github.com/raspberrypi/pico-sdk) (2.0+ for

@@ -20,17 +20,23 @@
  * firmware, and the board's 100 k pulldowns on every EN/INH pin keep both
  * bridges disabled through reset and reflash.
  */
+#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 
+#include <stdlib.h>
+
 #include "hardware/adc.h"
+#include "hardware/flash.h"
 #include "hardware/gpio.h"
 #include "hardware/i2c.h"
 #include "hardware/pwm.h"
 #include "hardware/watchdog.h"
+#include "pico/flash.h"
 #include "pico/stdlib.h"
 
 #include "board.h"
+#include "config.h"
 #include "control_logic.h"
 #include "protocol_ext.h"
 
@@ -81,10 +87,10 @@ static void thrustDrive(float mag, int8_t dir) {
 // Retunes wrap + level together; only when the schedule moved past the
 // hysteresis band, so it never hunts and any sub-cycle blip is rare.
 static float g_thrFreqHz = 16000.0f;
-static void thrustRetune(float amps, float mag, int8_t dir) {
+static void thrustRetune(float hystA, float amps, float mag, int8_t dir) {
   float ideal = thrustFreqHzForAmps(amps);
-  float atNow = thrustFreqHzForAmps(amps + THR_FREQ_HYST_A);
-  float atLow = thrustFreqHzForAmps(amps - THR_FREQ_HYST_A);
+  float atNow = thrustFreqHzForAmps(amps + hystA);
+  float atLow = thrustFreqHzForAmps(amps - hystA);
   // move only if the band no longer contains the current frequency
   if (g_thrFreqHz <= atNow - 1.0f || g_thrFreqHz >= atLow + 1.0f) {
     g_thrFreqHz = ideal;
@@ -154,6 +160,46 @@ static void sendLine(char *buf, size_t cap) {
   fflush(stdout);
 }
 
+// -------------------------------------------------------------- config --- //
+static HelmConfig g_cfg;
+
+// Persisted image lives in the LAST 4 kB flash sector, far above the code.
+#define CONF_FLASH_OFFSET (PICO_FLASH_SIZE_BYTES - FLASH_SECTOR_SIZE)
+#define CONF_WRITE_MIN_MS 2000  // wear/abuse guard between erase cycles
+
+static const uint8_t *confFlashPtr() {
+  return (const uint8_t *)(XIP_BASE + CONF_FLASH_OFFSET);
+}
+
+static void confFlashJob(void *param) {
+  // Runs with IRQs off / other core locked out (flash_safe_execute).
+  flash_range_erase(CONF_FLASH_OFFSET, FLASH_SECTOR_SIZE);
+  flash_range_program(CONF_FLASH_OFFSET, (const uint8_t *)param,
+                      FLASH_PAGE_SIZE);
+}
+
+// Persist `c`. Returns 1 written+verified, 0 flash already identical (no
+// erase happened), -1 rate-limited, -2 flash error/verify mismatch.
+static int confPersist(const HelmConfig &c, uint32_t nowMs) {
+  static uint32_t lastWriteMs = 0;
+  static uint8_t img[FLASH_PAGE_SIZE];
+  memset(img, 0xFF, sizeof img);
+  confSerialize(c, img);
+  if (memcmp(confFlashPtr(), img, sizeof img) == 0) return 0;  // diff guard
+  if (lastWriteMs != 0 && (nowMs - lastWriteMs) < CONF_WRITE_MIN_MS) return -1;
+  watchdog_update();  // the erase stalls everything for tens of ms
+  if (flash_safe_execute(confFlashJob, img, 500) != PICO_OK) return -2;
+  lastWriteMs = nowMs;
+  return memcmp(confFlashPtr(), img, sizeof img) == 0 ? 1 : -2;
+}
+
+// The config currently stored in flash (defaults where absent/invalid).
+static HelmConfig confStored() {
+  HelmConfig c;
+  confDeserialize(c, confFlashPtr(), FLASH_PAGE_SIZE);
+  return c;
+}
+
 // -------------------------------------------------------------- state ---- //
 static float g_wantThrust = 0.0f;   // 0..1 requested magnitude
 static int8_t g_wantDir = +1;
@@ -170,17 +216,92 @@ static float g_angleDeg = 0.0f;
 static float g_thrAmpsFilt = 0.0f;
 static float g_srvAmpsFilt = 0.0f;
 
+static void confReply(const char *fmt, ...) {
+  char buf[VANCHOR_LINE_MAX];
+  va_list ap;
+  va_start(ap, fmt);
+  vsnprintf(buf, sizeof buf, fmt, ap);
+  va_end(ap);
+  sendLine(buf, sizeof buf);
+}
+
+// "CONF <key> <value>"  -> RAM only.
+// "CONFW <key> <value>" -> RAM + persist THAT KEY into the stored image.
+// "CONFSAVE"            -> persist the whole active config.
+// "CONFDUMP"            -> one "C <key> <ram> <stored>" line per key.
+// Config traffic never feeds the motor watchdog or the heartbeat seq.
+static void handleConf(const char *line, uint32_t nowMs) {
+  const char *p = line + 4;
+  bool writeThrough = false;
+  if (strncmp(p, "SAVE", 4) == 0) {
+    int r = confPersist(g_cfg, nowMs);
+    confReply(r == 1   ? "C saved"
+              : r == 0 ? "C clean"
+              : r == -1 ? "C err ratelimit"
+                        : "C err flash");
+    return;
+  }
+  if (strncmp(p, "DUMP", 4) == 0) {
+    HelmConfig stored = confStored();
+    for (int i = 0; i < CONF_NKEYS; i++)
+      confReply("C %s %g %g", CONF_KEYS[i].name, (double)confGet(g_cfg, i),
+                (double)confGet(stored, i));
+    confReply("C end %d", CONF_NKEYS);
+    return;
+  }
+  if (*p == 'W') {
+    writeThrough = true;
+    p++;
+  }
+  if (*p != ' ') return;  // unknown CONFx token: ignore
+  while (*p == ' ') p++;
+  char key[24];
+  size_t k = 0;
+  while (*p && *p != ' ' && k + 1 < sizeof key) key[k++] = *p++;
+  key[k] = '\0';
+  int idx = confFind(key);
+  if (idx < 0) {
+    confReply("C err key %s", key);
+    return;
+  }
+  while (*p == ' ') p++;
+  char *endp = nullptr;
+  float v = strtof(p, &endp);
+  if (endp == p || !confSet(g_cfg, idx, v)) {
+    confReply("C err range %s", key);
+    return;
+  }
+  if (!writeThrough) {
+    confReply("C ok %s %g", key, (double)v);
+    return;
+  }
+  // Write-through: update ONLY this key in the stored image, so other
+  // in-RAM experiments stay temporary.
+  HelmConfig stored = confStored();
+  confSet(stored, idx, v);
+  int r = confPersist(stored, nowMs);
+  confReply(r == 1   ? "C wrote %s %g"
+            : r == 0 ? "C clean %s %g"
+            : r == -1 ? "C err ratelimit %s"
+                      : "C err flash %s",
+            key, (double)v);
+}
+
 static void handleLine(char *line, uint32_t nowMs) {
   if (!vanchorAcceptLine(line)) return;  // CRC gate (VANCHOR_REQUIRE_CRC)
+  if (strncmp(line, "CONF", 4) == 0) {
+    handleConf(line, nowMs);
+    return;
+  }
   int pwm, steer, seq;
   char dir;
   float deg;
   if (vanchorParseCmd(line, &pwm, &dir, &steer, &seq)) {
     g_wantThrust = (float)pwm / 255.0f;
     g_wantDir = (dir == 'R') ? -1 : +1;
-    g_steer.setTarget(((float)steer / 100.0f) * STEER_FULL_SCALE_DEG);
+    g_steer.setTarget(g_cfg, ((float)steer / 100.0f) * g_cfg.steerFull);
   } else if (vanchorParseSteerDeg(line, &deg, &seq)) {
-    g_steer.setTarget(deg);
+    g_steer.setTarget(g_cfg, deg);
   } else if (vanchorParseThrust(line, &pwm, &dir, &seq)) {
     g_wantThrust = (float)pwm / 255.0f;
     g_wantDir = (dir == 'R') ? -1 : +1;
@@ -244,14 +365,16 @@ int main() {
   adc_gpio_init(PIN_ADC_THR_IS);
   adc_gpio_init(PIN_ADC_VBAT);
 
+  // Stored configuration (defaults when the sector is blank/invalid).
+  confDeserialize(g_cfg, confFlashPtr(), FLASH_PAGE_SIZE);
+
   // Prime the encoder and hold the current heading (steering.ino boot rule).
   EncoderRead er = as5600Read();
   if (er.ok) {
     g_enc.feed(er.raw);
     g_feedbackOk = true;
   }
-  g_steer.setTarget(0.0f);
-  g_steer.targetDeg = g_enc.degrees(g_zeroAccum);
+  g_steer.targetDeg = g_enc.degrees(g_cfg, g_zeroAccum);
   g_steer.stallRefDeg = g_steer.targetDeg;
 
   uint32_t bootMs = to_ms_since_boot(get_absolute_time());
@@ -282,15 +405,15 @@ int main() {
     g_feedbackOk = er.ok;
     if (g_hallEvent) {  // magnet edge: this position IS the hall reference
       g_hallEvent = false;
-      g_zeroAccum =
-          g_enc.accum -
-          (int32_t)(HALL_ANGLE_DEG / 360.0f * ENC_GEAR_RATIO *
-                    (float)ENC_COUNTS_PER_REV);
+      float hallDeg = g_cfg.hallDeg * (g_cfg.encInvert >= 0.5f ? -1.0f : 1.0f);
+      g_zeroAccum = g_enc.accum -
+                    (int32_t)(hallDeg / 360.0f * g_cfg.encGear *
+                              (float)ENC_COUNTS_PER_REV);
     }
-    g_angleDeg = g_enc.degrees(g_zeroAccum);
+    g_angleDeg = g_enc.degrees(g_cfg, g_zeroAccum);
 
-    float thrAmps = adcVolts(1) / THR_IS_V_PER_A;
-    float srvAmps = adcVolts(0) / SERVO_IS_V_PER_A;
+    float thrAmps = adcVolts(1) / g_cfg.calThrVpa;
+    float srvAmps = adcVolts(0) / g_cfg.calSrvVpa;
     g_thrAmpsFilt += 0.1f * (thrAmps - g_thrAmpsFilt);
     g_srvAmpsFilt += 0.1f * (srvAmps - g_srvAmpsFilt);
 
@@ -306,11 +429,12 @@ int main() {
     gpio_put(PIN_THR_R_EN, enable);
     gpio_put(PIN_THR_L_EN, enable);
 
-    float mag = g_thrust.update(g_wantThrust, g_wantDir, failsafe, nowMs, dtS);
+    float mag =
+        g_thrust.update(g_cfg, g_wantThrust, g_wantDir, failsafe, nowMs, dtS);
     thrustDrive(mag, g_thrust.appliedDir);
-    thrustRetune(g_thrAmpsFilt, mag, g_thrust.appliedDir);
+    thrustRetune(g_cfg.thrHystA, g_thrAmpsFilt, mag, g_thrust.appliedDir);
 
-    int srvPwm = g_steer.update(g_angleDeg, g_feedbackOk, failsafe,
+    int srvPwm = g_steer.update(g_cfg, g_angleDeg, g_feedbackOk, failsafe,
                                 g_srvAmpsFilt, nowMs, dtS);
     servoDrive(srvPwm);
 
@@ -321,7 +445,7 @@ int main() {
     // --- feedback lines --------------------------------------------------- //
     if (nowMs - lastAMs >= REPORT_A_MS) {
       lastAMs = nowMs;
-      int wrap = (int)(g_angleDeg / STEER_RANGE_DEG * 100.0f);
+      int wrap = (int)(g_angleDeg / g_cfg.steerRange * 100.0f);
       if (wrap > 100) wrap = 100;
       if (wrap < -100) wrap = -100;
       char fb[VANCHOR_LINE_MAX];

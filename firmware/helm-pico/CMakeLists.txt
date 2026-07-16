@@ -23,7 +23,9 @@ target_compile_definitions(vanchor_helm_pico PRIVATE
 
 target_link_libraries(vanchor_helm_pico
     pico_stdlib
+    pico_flash
     hardware_adc
+    hardware_flash
     hardware_i2c
     hardware_pwm
     hardware_watchdog

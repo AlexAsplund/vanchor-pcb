@@ -56,6 +56,9 @@
 #define SERVO_IS_V_PER_A  0.044f
 
 // ------------------------------------------------------- steering tuning --
+// DEFAULTS ONLY from here down: every value below is runtime-tunable over
+// the serial port (CONF/CONFW/CONFSAVE — see README + src/config.h). A
+// value stored in the config flash sector overrides these at boot.
 // Mirrors firmware/steering/steering.ino in vanchor-ng: same command scale,
 // endstops and loop constants, so the Pi-side behaviour is unchanged.
 #define STEER_RANGE_DEG        360.0f  // soft endstops (cable wrap limit)
