@@ -7,7 +7,8 @@ CXXFLAGS ?= -std=c++17 -Wall -Wextra -O1 -I../include
 all: run
 
 test_protocol: test_protocol.cpp ../src/protocol_ext.h ../src/control_logic.h \
-               ../src/config.h ../vendor/vanchor_protocol.h ../include/board.h
+               ../src/config.h ../src/tunnel_core.h ../vendor/vanchor_protocol.h \
+               ../include/board.h
 	$(CXX) $(CXXFLAGS) -o $@ test_protocol.cpp
 
 # Also prove the VANCHOR_REQUIRE_CRC=0 build accepts the NOCRC vectors.

@@ -2,9 +2,16 @@
 
 One RP2350 replaces both vanchor-ng Arduinos: **engine** (thrust, via the
 companion BTN8982 driver board on J13) and **steering** (on-board BTN8982
-bridge, AS5600 azimuth encoder, hall zero index) behind a single USB-CDC
-serial port that speaks the vanchor-ng line protocol **unchanged** — the Pi
-needs zero code changes. NMEA2000 (GP18/19) is deliberately not included yet.
+bridge, AS5600 azimuth encoder, hall zero index) speaking the vanchor-ng
+line protocol **unchanged** on two equivalent transports:
+
+- **USB-CDC** — plug-compatible with the existing Pi stack, zero code changes.
+- **I²C slave 0x42** on the SBC ribbon — the same bytes through a small
+  FIFO register map, so the boat needs no USB cable. Wire spec + a complete
+  Pi-side implementation guide: **`docs/I2C-TUNNEL.md`** (the Pi side needs
+  one new transport class in vanchor-ng; nothing above it changes).
+
+NMEA2000 (GP18/19) is deliberately not included yet.
 
 ## Protocol (the contract)
 
@@ -112,6 +119,11 @@ maxpwm/range/fullscale/stall_err/stall_move/stall_ms/stall_a/recenter`,
 `enc.invert/gear/hall_deg`, `thr.slew/rev_ms/hyst_a`,
 `cal.thr_vpa/srv_vpa/vbat`.
 
+All of this works identically over the I²C tunnel — `CONF*` lines and
+`C ...` replies are transport-agnostic (see `docs/I2C-TUNNEL.md` §3 for the
+one nuance: drain promptly after `CONFDUMP`, its ~750 B burst is most of
+the tunnel's TX FIFO).
+
 Generating the CRC for hand-typed commands: any of the OK vectors in
 `vendor/protocol_vectors.txt` shows the format; quickest is
 `python3 -c "import sys;l=sys.argv[1];c=0
@@ -197,10 +209,13 @@ unwrap. CI-friendly: exits non-zero on any failure.
 
 ```
 CMakeLists.txt, pico_sdk_import.cmake   build glue (PICO_BOARD=pico2)
-include/board.h                          pin map + tuning (single source)
-src/main.cpp                             transport, sensors, output stages
+include/board.h                          pin map + tuning defaults
+src/main.cpp                             transports, sensors, output stages
 src/control_logic.h                      hardware-free control cores
+src/config.h                             CONF keys, validation, persistence
+src/tunnel_core.h, src/i2c_tunnel.*      I2C tunnel (register machine + glue)
 src/protocol_ext.h                       THRUST token parser (+ vendored hdr)
 vendor/                                  the contract, verbatim from vanchor-ng
+docs/I2C-TUNNEL.md                       I2C wire spec + Pi implementation guide
 tests/                                   host test suite (no SDK needed)
 ```

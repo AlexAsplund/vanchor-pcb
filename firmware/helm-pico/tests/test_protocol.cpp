@@ -25,6 +25,7 @@
 #include "../src/protocol_ext.h"   // pulls in ../vendor/vanchor_protocol.h
 #include "../src/config.h"
 #include "../src/control_logic.h"
+#include "../src/tunnel_core.h"
 
 static const HelmConfig DEF;  // defaults
 
@@ -285,9 +286,103 @@ static void testConfig() {
   }
 }
 
+// ------------------------------------------------------------- i2c tunnel --
+// Simulates full master transactions against the exact shipped register
+// machine: write transaction = masterWrite(reg) + masterWrite(data...) +
+// stop(); read transaction = masterWrite(reg) + stop-restart + masterRead()s.
+static void masterWriteTxn(TunnelCore &t, uint8_t reg, const char *data) {
+  t.masterWrite(reg);
+  for (const char *p = data; *p; p++) t.masterWrite((uint8_t)*p);
+  t.stop();
+}
+static void masterSetReg(TunnelCore &t, uint8_t reg) {
+  t.masterWrite(reg);
+  t.stop();
+}
+
+static void testTunnel() {
+  TunnelCore t;
+
+  // Identity block, auto-increment: reg 0 then 1.
+  masterSetReg(t, TUN_REG_WHOAMI);
+  CHECK(t.masterRead() == TUN_WHOAMI_VAL, "whoami");
+  CHECK(t.masterRead() == TUN_VERSION_VAL, "version after auto-increment");
+  t.stop();
+
+  // Command in: a CMD line split across TWO write transactions (allowed).
+  masterWriteTxn(t, TUN_REG_DATA, "CMD 0 ");
+  masterWriteTxn(t, TUN_REG_DATA, "F 0*DC\n");
+  char rxLine[64];
+  int n = 0, c;
+  while ((c = t.getByte()) >= 0 && c != '\n') rxLine[n++] = (char)c;
+  rxLine[n] = '\0';
+  CHECK(strcmp(rxLine, "CMD 0 F 0*DC") == 0, "rx line: '%s'", rxLine);
+  CHECK(t.getByte() == -1, "rx not drained");
+
+  // Feedback out: queue, count via TXA, drain via DATA, then filler.
+  CHECK(t.queueLine("A -12.4 1 -7 42*C8"), "queue");
+  masterSetReg(t, TUN_REG_TXA_L);
+  uint16_t avail = t.masterRead();
+  avail |= (uint16_t)(t.masterRead() << 8);  // auto-increment to TXA_H
+  t.stop();
+  CHECK(avail == 20, "tx avail %u", avail);  // 18 chars + CRLF
+  masterSetReg(t, TUN_REG_DATA);
+  char out[32];
+  for (int i = 0; i < 20; i++) out[i] = (char)t.masterRead();
+  out[20] = '\0';
+  CHECK(strcmp(out, "A -12.4 1 -7 42*C8\r\n") == 0, "drained: '%s'", out);
+  CHECK(t.masterRead() == TUN_FILL_BYTE, "filler after empty");
+  t.stop();
+
+  // Whole-line TX overflow: an oversized queue attempt drops cleanly.
+  TunnelCore t2;
+  char big[40];
+  memset(big, 'x', sizeof big - 1);
+  big[sizeof big - 1] = '\0';
+  int q = 0;
+  while (t2.queueLine(big)) q++;
+  CHECK(q == 1024 / (int)(sizeof big + 1), "queued %d", q);
+  masterSetReg(t2, TUN_REG_FLAGS);
+  CHECK((t2.masterRead() & TUN_FLAG_TX_OVF) != 0, "TX ovf flag");
+  t2.stop();
+  masterSetReg(t2, TUN_REG_FLAGS);
+  CHECK(t2.masterRead() == 0, "flags clear on read");
+  t2.stop();
+
+  // RX overflow: flag latches, ring keeps the first 256 bytes.
+  TunnelCore t3;
+  t3.masterWrite(TUN_REG_DATA);
+  for (int i = 0; i < 300; i++) t3.masterWrite('a');
+  t3.stop();
+  masterSetReg(t3, TUN_REG_FLAGS);
+  CHECK((t3.masterRead() & TUN_FLAG_RX_OVF) != 0, "RX ovf flag");
+  t3.stop();
+  int drained = 0;
+  while (t3.getByte() >= 0) drained++;
+  CHECK(drained == 256, "rx kept %d", drained);
+
+  // RXF free-space register.
+  TunnelCore t4;
+  masterWriteTxn(t4, TUN_REG_DATA, "CMD");
+  masterSetReg(t4, TUN_REG_RXF_L);
+  uint16_t freeb = t4.masterRead();
+  freeb |= (uint16_t)(t4.masterRead() << 8);
+  t4.stop();
+  CHECK(freeb == 253, "rx free %u", freeb);
+
+  // Writes to read-only registers are ignored.
+  TunnelCore t5;
+  masterWriteTxn(t5, TUN_REG_WHOAMI, "zz");
+  masterSetReg(t5, TUN_REG_WHOAMI);
+  CHECK(t5.masterRead() == TUN_WHOAMI_VAL, "ro reg clobbered");
+  t5.stop();
+  CHECK(t5.getByte() == -1, "ro write leaked into rx");
+}
+
 int main() {
   testVectors();
   testConfig();
+  testTunnel();
   testParsers();
   testOutbound();
   testThrustGate();

@@ -11,7 +11,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 pico_sdk_init()
 
-add_executable(vanchor_helm_pico src/main.cpp)
+add_executable(vanchor_helm_pico
+    src/main.cpp
+    src/i2c_tunnel.cpp
+)
 
 target_include_directories(vanchor_helm_pico PRIVATE include)
 
@@ -24,6 +27,7 @@ target_compile_definitions(vanchor_helm_pico PRIVATE
 target_link_libraries(vanchor_helm_pico
     pico_stdlib
     pico_flash
+    pico_i2c_slave
     hardware_adc
     hardware_flash
     hardware_i2c

@@ -12,8 +12,8 @@
 #define PIN_HALL_ZERO      0   // HALL_ZERO: open-collector hall (J9.3), 10k
                                // pull-up + RC on board; LOW at the magnet.
 
-// I2C0 to the SBC (PI_SDA/PI_SCL on the ribbon) — reserved, not used yet:
-// the Pi speaks the serial contract over the Pico's USB CDC port instead.
+// I2C0 to the SBC (PI_SDA/PI_SCL on the ribbon): line-protocol tunnel,
+// slave address 0x42 — equivalent to the USB CDC port (docs/I2C-TUNNEL.md).
 #define PIN_PI_SDA         4
 #define PIN_PI_SCL         5
 

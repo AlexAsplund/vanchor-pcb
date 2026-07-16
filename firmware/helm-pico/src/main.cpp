@@ -3,8 +3,9 @@
  *
  * One Pico replaces both vanchor-ng Arduinos: it is the ENGINE board (thrust
  * via the external BTN8982 driver on J13) and the STEERING board (on-board
- * BTN8982 bridge + AS5600 azimuth encoder + hall zero index) on a single
- * USB-CDC serial port speaking the exact vanchor line protocol:
+ * BTN8982 bridge + AS5600 azimuth encoder + hall zero index) speaking the
+ * exact vanchor line protocol on TWO equivalent transports — USB-CDC and an
+ * I2C slave tunnel at 0x42 on the SBC ribbon (docs/I2C-TUNNEL.md):
  *
  *   in :  CMD <pwm> <dir> <steer> [<seq>]*HH     (combined, the default)
  *         STEERD <deg> [<seq>]*HH                (v2.1 degrees-native)
@@ -38,6 +39,7 @@
 #include "board.h"
 #include "config.h"
 #include "control_logic.h"
+#include "i2c_tunnel.h"
 #include "protocol_ext.h"
 
 // ------------------------------------------------------------------ PWM -- //
@@ -150,14 +152,22 @@ static float adcVolts(uint input) {
 }
 
 // ------------------------------------------------------------ serial I/O -- //
-static char g_line[VANCHOR_LINE_MAX];
-static uint8_t g_lineLen = 0;
+// One accumulator per transport so interleaved half-lines cannot mix.
+struct LineAccum {
+  char buf[VANCHOR_LINE_MAX];
+  uint8_t len = 0;
+};
+static LineAccum g_usbAcc, g_i2cAcc;
 
+// Every outbound line goes to BOTH transports: USB always, the I2C tunnel
+// whenever a master has polled recently (so the FIFO never fills with stale
+// telemetry when nobody is on the bus).
 static void sendLine(char *buf, size_t cap) {
   vanchorAppendCrc(buf, (unsigned int)cap);
   fputs(buf, stdout);
   fputs("\r\n", stdout);
   fflush(stdout);
+  i2cTunnelSendLine(buf, to_ms_since_boot(get_absolute_time()));
 }
 
 // -------------------------------------------------------------- config --- //
@@ -313,21 +323,30 @@ static void handleLine(char *line, uint32_t nowMs) {
   g_everCommanded = true;
 }
 
+static void accumFeed(LineAccum &a, int c, uint32_t nowMs) {
+  if (c == '\n' || c == '\r') {
+    if (a.len > 0) {
+      a.buf[a.len] = '\0';
+      handleLine(a.buf, nowMs);
+    }
+    a.len = 0;
+  } else if (a.len < VANCHOR_LINE_MAX - 1) {
+    a.buf[a.len++] = (char)c;
+  } else {
+    a.len = 0;  // overflow -> drop the line
+  }
+}
+
 static void pollSerial(uint32_t nowMs) {
   for (;;) {
     int c = getchar_timeout_us(0);
     if (c == PICO_ERROR_TIMEOUT) break;
-    if (c == '\n' || c == '\r') {
-      if (g_lineLen > 0) {
-        g_line[g_lineLen] = '\0';
-        handleLine(g_line, nowMs);
-      }
-      g_lineLen = 0;
-    } else if (g_lineLen < VANCHOR_LINE_MAX - 1) {
-      g_line[g_lineLen++] = (char)c;
-    } else {
-      g_lineLen = 0;  // overflow -> drop the line
-    }
+    accumFeed(g_usbAcc, c, nowMs);
+  }
+  for (;;) {
+    int c = i2cTunnelGetchar();
+    if (c < 0) break;
+    accumFeed(g_i2cAcc, c, nowMs);
   }
 }
 
@@ -353,6 +372,9 @@ int main() {
   i2c_init(ENC_I2C, ENC_I2C_HZ);
   gpio_set_function(PIN_ENC_SDA, GPIO_FUNC_I2C);
   gpio_set_function(PIN_ENC_SCL, GPIO_FUNC_I2C);
+
+  // I2C tunnel to the SBC (slave 0x42 on the ribbon's I2C3).
+  i2cTunnelInit();
 
   // Hall zero input (board has the pull-up + RC).
   gpio_init(PIN_HALL_ZERO);
