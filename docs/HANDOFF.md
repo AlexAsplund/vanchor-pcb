@@ -79,8 +79,13 @@ header, **v4.2 XL4015 daughterboard + N2K provision**; driver v1
 
 1. **Order**: PCBWay (both zips), Mouser CSV, AliExpress (Zero 3, XL4015).
    BTN line `BTN8982TAAUMA1`; 1 k = KOA `CF1/4CT52R102J`.
-2. **Firmware (vanchor-ng)**: thrust pins GP12=RPWM GP13=LPWM GP14=R_EN
-   GP15=L_EN; THR_IS GP27, SERVO_IS GP26, VBAT GP28; I²C slave 0x42.
+2. **Firmware**: WRITTEN — `firmware/helm-pico/` (Pico 2, pico-sdk). Speaks
+   the vanchor-ng serial contract over USB-CDC (CMD/STEERD/THRUST in, A/E
+   out, CRC-8); Pi needs only `motor_port=/dev/ttyACM0`. Host tests replay
+   the golden protocol vectors. Cross-compile + flash + bring-up: its README.
+   Pin map for reference: thrust GP12=RPWM GP13=LPWM GP14=R_EN
+   GP15=L_EN; THR_IS GP27, SERVO_IS GP26, VBAT GP28; I²C-slave-0x42 path
+   unused for now (USB is the control port).
    hall zero-index input on GP0 (J9.3, 10 k pullup + RC on board; UART0 fallback pair becomes GP16/GP1). **kILIS for BTN8982TA ≈ 22 700** (not the BTS7960's 8500) — rescale
    current telemetry. SBC overlays: `i2c3`, `uart5` (HWT901B), `uart2`.
    Pico SWD via ribbon pins 16/18 (PC15/PC14, openocd `linuxgpiod`),
