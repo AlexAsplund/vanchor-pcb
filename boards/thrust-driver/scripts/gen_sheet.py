@@ -130,9 +130,19 @@ def main(spec_path, out_path, project, root_uuid):
         else:
             ext = 0
         text_off = max(7.62, ext + 3.81)
+        # BAT54S: the COM pin label occupies the space above the part, so
+        # stack ref+value below it instead of straddling.
+        if lib_id.endswith("BAT54S"):
+            ref_at = (x, y + text_off)
+            val_at = (x, y + text_off + 3.81)
+        else:
+            ref_at = (x, y - text_off)
+            val_at = (x, y + text_off)
+        # per-part override for refs that would collide with wires/labels
+        ref_at = getattr(mod, "REF_POS", {}).get(ref, ref_at)
         props = [
-            ("Reference", ref, x, y - text_off, False),
-            ("Value", c.get("value", ""), x, y + text_off, False),
+            ("Reference", ref, ref_at[0], ref_at[1], False),
+            ("Value", c.get("value", ""), val_at[0], val_at[1], False),
             ("Footprint", c.get("fp", ""), x, y, True),
             ("Datasheet", "", x, y, True),
         ]

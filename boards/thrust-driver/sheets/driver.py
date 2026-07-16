@@ -61,7 +61,7 @@ COMPONENTS = [
 
     # power conditioning
     dict(lib="Device:D_TVS", ref="D2", value="SMCJ33A", fp=SMC,
-         at=(330, 192, 90), pins={"1": "VBAT", "2": "GND"}),
+         at=(322, 190, 0), pins={"1": "VBAT", "2": "GND"}),
     dict(lib="Device:C_Polarized", ref="C1", value="2200u/35V", fp=CP_BULK,
          at=(218, 245, 90), pins={"1": "VBAT", "2": "GND"}),
     dict(lib="Device:C_Polarized", ref="C2", value="2200u/35V", fp=CP_BULK,
@@ -140,8 +140,8 @@ COMPONENTS = [
 WIRES = [
     # DNP Pico smart-node hookup: CAN pair to the transceiver header,
     # IS sense through the 1k series resistors to the ADCs
-    (("U5", "24"), ("J6", "3"), [("x", 106.68), ("y", 275.59), ("x", 283.21), ("y", 223.27)]),
-    (("U5", "25"), ("J6", "4"), [("x", 104.14), ("y", 278.13), ("x", 287.02), ("y", 225.81)]),
-    (("U5", "31"), ("R13", "2"), [("x", 111.76), ("y", 262.89), ("x", 266)]),
-    (("U5", "32"), ("R12", "2"), [("x", 109.22), ("y", 270.51), ("x", 226)]),
+    (("U5", "24"), ("J6", "3"), [("x", 106.68), ("y", 280.67), ("x", 283.21), ("y", 223.27)]),
+    (("U5", "25"), ("J6", "4"), [("x", 104.14), ("y", 283.21), ("x", 287.02), ("y", 225.81)]),
+    (("U5", "31"), ("R13", "2"), [("x", 111.76), ("y", 262.89)]),
+    (("U5", "32"), ("R12", "2"), [("x", 109.22), ("y", 264.16)]),
 ]

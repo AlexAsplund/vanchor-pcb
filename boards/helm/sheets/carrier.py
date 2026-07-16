@@ -43,12 +43,14 @@ for _c in power.COMPONENTS + pi.COMPONENTS:
 # Drawn connections (generator draws wires; labels are kept once per net)
 WIRES = [
     (("J16", "1"), ("F1", "1")),      # battery -> fuse
-    (("F1", "2"), ("Q1", "2")),       # fuse -> reverse-FET drain
+    (("F1", "2"), ("Q1", "2"), [("y", 57.15), ("x", 152.54)]),  # fuse -> FET drain (over the top)
     (("J5", "1"), ("R41", "1")),      # N2K V+ -> tap link
     (("J5", "3"), ("R42", "1")),      # N2K shield -> bond link
     (("F2", "2"), ("J10", "1")),      # polyfuse -> aux 5V out
     (("R2", "2"), ("LED1", "2")),     # power LED chain
 ]
+REF_POS = {"Q1": (144, 61.11)}  # clear of the drain-entry wire
+
 RAILS = [
     ("VIN", 88, [("Q1", "3"), ("D4", "1"), ("D5", "1"), ("C1", "1"), ("C2", "1"), ("R2", "1")]),
 ]

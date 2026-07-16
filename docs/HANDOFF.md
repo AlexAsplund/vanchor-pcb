@@ -71,6 +71,9 @@ header, **v4.2 XL4015 daughterboard + N2K provision**; driver v1
 - Driver: mask-aperture check *ignored* (intentional solder lanes); the
   routed `.kicad_pcb` files are **source of truth** — the build scripts
   regenerate placement but the surgical routing lives in the board files.
+- Driver ERC reports 3 `pin_to_pin` errors: the paralleled BTN8982 OUT
+  pins (U1‖U3, U2‖U4, high-power variant) are Power-output-to-Power-output
+  by design. Waived — do not "fix".
 
 ## Open items for whoever continues
 
