@@ -1,0 +1,3 @@
+build/
+tests/test_protocol
+tests/test_protocol_nocrc
