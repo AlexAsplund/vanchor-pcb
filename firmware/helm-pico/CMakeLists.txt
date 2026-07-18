@@ -18,10 +18,23 @@ add_executable(vanchor_helm_pico
 
 target_include_directories(vanchor_helm_pico PRIVATE include)
 
+# Firmware version from git (INFO command); "dev" when git is unavailable.
+execute_process(
+    COMMAND git describe --tags --always --dirty
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    OUTPUT_VARIABLE FW_GIT_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET
+)
+if (NOT FW_GIT_VERSION)
+    set(FW_GIT_VERSION "dev")
+endif ()
+
 # Explicit \r\n line endings are part of the wire contract — don't let the
 # stdio layer translate them a second time.
 target_compile_definitions(vanchor_helm_pico PRIVATE
     PICO_STDIO_DEFAULT_CRLF=0
+    FW_VERSION="${FW_GIT_VERSION}"
 )
 
 target_link_libraries(vanchor_helm_pico

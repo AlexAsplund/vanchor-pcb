@@ -75,13 +75,27 @@ looking alive.
 
 | Command | Effect |
 |---|---|
+| `INFO*HH` | identity / versions / health snapshot (`I ...` lines) |
 | `CONF <key> <value>*HH` | set in **RAM only** — reverts on reboot |
 | `CONFW <key> <value>*HH` | set in RAM **and** persist *that one key* to flash |
 | `CONFSAVE*HH` | persist the **whole active config** to flash |
 | `CONFDUMP*HH` | list every key: `C <key> <ram_value> <stored_value>` |
 
-Replies are `C ...` lines (CRC'd), which the Pi's lenient feedback parsers
-ignore by design:
+`INFO` (`INFO*58` on the wire) answers six `I` lines — firmware git version, protocol
+settings, config/flash state, I²C tunnel state, uptime/VBAT/angle:
+
+```
+> INFO*58
+< I fw v1.2-3-gabc123 board helm-4.2 mcu pico2*..
+< I proto 2.1 crc 1 wdog 800*..
+< I conf 1 keys 23 flash stored*..        ("defaults" = no valid image)
+< I i2c 0x42 v1 active 0*..
+< I up 7423 vbat 12.6 ang -3.2 fb 1*..
+< I end 5*..
+```
+
+Replies to all of these are `C ...`/`I ...` lines (CRC'd), which the Pi's
+lenient feedback parsers ignore by design:
 
 ```
 > CONF steer.kp 8.5*85

@@ -38,6 +38,11 @@
 
 #include "board.h"
 #include "config.h"
+
+// Stamped by CMake from `git describe`; "dev" for out-of-tree builds.
+#ifndef FW_VERSION
+#define FW_VERSION "dev"
+#endif
 #include "control_logic.h"
 #include "i2c_tunnel.h"
 #include "protocol_ext.h"
@@ -217,6 +222,7 @@ static uint32_t g_lastCmdMs = 0;    // last *valid* command line
 static bool g_everCommanded = false;
 static int g_lastSeq = -1;
 
+static int g_confLoaded = -1;  // keys applied from flash at boot (-1 = none)
 static ThrustGate g_thrust;
 static SteeringLoop g_steer;
 static EncoderUnwrap g_enc;
@@ -297,8 +303,28 @@ static void handleConf(const char *line, uint32_t nowMs) {
             key, (double)v);
 }
 
+// "INFO" -> identity/version/health snapshot as "I ..." lines (the Pi's
+// feedback parsers ignore them; a bench console reads them directly).
+static void handleInfo(uint32_t nowMs) {
+  confReply("I fw %s board helm-4.2 mcu pico2", FW_VERSION);
+  confReply("I proto 2.1 crc %d wdog %d", VANCHOR_REQUIRE_CRC,
+            VANCHOR_WATCHDOG_MS);
+  confReply("I conf %d keys %d flash %s", CONF_VERSION, CONF_NKEYS,
+            g_confLoaded < 0 ? "defaults" : "stored");
+  confReply("I i2c 0x%02X v%d active %d", TUN_I2C_ADDR, 1,
+            i2cTunnelActive(nowMs) ? 1 : 0);
+  confReply("I up %lu vbat %.1f ang %.1f fb %d", nowMs / 1000,
+            (double)(adcVolts(2) * g_cfg.calVbat), (double)g_angleDeg,
+            g_feedbackOk ? 1 : 0);
+  confReply("I end 5");
+}
+
 static void handleLine(char *line, uint32_t nowMs) {
   if (!vanchorAcceptLine(line)) return;  // CRC gate (VANCHOR_REQUIRE_CRC)
+  if (strcmp(line, "INFO") == 0) {
+    handleInfo(nowMs);
+    return;
+  }
   if (strncmp(line, "CONF", 4) == 0) {
     handleConf(line, nowMs);
     return;
@@ -388,7 +414,7 @@ int main() {
   adc_gpio_init(PIN_ADC_VBAT);
 
   // Stored configuration (defaults when the sector is blank/invalid).
-  confDeserialize(g_cfg, confFlashPtr(), FLASH_PAGE_SIZE);
+  g_confLoaded = confDeserialize(g_cfg, confFlashPtr(), FLASH_PAGE_SIZE);
 
   // Prime the encoder and hold the current heading (steering.ino boot rule).
   EncoderRead er = as5600Read();
