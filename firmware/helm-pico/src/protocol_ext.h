@@ -28,8 +28,10 @@ inline bool vanchorParseThrust(const char *line, int *pwm, char *dir,
 
   while (*p == ' ') p++;
   if (*p < '0' || *p > '9') return false;
-  long v = 0;
-  while (*p >= '0' && *p <= '9') { v = v * 10 + (*p - '0'); p++; }
+  // Saturating accumulate (see vanchorAccumDigits): a wrapping `v*10+d` is
+  // signed-overflow UB and can wrap 32-bit long to an ACCEPTED value.
+  long v = vanchorAccumDigits(&p);
+  if (v < 0) v = 0;
   if (v > 255) v = 255;
 
   while (*p == ' ') p++;
@@ -41,8 +43,7 @@ inline bool vanchorParseThrust(const char *line, int *pwm, char *dir,
   const char *pq = p;
   while (*pq == ' ') pq++;
   if (*pq >= '0' && *pq <= '9') {
-    q = 0;
-    while (*pq >= '0' && *pq <= '9') { q = q * 10 + (*pq - '0'); pq++; }
+    q = vanchorAccumDigits(&pq);
     if (q > VANCHOR_SEQ_MAX) q = VANCHOR_SEQ_MAX;
   }
 

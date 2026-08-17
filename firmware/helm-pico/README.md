@@ -34,7 +34,7 @@ CRC-8 (`*HH`) on every line, both directions; CRC-less commands are rejected
 
 ```yaml
 hardware:
-  motor_port: /dev/serial/by-id/usb-Raspberry_Pi_Pico_2*-if00
+  motor_port: /dev/serial/by-id/usb-Raspberry_Pi_Pico*-if00   # Pico 2 enumerates as "Pico 2"
 ```
 
 (baud is ignored on CDC; leave `steering_port`/`thrust_port` blank so the
@@ -53,7 +53,7 @@ combined `SerialMotorController` drives both axes through this one port.)
   on watchdog loss (the worm self-locks). Feedback is the AS5600 on I2C1,
   unwrapped to a continuous multi-turn angle; the **hall index on GP0**
   re-zeros the angle absolutely every time the head passes centre — set
-  `HALL_ANGLE_DEG` if your magnet isn't at dead-centre.
+  `CONF enc.hall_deg` if your magnet isn't at dead-centre.
 - **Safety chain**: 800 ms protocol watchdog → safe state; 2 s hardware
   watchdog → reboot; both bridges held disabled until the first valid
   command, and the board's 100 k pulldowns keep them disabled whenever the
@@ -180,8 +180,9 @@ Practical rule: tune with `CONF` (free, unlimited), persist once with
 
 ## Building
 
-Requires the [pico-sdk](https://github.com/raspberrypi/pico-sdk) (2.0+ for
-RP2350) and `gcc-arm-none-eabi`:
+Requires the [pico-sdk](https://github.com/raspberrypi/pico-sdk) **2.0+**
+(unconditionally — `pico_i2c_slave` first shipped in 2.0.0) and
+`gcc-arm-none-eabi`:
 
 ```sh
 export PICO_SDK_PATH=~/pico-sdk        # or -DPICO_SDK_FETCH_FROM_GIT=on
@@ -190,13 +191,48 @@ cmake --build build -j
 # -> build/vanchor_helm_pico.uf2 / .elf
 ```
 
+CMake options: `-DPICO_BOARD=pico` targets an original RP2040 Pico (see
+below); `-DVANCHOR_REQUIRE_CRC=0` builds the CRC-tolerant bench variant
+(this is a real cache option wired to the compiler — no CXX_FLAGS tricks).
+
+## Bare Pico / DIY build (no vanchor PCB)
+
+The firmware runs on a plain **RP2040 Pico or Pico 2** with two IBT-2 /
+BTS7960-style H-bridge modules and an AS5600 breakout — the PWM tick is
+derived from `clk_sys` at boot, so both chips get correct frequencies.
+
+```sh
+cmake -B build -DPICO_BOARD=pico \
+  -DCMAKE_CXX_FLAGS="-DPIN_LED_STAT=25"   # onboard LED on a bare Pico
+```
+
+Every pin and default in `include/board.h` is `#ifndef`-guarded, so override
+whatever differs from the PCB the same way (`-DPIN_SRV_RPWM=2 ...`). Default
+wiring (BTS7960 naming): servo bridge RPWM/LPWM = GP8/GP9, R_EN/L_EN =
+GP10/GP11; thrust bridge RPWM/LPWM = GP12/GP13, R_EN/L_EN = GP14/GP15;
+AS5600 SDA/SCL = GP6/GP7 (breakouts carry their own pull-ups); optional hall
+zero on GP0 (internal pull-up enabled); optional SBC I2C tunnel on GP4/GP5.
+
+Two hardware notes that the firmware cannot cover for you:
+
+- **Add a physical ~100 k pulldown on all four EN pins.** During reset,
+  BOOTSEL and reflash the Pico's pins float, and IBT-2 modules do not
+  guarantee their own pulldowns — without resistors the bridges can float
+  enabled while the firmware is not running. The vanchor PCB has them; a
+  breadboard build must too.
+- BTS7960 current sense scales differently from the PCB's BTN8982
+  (kILIS ≈ 8500 vs 22700): calibrate `cal.thr_vpa` / `cal.srv_vpa` over
+  serial (`CONF`) against a clamp meter, or leave current-based stall off
+  (default) and skip the IS pins entirely.
+
 ## Flashing
 
 - **First time / no debugger**: hold BOOTSEL, plug USB, copy the `.uf2`.
 - **In-circuit (assembled boat)**: SWD over the ribbon from the SBC —
   SWCLK/SWDIO land on Zero 3 pins 16/18 (PC15/PC14), RUN on pin 12:
-  `openocd -f interface/linuxgpiod.cfg -f target/rp2350.cfg` (pin mapping in
-  `docs/HANDOFF.md`). Never needed for normal operation.
+  `openocd -f interface/linuxgpiod.cfg -f target/rp2350.cfg` (`rp2040.cfg`
+  for an original Pico; pin mapping in `docs/HANDOFF.md`). Never needed for
+  normal operation.
 
 ## Bring-up checklist
 
@@ -208,8 +244,8 @@ cmake --build build -j
    `VANCHOR_REQUIRE_CRC=0` for the bench) — thrust ramps softly; stop
    commanding — after 800 ms the `E` state shows `FAILSAFE` and it ramps out.
 5. Swing the head by hand past centre — the hall edge re-zeros `A`'s angle.
-6. `STEERD 10.0*..` — the servo drives; verify +deg = starboard, else set
-   `ENC_INVERT 1` (encoder) and/or swap the servo motor leads (drive).
+6. `STEERD 10.0*..` — the servo drives; verify +deg = starboard, else send
+   `CONF enc.invert 1` (encoder) and/or swap the servo motor leads (drive).
 
 ## Tests
 

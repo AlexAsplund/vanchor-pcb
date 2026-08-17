@@ -22,6 +22,24 @@
 #include <stdint.h>
 #include <string.h>
 
+// Same-core ISR/main-loop rings need COMPILER ordering only (no SMP here):
+// without a fence the compiler may sink the buf[] store past the index store,
+// letting the ISR pop a stale byte (or the converse on the consumer side).
+// Hardware-free so the host tests can compile this header unchanged.
+#ifndef TUN_COMPILER_BARRIER
+#define TUN_COMPILER_BARRIER() __asm volatile("" ::: "memory")
+#endif
+
+// Set/clear of `flags` is a read-modify-write shared with the ISR; the main
+// loop must run it with IRQs masked or the ISR's clear-on-read (or RX_OVF
+// set) between the load and the store is lost. The firmware maps this to
+// save_and_disable_interrupts()/restore_interrupts(); host tests are
+// single-threaded and use the no-op default.
+#ifndef TUN_IRQ_LOCK
+#define TUN_IRQ_LOCK() 0
+#define TUN_IRQ_UNLOCK(s) (void)(s)
+#endif
+
 // ------------------------------------------------------------ register map --
 enum {
   TUN_REG_WHOAMI = 0x00,  // constant 0x56 ('V')
@@ -54,12 +72,14 @@ struct ByteRing {
   bool push(uint8_t b) {
     if (count() >= N) return false;
     buf[head % N] = b;
+    TUN_COMPILER_BARRIER();   // data visible before the index says so
     head = (uint16_t)(head + 1);
     return true;
   }
   int pop() {
     if (count() == 0) return -1;
     uint8_t b = buf[tail % N];
+    TUN_COMPILER_BARRIER();   // read the byte before releasing the slot
     tail = (uint16_t)(tail + 1);
     return b;
   }
@@ -104,7 +124,10 @@ struct TunnelCore {
       }
       default: out = 0; break;
     }
-    if (reg < TUN_REG_DATA) reg++;  // auto-increment through the status block
+    // Auto-increment through the status block ONLY (0x00..0x06, matching
+    // I2C-TUNNEL.md). Walking further would reach DATA and silently pop
+    // feedback bytes on any master that over-reads the status registers.
+    if (reg < TUN_REG_FLAGS) reg++;
     return out;
   }
 
@@ -119,7 +142,9 @@ struct TunnelCore {
   bool queueLine(const char *line) {
     uint16_t len = (uint16_t)strlen(line);
     if (tx.free() < len + 2) {
+      unsigned long s = TUN_IRQ_LOCK();
       flags |= TUN_FLAG_TX_OVF;
+      TUN_IRQ_UNLOCK(s);
       return false;
     }
     for (uint16_t i = 0; i < len; i++) tx.push((uint8_t)line[i]);

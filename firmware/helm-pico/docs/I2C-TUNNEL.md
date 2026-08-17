@@ -204,6 +204,12 @@ than ~50 Hz — it buys nothing and each transaction interrupts the Pico
 briefly (the ISR is a few µs per byte; the control loop tolerates it, but
 there's no reason to hammer it).
 
+> **CONFSAVE stall**: persisting config runs a flash erase with IRQs off
+> for tens of ms — the slave does not ACK during that window and an in-flight
+> master transaction can error. The Pi transport tolerates it (it takes 5
+> consecutive poll errors to declare the link dead), but avoid CONFSAVE
+> mid-manoeuvre.
+
 ## 6. Failure modes & edge cases (read before coding)
 
 | Situation | What happens | Master's job |

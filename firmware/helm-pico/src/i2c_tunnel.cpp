@@ -6,7 +6,19 @@
 #include "pico/stdlib.h"
 
 #include "board.h"
+
+// Map the tunnel core's concurrency hooks onto the SDK before including it:
+// the main loop's flags RMW must exclude the slave ISR.
+#include "hardware/sync.h"
+#define TUN_IRQ_LOCK() save_and_disable_interrupts()
+#define TUN_IRQ_UNLOCK(s) restore_interrupts(s)
 #include "tunnel_core.h"
+
+// The tunnel's I2C block + pins in one place so a DIY board can move the
+// tunnel without editing this file (see board.h).
+#ifndef TUN_I2C
+#define TUN_I2C i2c0
+#endif
 
 #define TUN_ACTIVE_MS 3000
 
@@ -37,8 +49,8 @@ void i2cTunnelInit() {
   // pull-ups are the SBC's (or fit R5/R6 on the board — see the spec).
   gpio_pull_up(PIN_PI_SDA);
   gpio_pull_up(PIN_PI_SCL);
-  i2c_init(i2c0, 400 * 1000);  // slave: the master's clock actually rules
-  i2c_slave_init(i2c0, TUN_I2C_ADDR, &slaveHandler);
+  i2c_init(TUN_I2C, 400 * 1000);  // slave: the master's clock actually rules
+  i2c_slave_init(TUN_I2C, TUN_I2C_ADDR, &slaveHandler);
 }
 
 int i2cTunnelGetchar() { return g_tun.getByte(); }

@@ -37,6 +37,15 @@ target_compile_definitions(vanchor_helm_pico PRIVATE
     FW_VERSION="${FW_GIT_VERSION}"
 )
 
+# CRC gate: ON by default (reject CRC-less lines). README documents
+# -DVANCHOR_REQUIRE_CRC=0 for old-Pi tolerance — plumb the cache variable
+# through to the compiler so that flag actually works (it used to be a
+# silent no-op unless smuggled via CMAKE_CXX_FLAGS).
+set(VANCHOR_REQUIRE_CRC 1 CACHE STRING "Reject CRC-less protocol lines (0 to tolerate an old Pi)")
+target_compile_definitions(vanchor_helm_pico PRIVATE
+    VANCHOR_REQUIRE_CRC=${VANCHOR_REQUIRE_CRC}
+)
+
 target_link_libraries(vanchor_helm_pico
     pico_stdlib
     pico_flash

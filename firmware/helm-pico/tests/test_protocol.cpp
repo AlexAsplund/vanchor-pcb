@@ -394,4 +394,36 @@ int main() {
   }
   printf("all protocol + control-logic tests passed\n");
   return 0;
+
+  // ---- review hardening regressions ------------------------------------ //
+  {
+    // THRUST digit overflow saturates (never wraps to an accepted pwm) and
+    // a negative-after-wrap can no longer reach the caller.
+    int pwm; char dir; int seq;
+    CHECK(vanchorParseThrust("THRUST 4294967551 F", &pwm, &dir, &seq), "thrust overflow parse");
+    CHECK(pwm == 255 && dir == 'F', "thrust overflow saturates: %d", pwm);
+    CHECK(vanchorParseThrust("THRUST 99999999999999999999 R 99999999999999999999",
+                             &pwm, &dir, &seq), "thrust 20-digit parse");
+    CHECK(pwm == 255 && dir == 'R' && seq == VANCHOR_SEQ_MAX, "20-digit saturates: %d %d", pwm, seq);
+  }
+  {
+    // Tunnel auto-increment stops at FLAGS: a 20-byte status over-read must
+    // NOT walk into DATA and pop feedback bytes.
+    TunnelCore tc;
+    tc.queueLine("A 1.0 1 0 7");
+    uint16_t before = tc.tx.count();
+    tc.stop();
+    tc.masterWrite(TUN_REG_WHOAMI);     // select 0x00
+    for (int i = 0; i < 20; i++) (void)tc.masterRead();
+    CHECK(tc.tx.count() == before, "status over-read popped DATA: %u->%u", before, tc.tx.count());
+    tc.stop();
+    tc.masterWrite(TUN_REG_DATA);
+    CHECK(tc.masterRead() == 'A', "FIFO head not intact");
+  }
+  {
+    // AppendCrc with no room drops the line (no CRC-less escape).
+    char tight[8] = "A 1 2";
+    vanchorAppendCrc(tight, sizeof tight);
+    CHECK(tight[0] == '\0', "AppendCrc shipped a CRC-less line");
+  }
 }
