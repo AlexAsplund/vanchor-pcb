@@ -77,13 +77,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          {
+            echo "Drag-and-drop UF2 firmware for the vanchor helm controller."
+            echo
+            echo "**vanchor-helm-pico2.uf2** - Raspberry Pi Pico 2 (RP2350, recommended)"
+            echo "**vanchor-helm-pico.uf2** - original Raspberry Pi Pico (RP2040)"
+            echo
+            echo "Flash: hold BOOTSEL while plugging in USB, then copy the file onto the RPI-RP2 drive - or use the vanchor app's built-in flasher. Wiring + bring-up: firmware/helm-pico/README.md"
+          } > notes.md
           gh release create "$GITHUB_REF_NAME" \
             --repo "$GITHUB_REPOSITORY" \
             --title "helm-pico firmware $GITHUB_REF_NAME" \
-            --notes "Drag-and-drop UF2 firmware for the vanchor helm controller.
-
-**vanchor-helm-pico2.uf2** — Raspberry Pi Pico 2 (RP2350, recommended)
-**vanchor-helm-pico.uf2** — original Raspberry Pi Pico (RP2040)
-
-Flash: hold BOOTSEL while plugging in USB, then copy the file onto the RPI-RP2 drive — or use the vanchor app's built-in flasher. Wiring + bring-up: firmware/helm-pico/README.md" \
+            --notes-file notes.md \
             vanchor-helm-pico.uf2 vanchor-helm-pico2.uf2
