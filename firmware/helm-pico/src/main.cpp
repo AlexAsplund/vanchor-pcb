@@ -28,6 +28,7 @@
 #include <stdlib.h>
 
 #include "hardware/adc.h"
+#include "hardware/clocks.h"
 #include "hardware/flash.h"
 #include "hardware/gpio.h"
 #include "hardware/i2c.h"
@@ -43,14 +44,22 @@
 #ifndef FW_VERSION
 #define FW_VERSION "dev"
 #endif
+#if PICO_RP2040
+#define MCU_NAME "pico"
+#else
+#define MCU_NAME "pico2"
+#endif
 #include "control_logic.h"
 #include "i2c_tunnel.h"
 #include "protocol_ext.h"
 
 // ------------------------------------------------------------------ PWM -- //
-// 150 MHz clk_sys / clkdiv 2 = 75 MHz PWM tick: wrap = 75e6/freq (2 kHz ->
-// 37500, 16 kHz -> 4687 — always >= 12-bit resolution, always < 65536).
-static const float PWM_TICK_HZ = 75.0e6f;
+// clk_sys / clkdiv 2 = PWM tick. Read at init instead of hardcoding 75 MHz:
+// RP2350 runs 150 MHz but the RP2040 (plain Pico, a supported DIY target)
+// runs 125 MHz -- a hardcoded tick made every PWM frequency come out x0.833
+// there. wrap = tick/freq (at 62.5-75 MHz: 2 kHz -> 31249-37500, 16 kHz ->
+// 3905-4687 — always >= 12-bit resolution, always < 65536).
+static float PWM_TICK_HZ = 75.0e6f;   // overwritten in main() from clk_sys
 
 static uint g_srvSlice, g_thrSlice;
 static uint16_t g_srvWrap, g_thrWrap;
@@ -124,11 +133,50 @@ static EncoderRead as5600Read() {
     return r;
   if (i2c_read_timeout_us(ENC_I2C, AS5600_ADDR, buf, 3, false, 1000) != 3)
     return r;
-  bool magnet = (buf[0] & 0x20) != 0;  // MD: magnet detected
+  // MD (0x20) magnet detected; ML (0x10) magnet too weak -> the angle is
+  // unreliable even though MD may still be set. MH (too strong) still reads
+  // a valid angle, so it is tolerated.
+  bool magnet = (buf[0] & 0x20) != 0 && (buf[0] & 0x10) == 0;
   r.raw = (uint16_t)(((buf[1] & 0x0F) << 8) | buf[2]);
   r.ok = magnet;
   return r;
 }
+
+// If the slave wedges holding SDA low (mid-transfer power blip), every read
+// times out forever and steering stays in feedback-hold until power cycle.
+// The standard remedy: reclaim the pins as GPIO, clock 9 SCL pulses so the
+// slave finishes whatever bit it thinks it is sending, then re-init.
+static void as5600BusRecover() {
+  i2c_deinit(ENC_I2C);
+  gpio_set_function(PIN_ENC_SCL, GPIO_FUNC_SIO);
+  gpio_set_function(PIN_ENC_SDA, GPIO_FUNC_SIO);
+  gpio_set_dir(PIN_ENC_SCL, GPIO_OUT);
+  gpio_set_dir(PIN_ENC_SDA, GPIO_IN);   // observe only; never drive SDA
+  for (int i = 0; i < 9; i++) {
+    gpio_put(PIN_ENC_SCL, 0);
+    busy_wait_us(5);
+    gpio_put(PIN_ENC_SCL, 1);
+    busy_wait_us(5);
+  }
+  i2c_init(ENC_I2C, ENC_I2C_HZ);
+  gpio_set_function(PIN_ENC_SDA, GPIO_FUNC_I2C);
+  gpio_set_function(PIN_ENC_SCL, GPIO_FUNC_I2C);
+}
+
+// Debounced encoder health + glitch gate around the raw unwrap:
+//  - a single bad transaction must not drop feedback-ok for a tick (integral
+//    dump + drive chatter on a marginal bus);
+//  - a single corrupted-but-"successful" read must not feed the accumulator
+//    (one glitch sample can alias the multi-turn count);
+//  - sustained failure (~50 ticks) attempts a bus recovery.
+// The worm gear self-locks, so the head cannot move while the loop holds in
+// feedback-loss -- the position is frozen across an outage and the shortest-
+// path unwrap on recovery is trustworthy. (The hall index still re-trues the
+// zero on every centre pass as the absolute backstop.)
+static const int ENC_BAD_TO_UNHEALTHY = 3;
+static const int ENC_GOOD_TO_HEALTHY = 3;
+static const int ENC_BAD_TO_BUSCLEAR = 50;
+static const int16_t ENC_MAX_DELTA_PER_TICK = 512;  // 45 deg shaft / 2 ms
 
 // ------------------------------------------------------------- hall zero -- //
 // Open-collector hall pulls GP0 LOW at the centre magnet. On each (debounced)
@@ -161,6 +209,7 @@ static float adcVolts(uint input) {
 struct LineAccum {
   char buf[VANCHOR_LINE_MAX];
   uint8_t len = 0;
+  bool poisoned = false;  // overflowed or NUL-corrupted: discard to newline
 };
 static LineAccum g_usbAcc, g_i2cAcc;
 
@@ -218,7 +267,13 @@ static HelmConfig confStored() {
 // -------------------------------------------------------------- state ---- //
 static float g_wantThrust = 0.0f;   // 0..1 requested magnitude
 static int8_t g_wantDir = +1;
-static uint32_t g_lastCmdMs = 0;    // last *valid* command line
+// PER-CHANNEL watchdogs. With the split channels (STEERD + THRUST are
+// separate Pi-side writers) a single shared timestamp would let a live
+// steering stream mask a dead thrust writer -- prop stuck at the last pwm
+// indefinitely. On the two-Arduino system each board's own watchdog covered
+// its channel; one board must keep that per-channel guarantee.
+static uint32_t g_lastThrustMs = 0;  // last valid CMD or THRUST
+static uint32_t g_lastSteerMs = 0;   // last valid CMD or STEERD
 static bool g_everCommanded = false;
 static int g_lastSeq = -1;
 
@@ -306,7 +361,7 @@ static void handleConf(const char *line, uint32_t nowMs) {
 // "INFO" -> identity/version/health snapshot as "I ..." lines (the Pi's
 // feedback parsers ignore them; a bench console reads them directly).
 static void handleInfo(uint32_t nowMs) {
-  confReply("I fw %s board helm-4.2 mcu pico2", FW_VERSION);
+  confReply("I fw %s board helm-4.2 mcu " MCU_NAME, FW_VERSION);
   confReply("I proto 2.1 crc %d wdog %d", VANCHOR_REQUIRE_CRC,
             VANCHOR_WATCHDOG_MS);
   confReply("I conf %d keys %d flash %s", CONF_VERSION, CONF_NKEYS,
@@ -336,30 +391,49 @@ static void handleLine(char *line, uint32_t nowMs) {
     g_wantThrust = (float)pwm / 255.0f;
     g_wantDir = (dir == 'R') ? -1 : +1;
     g_steer.setTarget(g_cfg, ((float)steer / 100.0f) * g_cfg.steerFull);
+    g_lastThrustMs = nowMs;
+    g_lastSteerMs = nowMs;
   } else if (vanchorParseSteerDeg(line, &deg, &seq)) {
     g_steer.setTarget(g_cfg, deg);
+    g_lastSteerMs = nowMs;
   } else if (vanchorParseThrust(line, &pwm, &dir, &seq)) {
     g_wantThrust = (float)pwm / 255.0f;
     g_wantDir = (dir == 'R') ? -1 : +1;
+    g_lastThrustMs = nowMs;
   } else {
     return;  // unknown token: ignore, do not feed the watchdog
   }
   g_lastSeq = seq;
-  g_lastCmdMs = nowMs;
   g_everCommanded = true;
 }
 
 static void accumFeed(LineAccum &a, int c, uint32_t nowMs) {
   if (c == '\n' || c == '\r') {
-    if (a.len > 0) {
+    if (a.len > 0 && !a.poisoned) {
       a.buf[a.len] = '\0';
       handleLine(a.buf, nowMs);
     }
     a.len = 0;
-  } else if (a.len < VANCHOR_LINE_MAX - 1) {
+    a.poisoned = false;
+    return;
+  }
+  // The protocol is pure printable ASCII. An embedded NUL would truncate the
+  // strlen-based CRC scan, converting a corrupted line into a "valid"
+  // CRC-less prefix -- exactly the class the CRC exists to catch.
+  if (c == '\0') {
+    a.poisoned = true;
+    return;
+  }
+  if (a.poisoned) return;  // discarding the rest of an oversized/bad line
+  if (a.len < VANCHOR_LINE_MAX - 1) {
     a.buf[a.len++] = (char)c;
   } else {
-    a.len = 0;  // overflow -> drop the line
+    // Overflow: poison until the next newline. Just resetting len would
+    // parse the TAIL of the same wire line as a fresh line -- a CRC-valid
+    // substring (or, CRC-less builds, any digit-shaped garbage) after the
+    // reset boundary would be accepted as a command.
+    a.len = 0;
+    a.poisoned = true;
   }
 }
 
@@ -379,6 +453,7 @@ static void pollSerial(uint32_t nowMs) {
 // ------------------------------------------------------------------ main -- //
 int main() {
   stdio_init_all();
+  PWM_TICK_HZ = (float)clock_get_hz(clk_sys) / 2.0f;  // clkdiv 2 in pwmPairInit
 
   // Bridge enables as plain outputs, LOW (disabled) until first command.
   const uint enPins[] = {PIN_SRV_R_EN, PIN_SRV_L_EN, PIN_THR_R_EN,
@@ -402,9 +477,12 @@ int main() {
   // I2C tunnel to the SBC (slave 0x42 on the ribbon's I2C3).
   i2cTunnelInit();
 
-  // Hall zero input (board has the pull-up + RC).
+  // Hall zero input. The PCB has a 10k pull-up + RC; enable the internal
+  // pull-up too so a bare-Pico DIY build with an open-collector hall does
+  // not float (spurious re-zero IRQs). Harmless in parallel with the 10k.
   gpio_init(PIN_HALL_ZERO);
   gpio_set_dir(PIN_HALL_ZERO, GPIO_IN);
+  gpio_pull_up(PIN_HALL_ZERO);
   gpio_set_irq_enabled_with_callback(PIN_HALL_ZERO, GPIO_IRQ_EDGE_FALL, true,
                                      &hallIsr);
 
@@ -426,7 +504,8 @@ int main() {
   g_steer.stallRefDeg = g_steer.targetDeg;
 
   uint32_t bootMs = to_ms_since_boot(get_absolute_time());
-  g_lastCmdMs = bootMs;
+  g_lastThrustMs = bootMs;
+  g_lastSteerMs = bootMs;
   uint32_t lastTickMs = bootMs;
   uint32_t lastAMs = bootMs, lastEMs = bootMs;
   absolute_time_t nextTick = make_timeout_time_us(CONTROL_TICK_US);
@@ -449,8 +528,28 @@ int main() {
 
     // --- sensors --------------------------------------------------------- //
     er = as5600Read();
-    if (er.ok) g_enc.feed(er.raw);
-    g_feedbackOk = er.ok;
+    static int encBadStreak = 0, encGoodStreak = 0;
+    bool sampleOk = er.ok;
+    if (sampleOk && g_enc.primed) {
+      // Glitch gate: a shaft step > 45 deg in one 2 ms tick is physically
+      // impossible (worm drive) -- corrupted read; do not feed the unwrap.
+      int16_t d = (int16_t)(((er.raw - g_enc.prevRaw + ENC_COUNTS_PER_REV / 2) &
+                             (ENC_COUNTS_PER_REV - 1)) -
+                            ENC_COUNTS_PER_REV / 2);
+      if (d > ENC_MAX_DELTA_PER_TICK || d < -ENC_MAX_DELTA_PER_TICK)
+        sampleOk = false;
+    }
+    if (sampleOk) {
+      g_enc.feed(er.raw);
+      encBadStreak = 0;
+      if (encGoodStreak < ENC_GOOD_TO_HEALTHY) encGoodStreak++;
+      if (encGoodStreak >= ENC_GOOD_TO_HEALTHY) g_feedbackOk = true;
+    } else {
+      encGoodStreak = 0;
+      if (encBadStreak < 1000000) encBadStreak++;
+      if (encBadStreak >= ENC_BAD_TO_UNHEALTHY) g_feedbackOk = false;
+      if (encBadStreak == ENC_BAD_TO_BUSCLEAR) as5600BusRecover();
+    }
     if (g_hallEvent) {  // magnet edge: this position IS the hall reference
       g_hallEvent = false;
       float hallDeg = g_cfg.hallDeg * (g_cfg.encInvert >= 0.5f ? -1.0f : 1.0f);
@@ -466,7 +565,8 @@ int main() {
     g_srvAmpsFilt += 0.1f * (srvAmps - g_srvAmpsFilt);
 
     // --- control --------------------------------------------------------- //
-    bool failsafe = (nowMs - g_lastCmdMs) > VANCHOR_WATCHDOG_MS;
+    bool thrustFailsafe = (nowMs - g_lastThrustMs) > VANCHOR_WATCHDOG_MS;
+    bool steerFailsafe = (nowMs - g_lastSteerMs) > VANCHOR_WATCHDOG_MS;
 
     // Bridges stay disabled until the Pi has spoken once (defence in depth
     // on top of the board pulldowns); after that they are held enabled so
@@ -477,17 +577,18 @@ int main() {
     gpio_put(PIN_THR_R_EN, enable);
     gpio_put(PIN_THR_L_EN, enable);
 
-    float mag =
-        g_thrust.update(g_cfg, g_wantThrust, g_wantDir, failsafe, nowMs, dtS);
+    float mag = g_thrust.update(g_cfg, g_wantThrust, g_wantDir, thrustFailsafe,
+                                nowMs, dtS);
     thrustDrive(mag, g_thrust.appliedDir);
     thrustRetune(g_cfg.thrHystA, g_thrAmpsFilt, mag, g_thrust.appliedDir);
 
-    int srvPwm = g_steer.update(g_cfg, g_angleDeg, g_feedbackOk, failsafe,
+    int srvPwm = g_steer.update(g_cfg, g_angleDeg, g_feedbackOk, steerFailsafe,
                                 g_srvAmpsFilt, nowMs, dtS);
     servoDrive(srvPwm);
 
     // --- status LED: solid on trouble, 1 Hz heartbeat otherwise ---------- //
-    bool trouble = failsafe || !g_feedbackOk || g_steer.stalled;
+    bool trouble =
+        thrustFailsafe || steerFailsafe || !g_feedbackOk || g_steer.stalled;
     gpio_put(PIN_LED_STAT, trouble ? 1 : ((nowMs / 500) & 1));
 
     // --- feedback lines --------------------------------------------------- //

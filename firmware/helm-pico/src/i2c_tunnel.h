@@ -8,7 +8,9 @@
 
 #include <stdint.h>
 
+#ifndef TUN_I2C_ADDR
 #define TUN_I2C_ADDR 0x42
+#endif
 
 void i2cTunnelInit();
 

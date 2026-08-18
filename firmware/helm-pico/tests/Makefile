@@ -2,18 +2,18 @@
 # The control logic + protocol code is hardware-free by construction; this
 # compiles the exact headers the firmware ships.
 CXX ?= g++
-CXXFLAGS ?= -std=c++17 -Wall -Wextra -O1 -I../include
+# += so an inherited environment CXXFLAGS cannot silently drop -I../include
+CXXFLAGS += -std=c++17 -Wall -Wextra -O1 -I../include
+HDRS = ../src/protocol_ext.h ../src/control_logic.h ../src/config.h \
+       ../src/tunnel_core.h ../vendor/vanchor_protocol.h ../include/board.h
 
 all: run
 
-test_protocol: test_protocol.cpp ../src/protocol_ext.h ../src/control_logic.h \
-               ../src/config.h ../src/tunnel_core.h ../vendor/vanchor_protocol.h \
-               ../include/board.h
+test_protocol: test_protocol.cpp $(HDRS)
 	$(CXX) $(CXXFLAGS) -o $@ test_protocol.cpp
 
 # Also prove the VANCHOR_REQUIRE_CRC=0 build accepts the NOCRC vectors.
-test_protocol_nocrc: test_protocol.cpp ../src/protocol_ext.h \
-                     ../src/control_logic.h ../vendor/vanchor_protocol.h
+test_protocol_nocrc: test_protocol.cpp $(HDRS)
 	$(CXX) $(CXXFLAGS) -DVANCHOR_REQUIRE_CRC=0 -o $@ test_protocol.cpp
 
 run: test_protocol test_protocol_nocrc

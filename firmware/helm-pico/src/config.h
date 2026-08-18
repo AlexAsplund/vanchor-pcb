@@ -81,13 +81,21 @@ static const ConfKey CONF_KEYS[] = {
     {"enc.gear",         &HelmConfig::encGear,    0.01f,  100.0f},
     {"enc.hall_deg",     &HelmConfig::hallDeg,    -360.0f, 360.0f},
     {"thr.slew",         &HelmConfig::thrSlew,    0.05f,  10.0f},
-    {"thr.rev_ms",       &HelmConfig::thrRevMs,   0.0f,   10000.0f},
+    // Floor 300 ms: rev_ms 0 would void the reverse dead-time interlock (a
+    // relay/bridge direction flip under load) AND survive reboot via CONFW.
+    // Bench builds that truly need 0 can widen this locally.
+    {"thr.rev_ms",       &HelmConfig::thrRevMs,   300.0f, 10000.0f},
     {"thr.hyst_a",       &HelmConfig::thrHystA,   0.5f,   20.0f},
     {"cal.thr_vpa",      &HelmConfig::calThrVpa,  0.001f, 1.0f},
     {"cal.srv_vpa",      &HelmConfig::calSrvVpa,  0.001f, 1.0f},
     {"cal.vbat",         &HelmConfig::calVbat,    1.0f,   30.0f},
 };
 static const int CONF_NKEYS = sizeof(CONF_KEYS) / sizeof(CONF_KEYS[0]);
+// confPersist() serializes into ONE 256-byte flash page (8-byte header +
+// 4 bytes/key + 4-byte CRC). The key table is append-only by design, so make
+// growth past the page a compile error instead of a silent buffer overrun.
+static_assert(4 + 2 + 2 + 4 * CONF_NKEYS + 4 <= 256,
+              "config image no longer fits one flash page -- rework confPersist");
 
 // ---------------------------------------------------------------- lookup --
 static inline int confFind(const char *name) {
