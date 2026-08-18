@@ -1,0 +1,89 @@
+name: Firmware
+
+# Build helm-pico UF2s for both supported boards + run the host test suite.
+# Every push to master proves buildability and uploads artifacts; a fw-v* tag
+# publishes a release with the UF2s attached -- these are the assets the
+# vanchor-ng app's "flash helm firmware" flow (and DIY builders) download.
+on:
+  push:
+    branches: [master]
+    tags: ["fw-v*"]
+    paths-ignore: ["boards/**", "docs/**", "*.md"]
+  pull_request:
+    paths: ["firmware/**", ".github/workflows/firmware.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  host-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run host protocol/control tests (both CRC modes)
+        run: make -C firmware/helm-pico/tests run
+
+  build:
+    needs: host-tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        board: [pico, pico2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # git describe for the INFO version string
+      - name: Toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            cmake gcc-arm-none-eabi libnewlib-arm-none-eabi \
+            libstdc++-arm-none-eabi-newlib build-essential
+      - name: Cache pico-sdk
+        uses: actions/cache@v4
+        with:
+          path: ~/pico-sdk
+          key: pico-sdk-2.1.1
+      - name: Fetch pico-sdk
+        run: |
+          if [ ! -d ~/pico-sdk/.git ]; then
+            git clone --depth 1 --branch 2.1.1 \
+              https://github.com/raspberrypi/pico-sdk ~/pico-sdk
+            git -C ~/pico-sdk submodule update --init lib/tinyusb
+          fi
+      - name: Build (${{ matrix.board }})
+        run: |
+          cmake -S firmware/helm-pico -B build-${{ matrix.board }} \
+            -DPICO_SDK_PATH=$HOME/pico-sdk \
+            -DPICO_BOARD=${{ matrix.board }} \
+            -DCMAKE_BUILD_TYPE=Release
+          cmake --build build-${{ matrix.board }} -j
+          mv build-${{ matrix.board }}/vanchor_helm_pico.uf2 \
+             vanchor-helm-${{ matrix.board }}.uf2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vanchor-helm-${{ matrix.board }}
+          path: vanchor-helm-${{ matrix.board }}.uf2
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/fw-v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+      - name: Publish release with UF2s
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "helm-pico firmware $GITHUB_REF_NAME" \
+            --notes "Drag-and-drop UF2 firmware for the vanchor helm controller.
+
+**vanchor-helm-pico2.uf2** — Raspberry Pi Pico 2 (RP2350, recommended)
+**vanchor-helm-pico.uf2** — original Raspberry Pi Pico (RP2040)
+
+Flash: hold BOOTSEL while plugging in USB, then copy the file onto the RPI-RP2 drive — or use the vanchor app's built-in flasher. Wiring + bring-up: firmware/helm-pico/README.md" \
+            vanchor-helm-pico.uf2 vanchor-helm-pico2.uf2
